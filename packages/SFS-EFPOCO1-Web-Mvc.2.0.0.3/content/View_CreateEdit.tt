@@ -1,0 +1,720 @@
+﻿<#@ output  extension="txt" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ import namespace="SFSdotNet.VSAddin2012.Model" #>
+<#@ import namespace="SFSdotNet.VSAddin2012.Model.Utils" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Linq" #>
+// <Template>
+//   <SolutionTemplate></SolutionTemplate>
+//   <Version>20110317.1</Version>
+//   <Update></Update>
+// </Template>
+
+
+<#+ void GenerateEdit( EntityInfo entity){ 
+	try{
+	#>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>" %>
+<%@ Import Namespace="<#= entity.Model.Namespace #>.Web.Mvc.Resources" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+<% UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model> uiModel = (UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>)ViewData["uiModel"]; %><%: uiModel.TitleForm %>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+<% Html.RenderPartial("EditorViewGen"); %>
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="CustomScript" runat="server">
+<%= Html.HeaderResources("datepicker") %>
+<%= Html.HeaderResources("timepicker") %>
+
+<#+ if (entity.Properties.Where(p=>p.Type == "String" && p.MaxLength ==0).Count()> 0)  {#>
+<%= Html.HeaderResources("richeditor") %>
+<#+ } #>
+
+<#+ if (entity.Properties.Where(p=>(bool)GetCustomProperty(p, "UILookUp", "Boolean")).Count()> 0)  {#>
+<%= Html.HeaderResources("simplelist") %>
+<%= Html.HeaderResources("pagination") %>
+<%= Html.HeaderResources("popup") %>
+
+<#+ } #>
+
+<%= Html.HeaderResources("form") %>
+<#+ if ((bool)GetCustomProperty(entity, "UIHeaderInclude", "Boolean")){
+#>
+<% Html.RenderPartialIfExist("Header<#= entity.Name #>", Model); %>
+
+<#+	}
+#>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="LeftContent" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content5" ContentPlaceHolderID="RightContent" runat="server">
+</asp:Content>
+
+<#+
+		}catch(Exception ex){
+			throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+		}
+	} #>
+
+
+
+
+<#+ void GenerateCreate(EntityInfo entity){ 
+	try{
+#>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entity.SetName #>.<#= entity.Name #>Model>" %>
+<%@ Import Namespace="<#= entity.Model.Namespace #>.Web.Mvc.Resources" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+<% 	SFSdotNet.Framework.Web.Mvc.Models.Features.HelpModel help = new SFSdotNet.Framework.Web.Mvc.Models.Features.HelpModel("<#= entity.Model.SafeNamespace #>", "<#= entity.Name #>"); 
+	UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model> uiModel = (UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>)ViewData["uiModel"]; %>
+<%: uiModel.TitleForm %>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+<% Html.RenderPartial("EditorViewGen", Model); %>
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="CustomScript" runat="server">
+<%= Html.HeaderResources("datepicker") %>
+<%= Html.HeaderResources("timepicker") %>
+<%= Html.HeaderResources("form") %>
+<#+ if (entity.Properties.Where(p=>p.Type == "String" && p.MaxLength ==0).Count() > 0)  {#>
+<%= Html.HeaderResources("richeditor") %>
+<#+ } #>
+<#+ if (entity.Properties.Where(p=>(bool)GetCustomProperty(p, "UILookUp", "Boolean")).Count()> 0)  {#>
+<%= Html.HeaderResources("simplelist") %>
+<%= Html.HeaderResources("pagination") %>
+<%= Html.HeaderResources("popup") %>
+<#+ } #>
+<#+ if ((bool)GetCustomProperty(entity, "UIHeaderInclude", "Boolean")){
+#>
+<% Html.RenderPartialIfExist("Header<#= entity.Name #>", Model); %>
+
+<#+	}
+#>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="LeftContent" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content5" ContentPlaceHolderID="RightContent" runat="server">
+</asp:Content>
+<#+
+	}catch(Exception ex){
+			throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+		}
+}
+#>
+
+<#+ void GenerateEditView(EntityInfo entity)
+{
+	try{
+	string focusField = "";
+	#>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>" %>
+<%@ Import Namespace="<#= entity.Model.Namespace #>.Web.Mvc.Resources" %>
+<% 	SFSdotNet.Framework.Web.Mvc.Models.Features.HelpModel help = new SFSdotNet.Framework.Web.Mvc.Models.Features.HelpModel("<#= entity.Model.SafeNamespace #>", "<#= entity.Name #>"); 
+	PropertyDefinition currentProperty = null;
+
+	UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model> uiModel = (UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>)ViewData["uiModel"]; %>
+<% if (ViewData["ispopup"] != null)
+   { %>
+
+   <div class="popup" id="popup_<#= entity.Name #>">
+<#+ if ((bool)GetCustomProperty(entity, "UIHeaderInclude", "Boolean")){
+#>
+		<% Html.RenderPartialIfExist("Header<#= entity.Name #>", Model); %>
+
+<#+	}
+#>
+    <div class="container_16">
+  <%} %>
+<%
+    string fromFK = "";
+    if (ViewData["fk"] != null)
+        fromFK = ViewData["fk"].ToString();
+   
+     string fkValue = "";
+    if (ViewData["fkValue"] != null)
+        fkValue = ViewData["fkValue"].ToString();
+    var popupextra = new RouteValueDictionary();
+		<#+
+	List<string> localizableColumns = new List<string>();
+	if ( !string.IsNullOrEmpty((string)GetCustomProperty(entity, "LocalizableDataFields", "String")) ) {
+			foreach(var _prop in ((string)GetCustomProperty(entity, "LocalizableDataFields", "String")).Split(char.Parse(","))){
+				localizableColumns.Add(_prop);
+			}
+			
+		}
+	 #>
+<#+ int UIGridFormColumns = 16;
+	int UILabelColumns =6;
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIGridFormColumns", "String"))) {
+		UIGridFormColumns =int.Parse((string)GetCustomProperty(entity.Model, "UIGridFormColumns", "String"));
+	}
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UILabelColumns", "String"))) {
+		UILabelColumns =int.Parse((string)GetCustomProperty(entity.Model, "UILabelColumns", "String"));
+	}
+	string UIPopupColumns = "12";
+	string UIPopupLabelColumns = "4";
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIPopupColumns", "String"))) {
+		UIPopupColumns =(string)GetCustomProperty(entity.Model, "UIPopupColumns", "String");
+	}
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIPopupLabelColumns", "String"))) {
+		UIPopupLabelColumns =(string)GetCustomProperty(entity.Model, "UIPopupLabelColumns", "String");
+	}
+	
+	#>
+	string UIGridFormColumns = "<#= UIGridFormColumns #>";
+    string UILabelColumns = "<#= UILabelColumns #>";
+    if(!string.IsNullOrEmpty(Request.QueryString["popup"])){
+         
+		
+	
+		UIGridFormColumns = "<#= UIPopupColumns #>";
+        UILabelColumns = "<#= UIPopupLabelColumns #>";
+		}
+  List<KeyValuePair<string, string>> extraparams = new List<KeyValuePair<string, string>>();
+		
+	foreach (var qs in Request.QueryString.AllKeys)
+    {
+
+
+		if (!string.IsNullOrEmpty(Request.QueryString[qs])){
+        	popupextra.Add(qs, Request.QueryString[qs]);
+                  extraparams.Add(new KeyValuePair<string, string>(qs, Request.QueryString[qs]));
+  
+}
+    }  
+%>
+<div class="grid_<%=UIGridFormColumns.ToString() %> alpha omega" >
+	<div class="spacetop spacebottom">
+	<% Html.EnableClientValidation(); %>
+<#+ int UIGridMaxColumns =1;
+		if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIGridMaxColumns", "String"))){
+		UIGridMaxColumns = int.Parse((string)GetCustomProperty(entity.Model, "UIGridMaxColumns", "String"));
+			
+		if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")){
+			//
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "UIGridMaxColumns", "String")))
+				UIGridMaxColumns = int.Parse((string)GetCustomProperty(entity, "UIGridMaxColumns", "String"));
+			
+		}else{
+			UIGridMaxColumns =1;
+		}
+	}
+	
+		string extraFormParams = "";
+		if (entity.Properties.Where(p=>p.Type == "Binary" && (p.IsNavigationPropertyMany == false && p.IsPrimaryKey== false && p.Name.ToLower() != "isdeleted" && p.Visible && p.VisibleInForm && (bool)GetCustomProperty(p, "UIDisplayVisibleOnly", "Boolean") == false && (bool)GetCustomProperty(p, "IsHidden", "Boolean")== false )).Count() > 0){
+			extraFormParams = @", FormMethod.Post, new { enctype = ""multipart/form-data"" }";
+		
+		}
+	#>	
+ 		<div class="form col<#= UIGridMaxColumns.ToString() #> edit <#= entityPluralName #>">
+			<% if (Model.IsNew) { 
+				help.ActionKey = "c";	%>
+ 		<%      if (!string.IsNullOrEmpty(Request.QueryString["popup"]))
+                    { %>
+				<% Ajax.BeginForm(uiModel.ActionName, "<#= entityPluralName #>", popupextra , new AjaxOptions() { UpdateTargetId = "popup_<#= entity.Name #>", InsertionMode = InsertionMode.Replace, OnSuccess = "onMessageSuccess" }); %>
+            <%      }else{ %>
+				<% Html.BeginForm(uiModel.ActionName, "<#= entityPluralName #>", popupextra<#=extraFormParams#>); %>
+  			<%      } %>  			<h2><%: uiModel.TitleForm %><% Html.RenderPartial("Help", help.GetForForm(uiModel.UseMode, uiModel.TitleForm)); %></h2>
+			<% }else{ 
+					help.ActionKey = "u";
+			%>
+
+  			<h2><%: uiModel.TitleForm %>  <% Html.RenderPartial("Help", help.GetForForm(uiModel.UseMode, uiModel.TitleForm)); %></h2>			
+	
+            <%      if (!string.IsNullOrEmpty(Request.QueryString["popup"]))
+                    { %>
+				<% Ajax.BeginForm(uiModel.ActionName, "<#= entityPluralName #>", popupextra, new AjaxOptions() { UpdateTargetId = "popup_<#= entity.Name #>", InsertionMode = InsertionMode.Replace, OnSuccess = "onMessageSuccess" }); %>
+            <%      }
+                    else
+                    { %>
+				<% Html.BeginForm(uiModel.ActionName, "<#= entityPluralName #>", popupextra<#=extraFormParams#>); %>
+            <%      } %>
+<#+ foreach (PropertyInfo property in entity.Properties.Where(p=>p.IsPrimaryKey)) { #>				
+				<%: Html.HiddenFor(m=>m.<#= property.Name #>) %>
+<#+ } #>
+			<%            }%>		
+
+<#+ foreach (PropertyInfo property in entity.Properties.Where(p=>(bool)GetCustomProperty(p, "IsHidden", "Boolean") || ((bool)GetCustomProperty(p, "UIDisplayVisibleOnly", "Boolean") && p.Type != "Include") )) { 
+		string __safename = property.Name;		
+		if (property.IsNavigationProperty){
+			__safename = "Fk" + property.Name;
+		}
+	#>				
+				<%: Html.HiddenFor(m=>m.<#= __safename #>) %>
+<#+ } #>
+		
+			<div class="line"></div>
+    		<% Html.RenderPartial("ValidationSummary");%>
+<#+ string gridClassContainer= "";
+	string gridClassField= "";
+	decimal uiSpace = 0.00m;
+	int rowNumber = 1;
+	int cols = 0;
+	decimal sumRowCols = 0.00m;
+	int UIGridColumns = 16;
+
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIGridColumns", "String"))){
+		UIGridColumns = int.Parse((string)GetCustomProperty(entity.Model, "UIGridColumns", "String"));		
+	}
+		if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIGridFormColumns", "String"))){
+			UIGridFormColumns = int.Parse((string)GetCustomProperty(entity.Model, "UIGridFormColumns", "String"));		
+	}
+	if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")){
+		if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "UIGridMaxColumns", "String"))){
+			UIGridMaxColumns = int.Parse((string)GetCustomProperty(entity, "UIGridMaxColumns", "String"));		
+		}
+		
+	}
+	int order = 0;
+	foreach(PropertyInfo property in entity.Properties.Where(p=>p.IsNavigationPropertyMany == false && p.IsPrimaryKey== false && p.Name.ToLower() != "isdeleted" && p.Visible && p.VisibleInForm && (bool)GetCustomProperty(p, "UIDisplayVisibleOnly", "Boolean") == false && (bool)GetCustomProperty(p, "IsHidden", "Boolean")== false && !p.Type.ToLower().Contains("xml")).OrderBy(p=>p.Order)){	
+		if (IsVisibleProperty(property)){
+			order ++;
+		string visibilityCondition = "";
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(property, "UIVisibilityCondition", "String"))){
+					visibilityCondition =(string)GetCustomProperty(property, "UIVisibilityCondition", "String");
+				}
+			
+			string _safeName = property.Name;
+	
+				if (property.IsNavigationProperty ){
+					var entityFKType = entity.NavigationProperties.Find(p=>p.PropertyName == property.Name).EntityType;
+					var entityFKName = entityFKType.Split(char.Parse("."))[entityFKType.Split(char.Parse(".")).Length -1];
+					var entityFK = entity.Model.Entities.Find(p=>p.Name == entityFKName);
+					var keyEntityFK = entityFK.Properties.Find(p=>p.IsPrimaryKey);
+					var entityFKDefaultColumn = entityFK.DefaultProperty?? entityFK.Properties[0].Name;
+					
+					
+					_safeName = "Fk"+property.Name; 
+				}
+			#>
+<%  currentProperty = uiModel.Properties.FirstOrDefault(p=>p.PropertyName == "<#= property.Name #>");
+			
+	if (currentProperty != null ){ 
+		if (currentProperty.IsHidden) {
+				
+	%>
+				<#+ if (property.Type.ToLower() != "include"){ #>
+	<%: Html.HiddenFor(m=>m.<#= _safeName #>) %>
+				<#+ } #>
+	<% }else{
+%>				
+<#+			
+		if(!string.IsNullOrEmpty(visibilityCondition)) {#>
+<%	if (Model != null ) {
+		if (Model.<#= visibilityCondition #>)
+		{ %>
+<#+ 	}#>
+
+<#+ 	
+		uiSpace = 0.00m;
+		cols = 0;
+		
+		// Espacio que se le destinará a lo ancho
+		if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")){
+			var percentSpace = (string)GetCustomProperty(property, "UISpace", "String");
+			//Write(percentSpace.ToString());
+			if (!string.IsNullOrEmpty(percentSpace)){
+				percentSpace = percentSpace.Replace("%",""); 
+				uiSpace = Convert.ToDecimal(percentSpace);
+				uiSpace = uiSpace / 100.00m;
+				cols = Convert.ToInt32(uiSpace * UIGridFormColumns);
+				gridClassField = "grid_" + cols.ToString();
+				gridClassContainer = "grid_" + cols.ToString();
+			}
+		}else{
+			gridClassField = "grid_7";
+			gridClassContainer = "";
+		}
+				// si ya suman el 100 por ciento de lo ancho disponible
+		
+		if ((sumRowCols + uiSpace) > 1.00m){#>
+				<div class="clear"></div>
+		
+<#+			// se reinicia el contador para una nueva fila
+			sumRowCols = 0.00m; 
+		}
+
+		if (property.IsNavigationProperty) { #>
+
+<#+ 		string safeName = property.Name;
+	
+		
+				var entityFKType = entity.NavigationProperties.Find(p=>p.PropertyName == property.Name).EntityType;
+				var entityFKName = entityFKType.Split(char.Parse("."))[entityFKType.Split(char.Parse(".")).Length -1];
+				var entityFK = entity.Model.Entities.Find(p=>p.Name == entityFKName);
+				var keyEntityFK = entityFK.Properties.Find(p=>p.IsPrimaryKey);
+				var entityFKDefaultColumn = entityFK.DefaultProperty?? entityFK.Properties[0].Name;
+				
+				
+				safeName = "Fk"+property.Name; 
+
+			
+			
+#>
+<%        if (fromFK == "<#=property.Name#>" && !string.IsNullOrEmpty(Request.QueryString["popup"]))
+          { 
+              %>
+          <input type="hidden" name="Fk<%:fromFK %>" id="Fk<%:fromFK %>" value="<%: fkValue %>" />
+<%      
+    
+        }else{%>
+			<div id="dc<#= property.Name #>" class="li focushl <#= gridClassContainer #>">
+				<div class="spacetop spacebottom">
+<#+ if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")) { #>
+			<div class="<#= gridClassField #> alpha desc"><%: Html.LabelRequiredFor(m=>m.<#= safeName #>, "label" ) %> <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>", Regex.Replace(Html.LabelFor(  m=>m.<#= safeName #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+
+<#+  }else{ #>
+			<div class="grid_<%=UILabelColumns.ToString() %> alpha desc"><%: Html.LabelRequiredFor(m=>m.<#= safeName #>, "label" ) %>  <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>", Regex.Replace(Html.LabelFor(  m=>m.<#= safeName #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+<#+ 	} #>
+<#+ 	if ((bool)GetCustomProperty(property, "UIReadOnly", "Boolean")) { #>
+				<div class="<#= gridClassField #> omega editor-field"><%: Html.DisplayFor(m=>m.Fk<#= property.Name #>Text) %>
+				<%: Html.HiddenFor(m=>m.<#= safeName #>) %>
+<#+ 	}else{ #>
+<#+ 		if (property.PerformanceOption != PerformanceOptions.Fill || (bool)GetCustomProperty(property, "UILookUp", "Boolean")) {#> 				
+				<div class="<#= gridClassField #> omega editor-field"><%: Html.EditorFor(m=>m.<#= safeName #>, new { DisplayText=Model.Fk<#= property.Name #>Text  }) %>
+<#+ 		}else{ 
+	
+			string getAction ="GetAll";	
+			string getParams ="";
+			
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(property, "UIGetParams", "String"))){
+				getParams = (string)GetCustomProperty(property, "UIGetParams", "String");
+			}
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(property, "UIGetAction", "String"))){
+					getAction= (string)GetCustomProperty(property, "UIGetAction", "String");
+			}
+			string displayText = entityFKDefaultColumn;
+			string displayValue = keyEntityFK.Name;
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(property, "UIDisplayText", "String"))){
+					displayText= (string)GetCustomProperty(property, "UIDisplayText", "String");
+			}
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(property, "UIDisplayValue", "String"))){
+					displayValue= (string)GetCustomProperty(property, "UIDisplayValue", "String");
+			}
+				string nullableSelect ="";
+				if(property.Nullable)
+					nullableSelect = @", ""--"" + GlobalMessages.SELECT + ""--""";
+	#>
+				<div class="<#= gridClassField #> omega editor-field"><%: Html.DropDownListFor(m=>m.<#= safeName #>, new SelectList((IEnumerable)(new <#= entity.Model.Namespace #>.Web.Mvc.Controllers.<#= entityFK.SetName #>Controller()).<#= getAction #>(<#= getParams #>), "<#= displayValue #>", "<#= displayText #>")<#= nullableSelect #>) %>
+
+<#+ 		} 
+
+		}#>
+<#+ 		if (property.PerformanceOption == PerformanceOptions.Fill && (bool)GetCustomProperty(property, "UILookUp", "Boolean") == false) {
+ #>
+				<% Html.RenderPartial("ActionsForeignKey", new ViewDataDictionary { { "model", Model }, { "property", uiModel.Properties.First(p => p.PropertyName == "<#= property.Name #>") }}); %>
+<#+ } #>		
+				<div class="errorMessage"><%: Html.ValidationMessageFor(m => m.<#= safeName #>)%></div>
+			
+							</div>
+				<div class="clear"></div>
+
+				</div>
+	        </div>
+        <% if (fromFK == "<#=property.Name#>")
+               { %>
+<script>
+    $(document).ready(function () {
+        $("#<#=safeName#>").val('<%=Request.QueryString["fkValue"] %>');
+        $("#<#=safeName#>").attr("ReadOnly", true);
+        var <#=safeName#>Option = "<option value='" + $("#<#=safeName#>").val() + "' >" + $("#<#=safeName#> option:selected").text() + "</option>";
+        $("#<#=safeName#>").empty().append(<#=safeName#>Option).find('option:first').attr("selected","selected"); 
+    });
+</script>
+            <%} %>
+<%} %>
+<#+ 	}else if (property.Type.ToLower()== "selectitemlist"){ #>
+			<div id="dc<#= property.Name #>" class="li focushl <#= gridClassContainer #>">
+				<div class="spacetop spacebottom">
+<#+ if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")) { #>
+				<div class="<#= gridClassField #> alpha desc"><%: Html.LabelRequiredFor(m=>m.<#= property.Name #>Value, "label" ) %> <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>",Regex.Replace(Html.LabelFor(  m=>m.<#= property.Name  #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+<#+ }else{ #>				
+				<div class="grid_<%=UILabelColumns.ToString() %> alpha desc"><%: Html.LabelRequiredFor(m=>m.<#= property.Name #>Value, "label" ) %></div>
+<#+ } #>				
+				<div class="<#= gridClassField #> omega editor-field"><%: Html.DropDownListFor(m=>m.<#= property.Name #>Value, new SelectList(Model.<#= property.Name #>List, "Value", "Text")) %> 
+				<div class="errorMessage"><%: Html.ValidationMessageFor(m => m.<#= property.Name #>Value)%></div>
+			
+				</div>
+				<div class="clear"></div>
+
+				</div>
+	        </div>
+<#+ 	}else{ #>
+<#+ 		if (property.Type.ToLower() == "include") {#>
+	<#+						if(!string.IsNullOrEmpty((string)GetCustomProperty(property, "FormLayout", "String"))) {#>
+			<div id="dc<#= property.Name #>" class="li focushl <#= gridClassContainer #>">
+				<div class="spacetop spacebottom">
+<#+ if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")) { #>
+				<div class="<#= gridClassField #> alpha desc">
+<#+ }else{ #>
+				<div class="grid_<%=UILabelColumns.ToString() %> alpha desc">
+<#+ } #>
+				&nbsp;
+				</div>
+				<div class="<#= gridClassField #> omega editor-field">
+					<% Html.RenderPartialIfExist("Edit<#= property.Name #>", Model); %>
+				
+				</div>
+				<div class="clear"></div>
+
+				</div>
+	        </div>
+<#+				}else{ #>
+			<% Html.RenderPartialIfExist("Edit<#= property.Name #>", Model); %>
+
+<#+ 		}    #>
+
+<#+ 		}else if(property.Type.ToLower() == "uigroup"){ #>
+
+<#+ 		}else{ #>
+			<div id="dc<#= property.Name #>" class="li focushl <#= gridClassContainer #>">
+				<div class="spacetop spacebottom">
+<#+ if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")) { #>
+				<div class="<#= gridClassField #> alpha desc">
+<#+ }else{ #>
+				<div class="grid_<%=UILabelColumns.ToString() %> alpha desc">
+<#+ } #>
+<#+ if (property.Type.ToLower().Contains("boolean")) { 
+		if (property.UIRequired){#>
+				&nbsp;
+				</div>
+<#+ 		
+			if (!((Boolean)GetCustomProperty(property, "UIReadOnly", "Boolean"))) {#>				
+				<div class="<#= gridClassField #> omega editor-field"><%: Html.EditorFor(m=>m.<#= property.Name #>) %> <%: Html.LabelRequiredFor(m=>m.<#= property.Name #>, "label" ) %>  <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>", Regex.Replace(Html.LabelFor( m=>m.<#= property.Name #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %>
+<#+ 		}else { #>
+				<div class="<#= gridClassField #> omega editor-field"><%: Html.DisplayFor(m=>m.<#= property.Name #>) %> 				
+<#+ 		} 
+
+		}else{#>
+				<%: Html.LabelRequiredFor(m=>m.<#= property.Name #>, "label" ) %>  <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>",Regex.Replace(Html.LabelFor(  m=>m.<#= property.Name #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+				<div class="<#= gridClassField #> omega editor-field"><%: Html.EditorFor(m=>m.<#= property.Name #>) %> 
+
+<#+ 	}
+		
+		}else if (property.Type.ToLower().Contains("captcha")) { #>
+							<%: Html.LabelRequiredFor(m=>m.<#= property.Name #>, "label" ) %>  <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>",Regex.Replace(Html.LabelFor(  m=>m.<#= property.Name #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+				<div class="<#= gridClassField #> omega editor-field"><%= Html.GenerateCaptcha() %>
+
+				
+<#+ }else{ #>
+				<%: Html.LabelRequiredFor(m=>m.<#= property.Name #>, "label" ) %> <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>", Regex.Replace(Html.LabelFor( m=>m.<#= property.Name #>).ToHtmlString(), "<.*?>", string.Empty),  <#= order.ToString() #>)); %></div>
+<#+ 		
+			if (!((Boolean)GetCustomProperty(property, "UIReadOnly", "Boolean"))) {
+				string uiMask = "";
+				if (!string.IsNullOrEmpty((String)GetCustomProperty(property, "UIMask", "String"))){
+					uiMask = string.Format(@"uiMask=""{0}"", ",  (String)GetCustomProperty(property, "UIMask", "String"));	
+				}
+				string loctext = "\"\"";
+				if (localizableColumns.Contains(property.Name)){
+				
+					loctext = "(Session[\"loc\"] != null ? (string)Session[\"loc\"] : \"es\" )";
+				}
+				#>				
+				<div class="<#= gridClassField #> omega editor-field"> <%=<#= loctext #>%> <%: Html.EditorFor(m=>m.<#= property.Name #>,  new { <#=uiMask#> maxlength="<#= property.MaxLength != 0 ? property.MaxLength.ToString() : "" #>" }) %> 
+<#+ 		}else { #>
+				<div class="<#= gridClassField #> omega editor-field"><%: Html.DisplayFor(m=>m.<#= property.Name #>) %>				
+<#+ 		} #>
+				
+<#+ } #>
+				<div class="errorMessage"><%: Html.ValidationMessageFor(m => m.<#= property.Name #>)%></div>
+			
+				</div>
+				<div class="clear"></div>
+
+				</div>
+	        </div>
+<#+ 		} #>		
+<#+			if(!string.IsNullOrEmpty(visibilityCondition)) {#>
+	<% }
+
+		
+		
+	}
+	%>
+<#+ 	} #>
+
+<#+ 	}
+		sumRowCols += uiSpace; #>
+	<%    }
+		}
+	%>				
+
+		<#+	}
+	} #>
+<#+ if (((bool)GetCustomProperty(entity, "UIExcludeEditButtons","Boolean")) == false) { #>
+			<div class="li focushl buttons">
+				<div class="spacetop spacebottom">
+				<div class="grid_<%=UILabelColumns.ToString() %> alpha desc">   &nbsp;</div>
+				<div class="<#= gridClassField #> omega editor-field">
+<% ButtonLinkModel buttonModel = null;
+    if (ViewData["ispopup"] != null)
+   {
+       if ((uiModel.CanAction("u") && ! Model.IsNew ) || (uiModel.CanAction("c") && Model.IsNew ))
+       {
+			string text = Model.IsNew ? uiModel.ActionButtons.First(p=>p.ActionKey =="c").Title : uiModel.ActionButtons.First(p=>p.ActionKey =="u").Title; %>			
+				<%
+            buttonModel = ButtonLinkModel.GetSave();
+				buttonModel.Text = text;
+            Html.RenderPartial("ButtonLink", buttonModel);
+			
+       }%> 
+               <% 
+			if (uiModel.ActionButtons.FirstOrDefault(p => p.ActionKey == "return").IsButtonReplaced) {
+				Html.RenderPartial("ButtonLink", uiModel.ActionButtons.FirstOrDefault(p => p.ActionKey == "return").GetButton()); 
+			}else{
+				Html.RenderPartial("ButtonLink", ButtonLinkModel.GetCustom(GlobalMessages.CANCEL, 3, "cancel", ResolveUrl("~/")+"<#= entity.Model.SafeNamespace #>/<#= entityPluralName #>/DetailsViewGen/" + Model.SafeKey + "?popup=1&fk=" + fromFK + "&fkValue=" + fkValue + "", "popup_<#= entity.Name #>")); 
+	
+			}
+			%>
+<%
+    }
+   else   { %>
+				<% Html.RenderPartial("ButtonLink", ButtonLinkModel.GetSave()); %> 
+
+        				<% Html.RenderPartial("ButtonLink", ButtonLinkModel.GetCustom(GlobalMessages.CANCEL, 3, "cancel", ResolveUrl("~/")+"SFSDemo/demoOrders", true)); %>
+<% } %>		
+<p></p>
+<% string _checked = "";
+   if (ViewData["__continue"] != null) { 
+        if ((bool)ViewData["__continue"] == true)
+            _checked = "checked='checked'";
+            
+   }
+    %>
+    <input type="checkbox"  id="Checkbox1" <%=_checked %> name="__continue" value="true" /> <%: GlobalMessages.SAVE_AND_CONTINUE_EDITING %>
+<div id="autosaveresult">
+<span id="iconresult"></span><span id="messageresult" ></span>
+</div>
+
+<% if (!Model.IsNew) { %>
+
+<script>
+
+
+    $(document).ready(function () {
+        /* This section is CKEditor specific.
+        It just updates the HTML fields to whatever
+        content is in the CKEditor field.*/
+
+        $("#autosaveresult").hide();
+        for (var name in CKEDITOR.instances) {
+            CKEDITOR.instances[name].on("instanceReady", function () {
+                // Set keyup event
+                this.document.on("keyup", updateValue);
+                // Set paste event
+                this.document.on("paste", updateValue);
+            });
+
+            function updateValue() {
+                CKEDITOR.instances[name].updateElement();
+                $(".form textarea").trigger("keyup");
+            }
+        }
+
+        /* This is the complete jQuery code for autosave.
+        setTimeout() is called every 5 minutes while
+        the inner function checks that the last save
+        was at least 5 minutes ago before deciding
+        to save.
+        */
+        var lastSaveTime = 0;
+        var currentTime = 0;
+        // Edit chapter
+        $(".<#= entityPluralName #> form").keyup(function () {
+            $(".autosaved_msg").hide();
+            window.setTimeout(
+                        function () {
+                            currentTime = new Date().getTime();
+                            if ((currentTime - lastSaveTime) > 60000 || lastSaveTime == 0) {
+                                $.post("<%=ResolveUrl("~/") %><#=entity.Model.SafeNamespace  #>/<%=this.Request.RequestContext.RouteData.Values["controller"] %>/<%=uiModel.ActionName %>?autosave=1", $(".<#= entityPluralName #> form").serialize(),
+                                                function (response, status) {
+                                                    /* "1" is the response value I chose to return
+                                                    upon a successful save.
+                                                    */
+                                                    var currentdate = new Date();
+                                                    if (response == "ok" && status == "success") {
+                                                        $("#autosaveresult").show();
+                                                        $(".<#= entityPluralName #> #autosaveresult #iconresult, .<#= entityPluralName #> #autosaveresult #messageresult").removeClass("error");
+                                                        $(".<#= entityPluralName #> #autosaveresult #iconresult, .<#= entityPluralName #> #autosaveresult #messageresult").addClass("ok");
+                                                        $(".<#= entityPluralName #> #autosaveresult #messageresult").text("Se han guardado los cambios a las " + currentdate.getHours().toString() + ":" + currentdate.getMinutes().toString() + ":" + currentdate.getSeconds().toString());
+                                                    } else {
+                                                        $("#autosaveresult").show();
+                                                        $(".<#= entityPluralName #> #autosaveresult #iconresult, .<#= entityPluralName #> #autosaveresult #messageresult").removeClass("ok");
+                                                        $(".<#= entityPluralName #> #autosaveresult #iconresult, .<#= entityPluralName #> #autosaveresult #messageresult").addClass("error");
+                                                        $(".<#= entityPluralName #> #autosaveresult #messageresult").text("NO se han guardado los cambios a las " + currentdate.getHours().toString() + ":" + currentdate.getMinutes().toString() + ":" + currentdate.getSeconds().toString());
+
+                                                    }
+                                                }
+                                        );
+                                lastSaveTime = new Date().getTime();
+                            }
+                        },
+                        60000
+                );
+        });
+    });
+</script>
+<% } %>
+
+				</div>
+		
+			<div class="clear"></div>
+			</div>
+           </div>
+<#+ } #>
+             <% foreach (var q in extraparams)
+              {  
+                  %>
+              <input type="hidden" value="<%=q.Value %>" id="<%=q.Key %>" name="<%=q.Key %>"/>
+           <% } %>
+
+			<% Html.EndForm(); %>
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready(function(){
+<#+
+	var prop = entity.Properties.FindAll(p=>p.IsNavigationProperty== false && p.IsPrimaryKey == false);
+	if (prop.Count > 0){	
+#>
+	//$('#<#= prop[0].Name #>').focus();
+	//$('#<#= prop[0].Name #>').select();
+
+	
+<#+ } #>	
+});
+</script>
+<% if (ViewData["ispopup"] != null)
+   { %>
+        <script type="text/javascript">
+<#+
+	if (prop.Count > 0){	
+#>
+	$('#popup_<#= entity.Name #> #<#= prop[0].Name #>').focus();
+	$('#popup_<#= entity.Name #> #<#= prop[0].Name #>').select();
+
+<#+ } #>	
+            refreshForms();
+        </script>
+   </div>
+</div>
+<%} %>
+<#+
+		}catch(Exception ex){
+		throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+	}
+}
+#>

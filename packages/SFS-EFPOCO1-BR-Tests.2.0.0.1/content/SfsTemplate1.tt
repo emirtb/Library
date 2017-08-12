@@ -1,0 +1,540 @@
+﻿<#@ template debug="True" language="C#v3.5"#>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="SFSdotNet.VSAddin2012.Model" #> 
+<#@ import namespace="SFSdotNet.VSAddin2012.Model.Utils" #> 
+<#@ import namespace="System.Linq" #> 
+<#@ import namespace="System.Linq.Expressions" #> 
+<#@ dom processor="SFSEdmxProcessor"  
+requires="EntityModel='$safenamespace$Model.edmx'"  #>
+// <Template>
+//   <SolutionTemplate>EF POCO 1</SolutionTemplate>
+//   <Version>1.1217.1</Version>
+//   <Update>True</Update>
+// </Template>
+using <#= Model.Namespace #>.BR;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using <#= Model.Namespace #>.BusinessObjects;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using SFSdotNet.Framework.Utilities;
+
+
+namespace <#= Model.Namespace #>.BR.Tests
+{
+		 
+    
+<#	int priority = 1;
+	foreach(EntityInfo entity in this.Model.Entities) {
+	string entityPluralName = entity.SetName;
+	string entitySingleName = entity.Name;
+	
+#>
+    [TestClass()]
+	public partial class <#=  entityPluralName #>BRTest
+	{
+	    #region constructor and properties
+		private static CustomTestContext context = null;
+        public <#= entityPluralName #>BRTest ()
+	    {
+            if (<#= entityPluralName #>BRTest.context == null) 
+                <#= entityPluralName #>BRTest.context = new CustomTestContext();
+	    }
+        private <#= entityPluralName #>BR target = null;
+        private <#= entity.Name #> item = null;
+        private List<<#= entity.Name #>> items = null;
+ 
+	    #endregion
+<# 
+	if (string.IsNullOrEmpty(entity.DefaultProperty)){
+		var defPropAlt = entity.Properties.Where(p=> !p.IsPrimaryKey && !p.IsNavigationProperty).FirstOrDefault();
+		if (defPropAlt != null )
+			entity.DefaultProperty  = defPropAlt.Name;
+     }
+#>
+
+<# if (!string.IsNullOrEmpty(entity.DefaultProperty)) {
+	
+
+ #>	    
+		public <#= entity.Name #> CreateNewBasicItem() { 
+			return CreateNewBasicItem(null);
+		}
+		
+	    public <#= entity.Name #> CreateNewBasicItem(<#= entity.Name #> item) { 
+			            // Intance new object
+            if (item == null)
+				item = new <#= entity.Name #>();
+			item.<#= entity.DefaultProperty #> = context.GetNew<#= entity.Properties.First(p=>p.Name == entity.DefaultProperty).NetType #>();
+            
+            // Add properties
+<#          foreach(PropertyInfo property in entity.Properties) {
+                if( !property.Nullable && !property.IsPrimaryKey && !property.IsNavigationProperty && property.Name != entity.DefaultProperty){
+#>
+			// Required fields
+<#			if (property.NetType == "String") {
+				if (property.MaxLength > 0 ){
+#>
+			item.<#= property.Name #> = context.NewTextTest(<#= property.MaxLength #>);
+<#              }else{ #>
+			item.<#= property.Name #> = context.NewTextTest();
+
+<#				}
+					}else if(property.NetType == "Int32") {#>
+			item.<#= property.Name #> = context.NewIntegerTest;
+<#					}else if(property.NetType == "DateTime") {#>
+			item.<#= property.Name #> = DateTime.Now;
+<#					}else if(property.NetType == "Guid") {#>
+			item.<#= property.Name #> = Guid.NewGuid();
+<#					}else if(property.NetType == "Decimal" ||  property.NetType == "Double" ) {#>
+			item.<#= property.Name #> = context.NewDecimalTest;
+<#					}else{#>
+			// Not implemented yet
+			// <#= property.Name #>, type: <#= property.NetType #>
+<#					}
+				} else if (property.IsPrimaryKey){#>
+			// Primary Key Type: <#= property.NetType #>
+<#					if (property.NetType == "Int32") {#>
+			item.<#= property.Name #> = context.NewIntegerTest;
+<#                  }else if (property.NetType == "String"){ #>								
+			item.<#= property.Name #> = context.NewStringTest;
+<#                  }else if (property.NetType == "Guid"){ #>								
+			item.<#= property.Name #> = context.GetNewGuid();			
+<#					}
+				} else if(property.IsNavigationProperty){
+					NavigationPropertyInfo navprop = entity.NavigationProperties.First(p=>p.PropertyName == property.Name);
+					if(navprop.Multiplicity == "1" || navprop.Multiplicity == "0..1"){
+						string entityName = navprop.EntityType.Split(Char.Parse("."))[navprop.EntityType.Split(Char.Parse(".")).Length - 1]; 
+						EntityInfo entityFK = entity.Model.Entities.Find(p=> p.Name == entityName);
+						if(entityName != entity.Name){
+#>
+			if (item.<#= navprop.PropertyName #>  == null )
+				item.<#= navprop.PropertyName #> = <#= entityFK.SetName #>BR.NewInstance().GetAll().FirstOrDefault();	
+			
+			  if (context.AddFKRelationsIfNotExist) {
+                if (item.<#= navprop.PropertyName #> == null) {
+                    if (!context.AddFKRelationsInSameTransactionIfNotExist)
+                    {
+                        var rel_<#= Code.CamelCase(navprop.PropertyName) #> = (new <#= entityFK.SetName #>BRTest()).CreateNewBasicItem();
+                        item.<#= navprop.PropertyName #>  = (new <#= entityFK.SetName #>BR()).Create(rel_<#= Code.CamelCase(navprop.PropertyName) #>);
+                    }
+                    else {
+                        item.<#= navprop.PropertyName #> = (new <#= entityFK.SetName #>BRTest()).CreateNewBasicItem();
+                    }
+                }
+            }
+
+			//item.<#= property.Name #> =	<#= Code.CamelCase(navprop.PropertyName) #>;					
+<#						}	
+					}
+				}
+			} #>            
+           return item;
+        }
+<# if (entity.NavigationProperties.Count > 0) { #>        
+        public <#= entity.Name #> CreateNewWithRelationsItem()
+        {
+			item =  CreateNewBasicItem();
+			//sfsdf
+<#  System.Text.StringBuilder propertyValuesChildFK = new System.Text.StringBuilder();
+	foreach(NavigationPropertyInfo navprop in entity.NavigationProperties) {
+
+	} #>			
+<#  foreach(NavigationPropertyInfo navprop in entity.NavigationProperties) { 
+		string entityName = navprop.EntityType.Split(Char.Parse("."))[navprop.EntityType.Split(Char.Parse(".")).Length - 1]; 
+		EntityInfo entityFK = entity.Model.Entities.Find(p=> p.Name == entityName);
+
+		if(navprop.Multiplicity == "*"){
+			if(entityName != entity.Name){
+				
+		#>
+			// Foreign Keys, relations required *
+#region relationship <#= navprop.PropertyName #> 
+		
+
+			// FK: 1 <#= navprop.PropertyName #> of <#= navprop.PropertyName #>
+			if (context.AddChildRelationsIfNotExist)
+            {
+				<#= entityFK.Name #> rel_<#= navprop.PropertyName #> = (new <#= entityFK.SetName #>BRTest()).CreateNewBasicItem(new <#= entityFK.Name #>(){ <#= entityFK.NavigationProperties.Where(p=>p.RelationshipName == navprop.RelationshipName).FirstOrDefault().PropertyName #> = item });
+                   
+				item.<#= navprop.PropertyName #>.Add(rel_<#= navprop.PropertyName #>);
+			}
+#endregion // <#= navprop.PropertyName #>
+<#		
+			}
+		}
+		
+	} #>	
+			//}	
+			return item;	
+        }
+    <# }
+	
+	} #>
+        <#= entity.Name #> GetExistItem()
+        {
+			target = new <#= entityPluralName #>BR();
+            item = target.GetAll().FirstOrDefault();
+            return item;
+        }
+        <#= entity.Name #> GetExistItem(bool loadRelations)
+        {
+            target = new <#= entityPluralName #>BR();
+            item = target.GetBy("", loadRelations, null).FirstOrDefault();
+            return item;
+        }
+		private int <#= entityPluralName #>Count() {
+            target = new <#= entityPluralName #>BR();
+            try
+            {
+               
+                int result = 0;
+                result = target.GetCount();
+                context.Records = result;
+               
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+		[TestMethod()]
+        [Priority(<#= priority #><# priority++; #>)]
+        public void <#= entityPluralName #>CountTest()
+        {
+			int expected = 0;
+            int result = <#= entityPluralName #>Count();
+
+            if (expected > 0)
+            {
+                Assert.AreEqual(result, expected);
+            }
+        }
+<# if (!string.IsNullOrEmpty(entity.DefaultProperty)) {#>	         
+        [TestMethod]
+        [Priority(<#= priority #><# priority++; #>)]
+        public void <#= entityPluralName #>CreateBasicTest()
+        {
+			if (!context.RecordsCounted)
+                context.Records = this.<#= entityPluralName #>Count();
+            target = new <#= entityPluralName #>BR();
+			 // Create Item
+            item = this.CreateNewBasicItem();
+            
+            target.Create(item);
+			context.Records +=  1;
+			
+			Assert.AreEqual(context.Records, <#= entityPluralName #>Count());
+        }
+        
+        
+        [TestMethod]
+        [Priority(<#= priority #><# priority++; #>)]
+        public void <#= entityPluralName #>CreateBasicManyTest()
+        {
+            if (!context.RecordsCounted)
+                context.Records = this.<#= entityPluralName #>Count();
+            List<<#= entity.Name #>> items = new List<<#= entity.Name #>>();
+            for (int i = 0; i < context.CreateMany ; i++)
+            {
+                items.Add(this.CreateNewBasicItem());
+                context.DefaultPropertyValues.Add(items[i].<#= entity.DefaultProperty #>);
+                context.Records += 1;
+            }
+            target = new <#= entityPluralName #>BR();
+            target.Create(items);
+
+            Assert.AreEqual(context.Records, <#= entityPluralName #>Count());
+        }
+<# if(entity.NavigationProperties.Count > 0) {#>        
+        [TestMethod]
+        [Priority(<#= priority #><# priority++; #>)]
+        public void <#= entityPluralName #>CreateWithRelationsTest()
+        {
+			if (!context.RecordsCounted)
+                context.Records = this.<#= entityPluralName #>Count();
+            target = new <#= entityPluralName #>BR();
+			 // Create Item
+            item = this.CreateNewWithRelationsItem();
+            
+            target.Create(item);
+			context.Records += 1;
+			 Assert.AreEqual(context.Records, <#= entityPluralName #>Count());
+        }
+<# } #>        
+        public <#= entity.Name #> ChangeBasicItem(<#= entity.Name #> _item){
+<#  foreach(PropertyInfo property in entity.Properties){ 
+		if (!property.Nullable && !property.IsPrimaryKey && !property.IsNavigationProperty){ 
+			if (property.NetType == "String"){
+				if (property.MaxLength > 0){
+			#>
+			_item.<#= property.Name #> = context.NewTextTest(<#= property.MaxLength #>);		
+<#				}else{ #>
+			_item.<#= property.Name #> = context.NewTextTest();	
+<#				}
+			}else if (property.NetType == "Int32"){ #>
+			_item.<#= property.Name #> = context.NewIntegerTest;		
+
+<#			}
+		}else if (!property.Nullable && property.IsNavigationProperty){
+			//Write(property.Name);
+		}
+		//Write(property.Name);
+	} #>
+			return item;			
+        }
+        
+		<#= entity.Name #> ChangeWithRelationsItem(<#= entity.Name #> _item){
+			_item = ChangeBasicItem(_item);
+<#  
+	foreach(NavigationPropertyInfo navprop in entity.NavigationProperties){ 
+			string entityName = navprop.EntityType.Split(Char.Parse("."))[navprop.EntityType.Split(Char.Parse(".")).Length - 1]; 
+			EntityInfo entityFK = entity.Model.Entities.Find(p=> p.Name == entityName);
+			System.Text.StringBuilder lambdaKeyValues = new System.Text.StringBuilder();
+			System.Text.StringBuilder propertyKeys = new System.Text.StringBuilder();
+			foreach(PropertyKeyInfo propertyKey in entityFK.EntityKey){
+				if(lambdaKeyValues.Length > 0) lambdaKeyValues.Append(" && ");
+				lambdaKeyValues.Append("p." + propertyKey.PropertyName + " != " + Code.CamelCase(propertyKey.PropertyName)); 
+				propertyKeys.AppendLine(propertyKey.Property.NetType + " " + Code.CamelCase(propertyKey.PropertyName) + " = _item." + navprop.PropertyName + "." + propertyKey.PropertyName + ";");
+			}
+#>	
+			
+<#		if (navprop.Multiplicity == "0..1" || navprop.Multiplicity == "1"){ 
+			
+			#>
+			// Relation 0..1 :<#= navprop.PropertyName #>
+			<#= entityFK.Name #> <#= Code.CamelCase(navprop.PropertyName) #> = null;
+			if (_item.<#= navprop.PropertyName #> != null ){
+				<#= propertyKeys.ToString() #>
+				<#= Code.CamelCase(navprop.PropertyName) #> = <#= Code.MakePlural(entityFK.Name.Replace("Info", "")) #>BR.NewInstance().GetBy(p=> <#= lambdaKeyValues.ToString() #>).FirstOrDefault();	
+			}else{
+				<#= Code.CamelCase(navprop.PropertyName) #> = <#= Code.MakePlural(entityFK.Name.Replace("Info", "")) #>BR.NewInstance().GetAll().FirstOrDefault();
+			}
+			if (<#= Code.CamelCase(navprop.PropertyName) #> != null){
+				_item.<#= navprop.PropertyName #> = <#=Code.CamelCase(navprop.PropertyName) #>;
+				
+			}
+<#          }else if (navprop.Multiplicity == "*"){ #>
+			// Relation * : <#= navprop.PropertyName #>
+
+<#		}
+	}
+	 #>
+			return item;			
+        }
+<# 	System.Text.StringBuilder keyValuesInObject = new System.Text.StringBuilder();
+	System.Text.StringBuilder keyPropInComposite = new System.Text.StringBuilder();
+	foreach(PropertyKeyInfo propertyKey in entity.EntityKey){
+		if(keyValuesInObject.Length > 0 ) keyValuesInObject.Append(", ");
+		if(keyPropInComposite.Length > 0 ) keyPropInComposite.Append(", ");
+		keyValuesInObject.Append("item." + propertyKey.PropertyName);	
+		keyPropInComposite.Append("itemKey." + propertyKey.PropertyName);		
+	}
+#>
+<#	if(entity.Properties.Exists(p=> p.IsNavigationProperty == true && p.Nullable== false)){#>
+        [TestMethod]
+        [Priority(<#= priority #><# priority++; #>)]
+        public void <#= entityPluralName #>GetAndUpdateBasicTest()
+        {
+            target = new <#= entityPluralName #>BR();
+			 // Create Item
+            item = this.GetExistItem();
+			item = Serialization.Clone<<#= entity.Name #>>(item);
+
+			<#= entity.Name #>.CompositeKey itemKey = new <#= entity.Name #>.CompositeKey(<#= keyValuesInObject.ToString() #>);
+
+            item = ChangeBasicItem(item);
+            // verify new property value
+<# if (!string.IsNullOrEmpty(entity.DefaultProperty)) {#>            
+            // Default property: <#= entity.DefaultProperty #>
+            object pchange =  item.<#= entity.DefaultProperty #>;
+<# } #>
+            target.Update(item);
+            // verify changes
+<# if (!string.IsNullOrEmpty(entity.DefaultProperty)) {#>            
+			item = this.GetExistItem(itemKey);
+			Assert.AreEqual(item.<#= entity.DefaultProperty #>, pchange);
+<# } #>			
+        }
+<# } #>        
+        private <#= entity.Name #> GetExistItem(<#= entity.Name #>.CompositeKey itemKey)
+        {
+            target = new <#= entityPluralName #>BR();
+            item = target.GetByKey(<#= keyPropInComposite.ToString() #>);
+            return item;
+        }
+        
+        private <#= entity.Name #> GetExistItem(<#= entity.Name #>.CompositeKey itemKey, bool withRelations)
+        {
+            target = new <#= entityPluralName #>BR();
+            item = target.GetByKey(<#= keyPropInComposite.ToString() #>, withRelations);
+            return item;
+        }
+<# if (entity.NavigationProperties.Count > 0){ #>        
+        [TestMethod]
+        [Priority(<#= priority #><# priority++; #>)]
+        public void <#= entityPluralName #>GetWithRelationsAndUpdateOneTest()
+        {
+            target = new <#= entityPluralName #>BR();
+			 // Create Item
+            item = this.GetExistItem(true);
+            item = Serialization.CloneDataContract<<#= entity.Name #>>(item);
+            <#= entity.Name #>.CompositeKey itemKey = new <#= entity.Name #>.CompositeKey(<#= keyValuesInObject.ToString()  #>);
+            item = this.ChangeWithRelationsItem(item);
+              // verify new property value
+<# if (!string.IsNullOrEmpty(entity.DefaultProperty)) {#>            
+            // Default property: <#= entity.DefaultProperty #>
+            <# PropertyInfo defaultProperty  = entity.Properties.First(p=>p.Name == entity.DefaultProperty); 
+			   if(!defaultProperty.Nullable) {#>
+            <#= entity.Properties.First(p=>p.Name == entity.DefaultProperty).NetType #> <#= Code.CamelCase(entity.DefaultProperty) #> =  item.<#= entity.DefaultProperty #>;
+	        <# }else { #>
+            <#= entity.Properties.First(p=>p.Name == entity.DefaultProperty).NetType #> <#= Code.CamelCase(entity.DefaultProperty) #> =  (<#= defaultProperty.NetType #>)item.<#= entity.DefaultProperty #>;	        
+	        <# } #>    
+<# } #>
+<#	
+	System.Text.StringBuilder sbPropRelCompare = new System.Text.StringBuilder();
+	System.Text.StringBuilder sbPropRelCompareAssert = new System.Text.StringBuilder();
+
+	foreach(NavigationPropertyInfo navprop in entity.NavigationProperties) {
+		string entityName = navprop.EntityType.Split(Char.Parse("."))[navprop.EntityType.Split(Char.Parse(".")).Length - 1]; 
+		EntityInfo entityFK = entity.Model.Entities.Find(p=> p.Name == entityName);
+
+		if(navprop.Multiplicity == "1" || navprop.Multiplicity == "0..1"){	
+			
+			sbPropRelCompare.AppendLine("        " + entityName + " " + Code.CamelCase(navprop.PropertyName) + " = item." + navprop.PropertyName + ";");
+			sbPropRelCompareAssert.AppendLine("       if (" + Code.CamelCase(navprop.PropertyName) +" !=  null) Assert.AreEqual(ObjectHelper<" + entityFK.Name + ">.Compare(" + Code.CamelCase(navprop.PropertyName) + ",item." + navprop.PropertyName + "),0);");
+#>		
+<#		}	
+} #>
+			<#= sbPropRelCompare.ToString() #>
+
+            target.Update(item);
+<# if (!string.IsNullOrEmpty(entity.DefaultProperty)) {#>            
+			item = this.GetExistItem(itemKey, true);
+			Assert.AreEqual(item.<#= entity.DefaultProperty #>, <#= Code.CamelCase(entity.DefaultProperty) #>);
+			
+<# } #>		
+		<#= sbPropRelCompareAssert.ToString() #>
+        }
+<# } #>
+<# if(!string.IsNullOrEmpty(entity.DefaultProperty)){ 
+	PropertyInfo prop = entity.Properties.First(p=>p.Name == entity.DefaultProperty);
+	System.Text.StringBuilder sbdef = new System.Text.StringBuilder(); 
+	sbdef.Append("p=>p." + prop.Name + " == context.Unique" + prop.NetType);
+#>
+
+		[TestMethod]
+        [Priority(<#= priority #><# priority++; #>)]
+		public void <#= entityPluralName #>DeleteOneTest(){
+			target = new <#= entityPluralName #>BR();
+            //item = target.GetBy(<#= sbdef.ToString() #>).FirstOrDefault();
+            item = this.GetExistItem();
+            if (item != null) {
+				item = Serialization.CloneDataContract<<#= entity.Name #>>(item);
+                <#= entity.Name #>.CompositeKey itemKey = new <#= entity.Name #>.CompositeKey(<#= keyValuesInObject.ToString()  #>);
+                target.Delete(item);
+
+                item = this.GetExistItem(itemKey);
+                Assert.IsNull(item);
+            }
+
+		}
+		
+		[TestMethod]
+        [Priority(<#= priority #><# priority++; #>)]
+        public void <#= entityPluralName #>DeleteManyTest()
+        {
+            target = new <#= entityPluralName #>BR();
+            List<<#= entity.Name #>> items = new List<<#= entity.Name #>>();
+            List<<#= entity.Name #>.CompositeKey> itemkeys = new List<<#= entity.Name #>.CompositeKey>();
+
+            if(context.DefaultPropertyValues.Count >= context.DeleteMany){
+                for (int i = 0; i < context.DeleteMany; i++)
+			    {
+<#					PropertyInfo _prop = entity.Properties.First(p=>p.Name == entity.DefaultProperty); 
+					if (_prop.NetType.ToLower().Contains("guid")) { #>
+                    <#= _prop.NetType #> defvalue =Guid.Parse(context.DefaultPropertyValues[i].ToString());
+<#					}else{ #>			    
+                    <#= _prop.NetType #> defvalue =Convert.To<#= _prop.NetType #>(context.DefaultPropertyValues[i]);
+<#					}#>
+                    item = target.GetBy(p => p.<#= entity.DefaultProperty #> == defvalue).FirstOrDefault();
+                    if(item !=null ){
+                        item = Serialization.Clone<<#= entity.Name #>>(item);
+                        items.Add(item);
+                        
+                        itemkeys.Add(new <#= entity.Name #>.CompositeKey(<#= keyValuesInObject.ToString()  #>));
+                    }
+			    }
+                context.DefaultPropertyValues.RemoveRange(0, context.DeleteMany);
+            }
+            if (items.Count > 0){
+                target.Delete(items);
+                
+                //items = new List<<#= entity.Name #>>();
+                foreach (<#= entity.Name #>.CompositeKey key in itemkeys)
+	            {
+                    item = GetExistItem(key);
+                    Assert.IsNull(item);
+	            }
+            }
+
+
+        }
+		[TestMethod]
+        [Priority(<#= priority #><# priority++; #>)]
+        public void <#= entityPluralName #>DeleteAllTest()
+        {
+            target = new <#= entityPluralName #>BR();
+            List<<#= entity.Name #>> items = null;
+            List<<#= entity.Name #>.CompositeKey> itemkeys = new List<<#= entity.Name #>.CompositeKey>();
+            if (!context.RecordsCounted)
+                context.Records = this.<#= entityPluralName #>Count();
+
+            items = target.GetAll();
+
+            List<<#= entity.Name #>> clonItems = new List<<#= entity.Name #>>();
+            foreach (var item in items)
+            {
+
+                var itemObj = Serialization.CloneDataContract<<#= entity.Name #>>(item);
+                clonItems.Add(itemObj);
+
+                itemkeys.Add(new <#= entity.Name #>.CompositeKey(<#= keyValuesInObject.ToString()  #>));
+                    
+            }
+
+
+
+
+            if (clonItems.Count > 0)
+            {
+                target.Delete(clonItems);
+
+                //items = new List<Address>();
+                foreach (<#= entity.Name #>.CompositeKey key in itemkeys)
+                {
+                    item = GetExistItem(key);
+                    Assert.IsNull(item);
+                }
+            }
+
+
+        }
+	
+	
+
+
+
+<# } #>		
+	
+	
+<# } #>
+	} 
+<# }#>
+}

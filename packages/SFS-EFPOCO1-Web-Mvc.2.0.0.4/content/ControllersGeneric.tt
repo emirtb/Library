@@ -1,0 +1,223 @@
+﻿<#@ output  extension="txt" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core.dll" #>
+
+<#@ import namespace="SFSdotNet.VSAddin2012.Model" #>
+<#@ import namespace="SFSdotNet.VSAddin2012.Model.Utils" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Linq" #>
+// <Template>
+//   <SolutionTemplate></SolutionTemplate>
+//   <Version>20110122.1</Version>
+//   <Update></Update>
+// </Template>
+<#+ void GenerateControllerGeneric(EntityInfo entity)
+{
+	string folderModelsName = entityPluralName;
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "RelativeFolder", "String"))){
+		folderModelsName = (string)GetCustomProperty(entity, "RelativeFolder", "String");
+	}
+	//entityPluralName = entity.SetName;
+	string controllerName = entityPluralName;
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "ControllerName", "String")))
+	{
+		controllerName =(string)GetCustomProperty(entity, "ControllerName", "String");
+	}
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using <#= entity.Model.Namespace #>.Web.Mvc.Models.<#= folderModelsName #>;
+using <#= entity.Model.Namespace #>.BR;
+using System.Web.Script.Serialization;
+using <#= entity.Model.Namespace #>.Web.Mvc.Models;
+using <#= entity.Model.Namespace #>.Web.Mvc.Resources;
+using <#= entity.Model.Namespace #>.BusinessObjects;
+using SFSdotNet.Framework.Web.Mvc.Security;
+using SFSdotNet.Framework.Web.Mvc;
+using SFSdotNet.Framework.Web.Mvc.Models;
+using SFSdotNet.Framework.Web.Mvc.Resources;
+
+namespace <#= entity.Model.Namespace #>.Web.Mvc.Controllers
+{
+   	
+    public partial class <#= controllerName #>Controller : SFSdotNet.Framework.Web.Mvc.ControllerBase
+    {
+		partial void OnShowing(object sender, MyEventArgs<UIModel<<#= entity.Name #>Model>> e);
+  		partial void OnActionsCreated(object sender, MyEventArgs<UIModel<<#= entity.Name #>Model >> e);
+		partial void OnCustomActionExecuting(object sender, MyEventArgs<ContextActionModel<<#= entity.Name #>Model>> e);
+ 		
+		private UIModel<<#= entity.Name #>Model> GetContextModel(UIModelContextTypes formMode, <#= entity.Name #>Model model) {
+            UIModel<<#= entity.Name #>Model> me = new UIModel<<#= entity.Name #>Model>(true, "<#= entity.SetName #>");
+			if (!string.IsNullOrEmpty(Request.QueryString["usemode"]))
+				me.UseMode = Request.QueryString["usemode"];
+            me.Properties = GetProperties(me);
+ 			#region Buttons
+            me.ActionButtons.Add(new ActionModel() { ActionKey = "return", Title = GlobalMessages.RETURN, Url = System.Web.VirtualPathUtility.ToAbsolute("~/") + "<#= entity.Model.SafeNamespace #>/<#= entity.SetName #>" });
+            #endregion              
+            me.ContextType = formMode ;
+            switch (formMode)
+            {
+                case UIModelContextTypes.DisplayForm:
+					me.TitleForm = <#= entity.Name #>Resources.<#= entity.SetName.ToUpper() #>_DETAILS;
+
+                    break;
+                case UIModelContextTypes.EditForm:
+					if (model != null)
+                    {
+						if (model.IsNew )
+							me.TitleForm = <#= entity.Name #>Resources.<#= entity.SetName.ToUpper() #>_ADD_NEW;
+						else
+							me.TitleForm = <#= entity.Name #>Resources.<#= entity.SetName.ToUpper() #>_EDIT;
+					}
+                    break;
+                case UIModelContextTypes.FilterFields:
+                    break;
+                case UIModelContextTypes.GenericForm:
+                    break;
+                case UIModelContextTypes.Items:
+                    break;
+                case UIModelContextTypes.ListForm:
+					me.TitleForm = <#= entity.Name #>Resources.<#= entity.SetName.ToUpper() #>_LIST;
+                    break;
+                default:
+                    break;
+            }
+            
+			if (model != null )
+            	me.Items.Add(model);
+            return me;
+        }
+		private void Showing(ref UIModel<<#= entity.Name #>Model> uiModel) {
+          	if (!string.IsNullOrEmpty(Request.QueryString["usemode"]))
+                uiModel.UseMode = Request.QueryString["usemode"];
+			MyEventArgs<UIModel<<#= entity.Name #>Model>> me = null;
+            OnShowing(this, me = new MyEventArgs<UIModel<<#= entity.Name #>Model>>() { Object = uiModel });
+
+            if (me != null)
+            {
+                uiModel = me.Object;
+            }
+            if (me == null)
+                me = new MyEventArgs<UIModel<<#= entity.Name #>Model>>() { Object = uiModel };
+            ViewData["UIModel"] = uiModel;
+
+        }
+		private List<PropertyDefinition> GetProperties(UIModel<<#= entity.Name #>Model> uiModel)
+         
+             {
+                List<PropertyDefinition> results = new List<PropertyDefinition>();
+			string id<#= entity.Name #> = "";
+			if (this.Request.RequestContext.RouteData.Values["id"] != null){
+				id<#= entity.Name #> = SFSdotNet.Framework.Entities.Utils.GetPropertyKey(this.Request.RequestContext.RouteData.Values["id"].ToString().Replace("-","/"), "<#= entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey).Name #>");
+			}
+				
+			 bool conditionalshow =false;
+                if (uiModel.ContextType == UIModelContextTypes.EditForm || uiModel.ContextType == UIModelContextTypes.DisplayForm ||  uiModel.ContextType == UIModelContextTypes.GenericForm )
+                    conditionalshow = true;
+<#+ 		bool 	isvisible =true;
+			bool ismany =false;
+			string link;
+			foreach(var item in entity.Properties.Where(p=>IsVisibleProperty(p) && p.IsPrimaryKey == false && p.Name != "IsDeleted" && p.Visible && p.VisibleInGrid && !p.Type.ToLower().Contains("xml") && !p.Type.ToLower().Contains("captcha")).OrderBy(p=>p.Order)) { 
+					string visibilityCondition = "";
+						if (!string.IsNullOrEmpty((string)GetCustomProperty(item, "UIVisibilityCondition", "String"))){
+							visibilityCondition =(string)GetCustomProperty(item, "UIVisibilityCondition", "String");
+						}
+				link ="";
+				if (item.Type== "String" && item.MaxLength ==0)
+					isvisible = false;
+				else
+					isvisible=true;
+				if(isvisible){
+					string propertyNameSort = item.Name;
+					string pathName ="";
+					if (item.IsNavigationProperty)  {
+					
+						var navprop = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName== item.Name);
+						var entityRelName = navprop.EntityType.Split(char.Parse("."))[navprop.EntityType.Split(char.Parse(".")).Length -1];
+						var entityRel = entity.Model.Entities.Find(p=>p.Name == entityRelName);
+						if (!string.IsNullOrEmpty(entityRel.DefaultProperty))
+							propertyNameSort = entityRel.DefaultProperty;
+						else
+							propertyNameSort = entityRel.Properties[0].Name;
+						propertyNameSort = item.Name + "." + propertyNameSort;
+						pathName= entityRel.SetName;
+					
+						if (item.IsNavigationPropertyMany){
+							ismany = true;
+							var relNav = entityRel.NavigationProperties.Where(p=>p.RelationshipName == item.NavigationProperty.RelationshipName).FirstOrDefault();
+							
+							var relPropertyName = relNav.PropertyName;
+							var propertyKey = entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey);
+							string propertyKeyName = "";
+							if (propertyKey != null)
+								propertyKeyName = propertyKey.Name;
+										System.Text.StringBuilder sbParams = new System.Text.StringBuilder();
+					
+							string startFilter = "";
+							// many to many direct
+							if (relNav.Multiplicity == "*")
+							{
+								startFilter =  relPropertyName + ".Any( " + propertyKeyName + @" = "" + id" + entity.Name +  @" +"") = True&isManyToMany=True";
+							}else{
+								startFilter =  relPropertyName + "." + propertyKeyName + @"="" + id" + entity.Name + @" +""";
+							}
+							
+							bool pal = (bool)GetCustomProperty(item, "UIExcludeSearch", "Boolean");
+							sbParams.Append(string.Format("pal={0}&", pal.ToString()));
+							bool es= (bool)GetCustomProperty(item, "UIPreventAutoLoad", "Boolean");
+							sbParams.Append(string.Format("es={0}&", es.ToString()));
+							int pag=20;				
+							if ((int?)GetCustomProperty(item, "UIPaging", "Int?") != null){
+								pag =(int)GetCustomProperty(item, "UIPaging", "Int?");
+							}
+							sbParams.Append(string.Format("pag={0}&", pag.ToString()));
+					
+							link = @"VirtualPathUtility.ToAbsolute(""~/"") + """ + entity.Model.SafeNamespace + @"/" + entityRel.SetName +"/ListViewGen?" + sbParams.ToString() +"idTab=" + item.Name +"&fk=" + relPropertyName + "&startFilter=" + startFilter + @"&fkValue="" + id" + entity.Name ;
+						
+							
+						}else{
+							link="";
+							ismany =false;
+						}
+
+					}
+				#>
+<#+ if(!string.IsNullOrEmpty(visibilityCondition))  { #>
+	if (conditionalshow && uiModel.Items[0].<#= visibilityCondition #>)
+    {
+<#+ } #>
+				results.Add(new PropertyDefinition()
+                {
+<#+ 	if (item.IsNavigationPropertyMany) { #>				
+					Link = <#= link #>,
+<#+ 	} #>				
+		//			CustomProperties = customProperties,
+                    PropertyName = "<#= item.Name #>",
+                    SortBy = "<#= propertyNameSort #>",
+<#+ if (!string.IsNullOrEmpty((string)GetCustomProperty(item, "UIListFooter", "String"))){ #>
+					Sum = true,
+<#+ } #>					
+                    TypeName = "<#= item.Type #>",
+                    IsNavigationProperty = <#= item.IsNavigationProperty.ToString().ToLower() #>,
+					IsNavigationPropertyMany = <#= item.IsNavigationPropertyMany.ToString().ToLower() #>,
+                    PathName = "<#= entity.Model.SafeNamespace #>/<#= pathName #>",
+                    PropertyDisplayName = Resources.<#= entity.Name #>Resources.<#= item.Name == "Culture" ? (item.Name + "_").ToUpper() :  item.Name.ToUpper() #>
+                });
+<#+ if(!string.IsNullOrEmpty(visibilityCondition))  { #>
+	}
+<#+ } #>					
+<#+ 			}
+		} #>					
+                
+				return results;
+            }
+
+	}
+}
+<#+
+}
+#>

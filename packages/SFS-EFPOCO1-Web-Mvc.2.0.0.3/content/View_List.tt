@@ -1,0 +1,697 @@
+﻿<#@ output  extension="txt" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core.dll" #>
+
+<#@ import namespace="SFSdotNet.VSAddin2012.Model" #>
+<#@ import namespace="SFSdotNet.VSAddin2012.Model.Utils" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Linq" #>
+// <Template>
+//   <SolutionTemplate></SolutionTemplate>
+//   <Version>20110316.1</Version>
+//   <Update></Update>
+// </Template>
+
+<#+ void GenerateList(EntityInfo entity)
+{
+	try{
+#>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>" %>
+<%@ Import Namespace="<#= entity.Model.Namespace #>.Web.Mvc.Resources" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+	<%: ((UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>)ViewData["uiModel"]).TitleForm %>
+
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<div id="breadcrumb">
+
+</div>
+<div class="<%=Config.GetValue("parentformclass").ToString() %> alpha omega" >
+<div class="spacebottom spacetop">
+
+
+    <% Html.RenderPartial("ListViewGen"); %>
+    </div>
+</div>
+</asp:Content>
+<asp:Content ID="Content5" ContentPlaceHolderID="CustomScript" runat="server">
+ <%= Html.HeaderResources("popup") %>
+
+<%= Html.HeaderResources("simplelist") %>
+<%= Html.HeaderResources("pagination") %>
+<%= Html.HeaderResources("datepicker") %>
+<%= Html.HeaderResources("form") %>
+
+<#+ if ((bool)GetCustomProperty(entity, "UIHeaderInclude", "Boolean")){
+#>
+<% Html.RenderPartialIfExist("Header<#= entity.Name #>", Model); %>
+
+<#+	}
+#>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="LeftContent" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="RightContent" runat="server">
+</asp:Content>
+
+<#+
+		}catch(Exception ex){
+			throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+		}
+}
+#>
+
+<#+ void GenerateListView(EntityInfo entity)
+{
+	try{
+		
+	int UIGridFormColumns = 16;
+	int UILabelColumns =6;
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIGridFormColumns", "String"))) {
+		UIGridFormColumns =int.Parse((string)GetCustomProperty(entity.Model, "UIGridFormColumns", "String"));
+	}
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UILabelColumns", "String"))) {
+		UILabelColumns =int.Parse((string)GetCustomProperty(entity.Model, "UILabelColumns", "String"));
+	}
+	
+	int UIGridMaxColumns =1;
+		if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIGridMaxColumns", "String"))){
+		UIGridMaxColumns = int.Parse((string)GetCustomProperty(entity.Model, "UIGridMaxColumns", "String"));
+			
+		if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")){
+			//
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "UIGridMaxColumns", "String")))
+				UIGridMaxColumns = int.Parse((string)GetCustomProperty(entity, "UIGridMaxColumns", "String"));
+			
+		}
+	}
+#>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<List<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>>" %>
+<%  string idTab = "";
+ 	UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model> uiModel = (UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>)ViewData["uiModel"];
+    SFSdotNet.Framework.Web.Mvc.Models.Features.HelpModel help = new SFSdotNet.Framework.Web.Mvc.Models.Features.HelpModel("<#= entity.Model.SafeNamespace #>", "<#= entity.Name #>"); 
+ 	help.ActionKey ="rl";
+
+    if (!string.IsNullOrEmpty(Request.QueryString["idTab"]))
+        idTab = Request.QueryString["idTab"];
+      bool preventPp = false;
+    if (!string.IsNullOrEmpty(Request.QueryString["preventPp"]))
+        preventPp = true;
+   %>
+<% if (!string.IsNullOrEmpty(Request.QueryString["fk"])) { %>     
+<#+ if ((bool)GetCustomProperty(entity, "UIHeaderInclude", "Boolean")){
+#>
+		<% Html.RenderPartialIfExist("Header<#= entity.Name #>", Model); %>
+
+<#+	}
+#><%  } %>
+<script>
+        function onUpdateListData<%: idTab %>() {
+            refreshList<%: idTab %>();
+<%   if (!string.IsNullOrEmpty(Request.QueryString["onChangeData"])) { %>
+            if (typeof(<%= Request.QueryString["onChangeData"]%>) != 'undefined'){
+                window['<%= Request.QueryString["onChangeData"]%>']();
+            }
+<%   } %>            
+        }
+
+</script>
+<%  string container = "";
+    if (!string.IsNullOrEmpty(Request.QueryString["popup"])) { 
+        container = "container_16";
+    } %>
+
+		<div class="form col1 list <%=container%>">
+ 		<div class="grid_11 alpha">
+		
+		<h2><%: uiModel.TitleForm  %> <% Html.RenderPartial("Help", help.GetForForm(uiModel.UseMode, uiModel.TitleForm)); %></h2>			
+		        </div>
+        <%  if (uiModel.Links.Count() > 0)
+            {
+             %>
+        <div class="grid_5 omega" style=" text-align:right;">
+         <a href="#" id="links<%=idTab %>" class="showdown"> <img border="0" src="<%=ResolveUrl("~/") %>Content/icons/world_link.png" /> <%=uiModel.LinksTitle %></a>
+        <ul id="sub_links<%: idTab%>" class="jeegoocontext cm_default">
+          <%    foreach (var link in uiModel.Links)
+                { %>
+           <li class="icon"><a href="<%=link.Url%>" style=" display: block; margin:0px;" ><img src="<%= ResolveUrl("~/") %>Content/icons/bullet_go.png" border="0" /> &nbsp;&nbsp; <%=link.Title %></a></li>
+        <%      }
+             %>
+             </ul>
+        </div>
+        <script>
+     $(document).ready(function () {
+      
+        $("#links<%=idTab %>").jeegoocontext('sub_links<%: idTab%>', {
+            //event.preventDefault();
+           
+             livequery: true,
+             widthOverflowOffset: 0,
+             heightOverflowOffset: 1,
+             
+             submenuLeftOffset: -4,
+             submenuTopOffset: -2,
+             event: 'click',
+             openBelowContext: true,
+              onShowEnd: function(e, context, startLeft, startTop){
+           
+                  <% if (!string.IsNullOrEmpty(Request.QueryString["popup"])) { %>
+           
+                $("#sub_links<%: idTab%>").css("top", (e.pageY - $(window).scrollTop()) + "px");
+                $("#sub_links<%: idTab%>").css('position','fixed');
+            
+            <%} %>
+               }
+
+         });
+
+       
+
+     });
+       
+ </script>  
+        <% } %>
+        <div class="clear"></div>
+		<% 
+			bool es = false;
+			if (!string.IsNullOrEmpty(Request.QueryString["es"])) { 
+				es = Convert.ToBoolean(Request.QueryString["es"]);
+			}
+			if (!es) {%>
+			<div class="line"></div>
+			  
+            <div class="li focushl">
+				<div class="spacetop spacebottom">
+				<div class="grid_2 alpha desc"><label for=""><%= GlobalMessages.SEARCH_BY %></label></div>
+ 				
+				<div class="<%=Config.GetValue("valueclass").ToString() %> omega editor-field"><input type="text" id="searchText<%=idTab %>" class="field text search"/> <a href="javascript: function() { $('#searchForm<%=idTab %>').submit(); }" ><img src="<%=ResolveUrl("~/")%>Content/search_min.png" border="0" /></a>
+				<div id="filter<%: ViewData["idTab"] %>">
+				<%   ViewData["idTab"] = idTab;
+                            ViewData["entityKey"] = "<#= entity.SetName #>.<#= entity.Name #>";
+				 			ViewData["controller"] = "<#= entity.SetName #>";
+							ViewData["moduleNS"] = "<#= Model.Namespace#>";
+							ViewData["moduleKey"] = "<#= Model.SafeNamespace #>";
+                           Html.RenderPartial("AdvancedSearch", ViewData); %>   
+                </div>
+				</div>
+				<div class="clear"></div>
+
+				</div>
+	        </div>
+           
+            <script>
+                $('#searchText<%=idTab %>')
+                .listenForEnter()
+                .bind('pressedEnter', function () {
+                    searchText<%=idTab %> = $("#searchText<%=idTab %>").val();
+                    refreshList<%=idTab %>();
+                });
+
+            </script>
+<%        }%>
+             <div class="buttons">
+				<% 
+			    	string iconadd = "details.png";
+					string iconaddcss = "details";
+                    if (preventPp){
+                        iconadd = "details_go.png";
+						iconaddcss ="details_go";
+                    }
+			  	string fromFk ="";
+		        if (ViewData["fk"] != null)
+                    fromFk = ViewData["fk"].ToString();
+				
+					 string fkValue = "";
+                if (ViewData["fkValue"] != null)
+                    fkValue = ViewData["fkValue"].ToString();
+		        		    		    		    
+				string detailsActionName = "DetailsGen";
+		        if (!string.IsNullOrEmpty(fromFk) && !preventPp)
+                	detailsActionName = "DetailsViewGen";
+
+				System.Text.StringBuilder  filter = new StringBuilder();
+                if (ViewData["startFilter"] != null)
+                    filter.Append(ViewData["startFilter"].ToString());
+				   
+				bool  manyToMany = false;
+                string propReturn = Request.QueryString["propReturn"];
+                string dialogId = Request.QueryString["dialogId"];
+                if (!string.IsNullOrEmpty(Request.QueryString["isManyToMany"])) {
+                    manyToMany = bool.Parse(Request.QueryString["isManyToMany"]);
+                }
+				System.Text.StringBuilder extraParams = new System.Text.StringBuilder();
+				if (!string.IsNullOrEmpty(Request.QueryString["usemode"])){
+					extraParams.Append("usemode=" + Request.QueryString["usemode"]);
+				}
+				 if (preventPp)
+                {
+                    extraParams.Append("ReturnAfter=" + HttpUtility.UrlEncode( Request.QueryString["ReturnAfter"]));
+                }
+			if (uiModel.CanAction("add")){
+				if (ViewData["detpop"] != null)
+                {
+					
+                    	
+                        if (!manyToMany)
+                        {	
+							 if (!preventPp)
+                            	Html.RenderPartial("ButtonLink", ButtonLinkModel.GetForPopUp(GlobalMessages.ADD, 2, "add", ResolveUrl("~/") + "<#= entity.Model.SafeNamespace #>/<#= entity.SetName #>/CreateViewGen?" + extraParams.ToString() + "&popup=1&fk=" + fromFk + "&fkValue=" + fkValue, "onUpdateListData" + idTab));
+							 else
+                                Html.RenderPartial("ButtonLink", ButtonLinkModel.GetCustom(GlobalMessages.ADD, 2, "add", ResolveUrl("~/") + "<#= entity.Model.SafeNamespace #>/<#= entity.SetName #>/CreateGen?" + extraParams.ToString() + "&fk=" + fromFk + "&fkValue=" + fkValue ));
+                              
+                        }
+                        else
+                        {
+                           
+                            Html.RenderPartial("ButtonLink", ButtonLinkModel.GetCustomScript(GlobalMessages.ADD, 2, "add", "addForManyToMany();"));
+                        }
+                    
+				}
+               else
+               {
+            		Html.RenderPartial("ButtonLink", ButtonLinkModel.GetCustom(GlobalMessages.ADD, 2, "add", ResolveUrl("~/") + "<#= entity.Model.SafeNamespace #>/<#= entity.SetName #>/CreateGen?" + extraParams.ToString() +"")); 
+                  
+               } 
+			}	
+			%>			
+           	</div>
+<#+ 
+	List<PropertyInfo> _propManys = new List<PropertyInfo>();
+	foreach (var item in entity.Properties.Where(p=>p.IsNavigationPropertyMany)) { 
+		if ( item.Type.Substring(item.Type.LastIndexOf(".") + 1) != entity.Name){
+			var navprop = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName == item.Name);
+			var entityRelName = navprop.EntityType.Substring(navprop.EntityType.LastIndexOf(".") + 1);
+			var entityRel = entity.Model.Entities.Find(p=>p.Name == entityRelName);
+			var relNav = entityRel.NavigationProperties.Where(p=>p.RelationshipName == item.NavigationProperty.RelationshipName).FirstOrDefault();
+			if(relNav.Multiplicity == "*"){ // muchos a muchos
+				_propManys.Add(navprop.Property);
+	 		}
+		
+		}
+	}#>
+			
+<#+ if (_propManys.Count > 0) { #> 
+<% if (manyToMany )
+       {
+           
+           string propertyName = "manyToMany";
+           %>
+           <div id="lookUp<%= propertyName %>"></div>
+       	<script type="text/javascript">
+       	    var <%: propertyName %> = null;
+            function updateRelationsDone(data) {
+                refreshList<%=idTab %>();
+                $.unblockUI();
+            }
+       	    function addForManyToMany() {
+       	        //ResolveUrl("~/") + "<#= Model.SafeNamespace #>/<#= entity.SetName #>/ListViewGen?popup=1&fk=" + ViewData["fk"].ToString() + "&fkValue=" + ViewData["fkValue"].ToString() + "&isLookUp=true&forSelect=1&propReturn=itemsSelectedForMany&dialogId=" + dialogId,
+       	         $('#lookUp<%= propertyName %>').dialog({ close: function (event, ui) {
+            $("#lookUp<%= propertyName %>").dialog("destroy");
+            $("#lookUp<%= propertyName %>").empty();
+            if (<%= propertyName %> != null ){
+               _blockUI();
+               callServerGetHtml("<%= ResolveUrl("~/") %><#= Model.SafeNamespace #>/<#= entity.SetName #>/AddRelation?objectKey="+ <%: propertyName %>.SafeKey + "&relationship=<%=fromFk %>&relationshipValue=<%=fkValue%>", updateRelationsDone);
+
+            }
+        }, autoOpen: false, modal: true, open: function (event, ui) {
+<% 
+	string startFilter = filter.ToString();
+
+%>			
+            $.ajax({ url: '<%= ResolveUrl("~/") %><#= Model.SafeNamespace #>/<#= entity.SetName #>/ListViewGen?idTab=many&popup=1&fk=<%:ViewData["fk"].ToString() %>&fkValue=<%: ViewData["fkValue"].ToString() %>&startFilter=<%= startFilter.Replace("True", "False") %>&isLookUp=true&forSelect=1&propReturn=<%= propertyName %>&dialogId=lookUp<%= propertyName %>',
+                success: function (data) {
+                    $("#lookUp<%= propertyName %>").html(data);
+                    $("#lookUp<%= propertyName %>").dialog('option', 'position', 'center');
+
+                },
+                dataType: 'html', cache: false
+            });
+
+        }, height: 'auto', width: 'auto', title: '----------------'
+        });
+$("#lookUp<%= propertyName %>").dialog("open");
+       	    }
+           </script>
+
+    <%
+       } %>
+<#+ } #>	
+<!-- Plantillas -->
+<script id="<#= entity.SetName #>_FootTemplate" type="text/x-jquery-tmpl">
+<#+ if ((bool)GetCustomProperty(entity, "UICustomList", "Boolean")){ #>
+	<% Html.RenderPartialIfExist("ListFooterTemplate<#= entity.Name #>", Model); %>
+<#+ }else{ #>
+<tr>
+<th></th>
+<%
+	foreach(var item in uiModel.Properties.Where(p=> !p.IsNavigationPropertyMany)){ 
+		if	(item.Sum) {%>
+		<th>{{=<%= item.PropertyName %>Text}}</th>
+<%		}else{%>
+	<th></th>
+<%		}%>
+		
+<%	}%>
+</tr>
+<#+ 
+} #>	
+</script>	
+<script id="<#= entity.Name #>Template" type="text/html">
+<#+ bool isvisible =true;
+	if ((bool)GetCustomProperty(entity, "UICustomList", "Boolean")){ #>
+	<% Html.RenderPartialIfExist("ListTemplate<#= entity.Name #>", Model); %>
+<#+ }else{ 
+	System.Text.StringBuilder keysForTemplate = new System.Text.StringBuilder(); 
+	foreach (PropertyInfo propertyKey in entity.Properties.Where(p=>p.IsPrimaryKey)){
+		// iteramos toda la llave compuesta para ponerla en la plantilla
+		if (keysForTemplate.Length > 0)
+			keysForTemplate.Append("|");
+		keysForTemplate.Append("{{=" +propertyKey.Name + "}}");
+	
+	}
+	#>
+<tr id="tr{{=$ctx.getSafeKeyId(SafeKey)}}" class="trRow<%=idTab %>" key="<#= keysForTemplate.ToString() #>" safeKey="{{=SafeKey}}" >
+   <td class="select"><input type="checkbox"  name="<%=idTab %>sel_<#= keysForTemplate.ToString() #>" list="list<%=idTab %>" class="select" id="<%=idTab %>sel_<#= keysForTemplate.ToString() #>" value="<#= keysForTemplate.ToString() #>"/></td>
+
+<%  string propText = "";
+    foreach(var item in uiModel.Properties.Where(p=>!p.IsNavigationPropertyMany)) {
+        if (!item.IsNavigationProperty){
+	
+			if (item.IsImage) { %>
+                <td><img src="<%=ResolveUrl("~/")%>image.ashx?controller=<#= entity.SetName #>&ns=<#= Model.Namespace #>&idc=<%=item.FileIdField%>&datac=<%=item.FileDataField%>&typec=<%=item.FileTypeField%>&sizec=<%=item.FileSizeField%>&filenamec=<%=item.FileNameField%>&id={{=GuidFile}}&filename={{=FileName}}&model=<#= entity.SetName #>.<#= entity.Name #>Model&type={{=FileType}}&w=100&h=100"></td>
+    <%
+            }else{
+            if (item.TypeName.ToString().ToLower().Contains("int") || item.TypeName.ToString().ToLower().Contains("datetime") || item.TypeName.ToString().ToLower().Contains("timespan") || item.TypeName.ToString().ToLower().Contains("decimal") || item.TypeName.ToString().ToLower().Contains("float")){
+                propText = item.PropertyName + "Text";
+            }else{
+                propText = item.PropertyName;
+            }
+ %>	
+                    {{#if <%=propText %>}}
+								<td>{{=<%=propText %>}}</td>
+   
+					{{else}}
+                    <td></td>
+                    {{/if}}        				
+ <%     
+			}			
+		}else{ 
+                propText = "Fk" +item.PropertyName + "Text";
+        %>
+                				            {{#if <%=propText %>}}
+								            <td><a href="<%=ResolveUrl("~/")%><%=item.PathName %>/DetailsGen/{{=FK<%=item.PropertyName %>SafeKey}}" >{{=Fk<%=item.PropertyName %>Text}}</a></td>
+   
+					            {{else}}
+                                <td></td>
+                                {{/if}}
+
+			 
+<%        } 
+ 
+    }%>
+
+<td width="16"><a href="javascript:void(0)" class="actionrow"><img border="0" src="<%=ResolveUrl("~/") %>Content/icons/actiondown.png" /></a></td>
+<%if (!string.IsNullOrEmpty(fromFk) && !preventPp) { %>	                
+    <td width="16"><a class="list-details" href="<%=ResolveUrl("~/") %><#= entity.Model.SafeNamespace #>/<#= entity.SetName #>/<%: detailsActionName %>/{{=SafeKey}}?popup=1&fk=<%: fromFk %>&fkValue=<%: fkValue %>&onSuccess=onUpdateListData<%=idTab %>&usemode=<%: Request.QueryString["usemode"]%>"><img src="<%=ResolveUrl("~/") %>Content/<%=iconadd%>" border="0" /></a></td>
+<%  }else{ 
+		string extra2 = "";
+		if (preventPp){
+			extra2 = "&fk=" + fromFk + "&fkValue=" + fkValue ;
+		}
+%>
+	<td width="16"><a class="list-details" href="<%=ResolveUrl("~/") %><#= entity.Model.SafeNamespace #>/<#= entity.SetName #>/<%: detailsActionName %>/{{=SafeKey}}?usemode=<%: Request.QueryString["usemode"]%><%=extra2%>"><img src="<%=ResolveUrl("~/") %>Content/<%=iconadd%>" border="0" /></a></td>
+
+<% } %>		
+</tr>
+	        	
+<#+ } #>
+</script>
+			<script type="text/javascript">
+    function pageselectCallback<%=idTab %>(page_index, jq) {
+         $("#resultsAll<%=idTab   %>").css("position", "relative");
+        $("#resultsAll<%=idTab   %>").block({overlayCSS:  {backgroundColor: 'transparent'},baseZ:2000, message: '<h1><img alt="" src="<%=ResolveUrl("~/") %>Content/ajax-loader.gif" /> <%: GlobalMessages.PROCESSING_PLEASE_WAIT  %></h1>',  css: { border: '3px solid #a00' } });	
+        var orderBy = "";
+        var orderDir = ""
+        opt = getOptionsFromForm<%=idTab %>();
+		var staticFilter<%=idTab %> = '<%= Url.Encode(filter.ToString()) %>';
+        var sepFF<%=idTab %> = "";
+        if (staticFilter<%=idTab %>.length > 0 && queryB<%=idTab %>.length > 0)
+            sepFF<%=idTab %> = " AND ";
+
+ 		getResults<%=idTab %>(queryB<%=idTab %> + sepFF<%=idTab %> +staticFilter<%=idTab %> +'|'+ searchText<%=idTab %>, page_index + 1, opt["items_per_page"], opt["orderBy"], opt["orderDir"]);
+		return false;
+    }
+<#+ if (!entity.IsCustom && !string.IsNullOrEmpty((string)GetCustomProperty(entity, "UIListFooter", "String"))) {#>
+		
+	 function ShowSummaryFooterList<%=idTab %>() {
+        callServerGet("<%= ResolveUrl("~/") %><#= entity.Model.SafeNamespace #>/<#= entity.SetName #>/GetSummaryOperation?operation=sum&filter=" + queryB<%=idTab %> + '<%: filter.ToString() %>|'+ searchText<%=idTab %>, getFooters<%=idTab %>Done);
+    
+    }
+<#+	} #>
+    function getFooters<%=idTab %>Done(data) {
+        $('#foot<%=idTab %>').empty();       
+         var html =  $('#<#= entity.SetName #>_FootTemplate').render(data);
+		$('#foot<%=idTab %>').html(html);
+    }
+    function listResults<%=idTab %>(data) {
+         var newcontent = '';
+		$("#results<%=idTab %>").html("<span id='realn<%=idTab %>'>" + _totalResults + "</span> <%: GlobalMessages.RESULTS %> (<span id='seln<%=idTab %>'>0</span>&nbsp;<%: GlobalMessages.SELECTED_S %>)");
+		if (data.length > 0) {
+            $("#tableSearchresult<%=idTab %>").show();
+            $("#noresults<%=idTab %>").hide();
+            $(".pagination<%=idTab %>").show();
+			
+			if (data != null) {
+ 				$('#Searchresult<%=idTab %>').empty();
+                var html = $('#<#= entity.Name #>Template').render(data);
+				$('#Searchresult<%=idTab %>').html(html);
+				
+				SetSelectableChecks('<%=idTab %>');
+<%  if (!string.IsNullOrEmpty(Request.QueryString["isLookUp"]))  {%>
+                readyForSelectFromLookUp();
+<%} %>
+				var optionsVertical = {
+				openBelowContext: true,
+				event: 'click',
+				submenuLeftOffset: -1,
+				startLeftOffset: 171,
+				startTopOffset: -28,
+				heightOverflowOffset: 10,
+				fadeIn: 0,
+				autoHide: true
+				};
+            	$('.actionrow').jeegoocontext('ListAction<%:idTab %>', optionsVertical);
+        		$('.trRow<%:idTab %>').jeegoocontext('ListAction<%:idTab %>', {
+					widthOverflowOffset: 0,
+					heightOverflowOffset: 3,
+					submenuLeftOffset: -4,
+					submenuTopOffset: -5,
+					onSelect: function(e, context){
+						if ($(this).hasClass("delete")){
+							deleteAction(e, context,false, '<%:idTab %>');
+						}else if ($(this).hasClass("details")){
+							detailsAction(e, context, '<%:idTab %>');
+						}else if ($(this).hasClass("customAction")){
+								CustomAction($(this)[0], '<%=ResolveUrl("~/") %>Messages/Confirm','<%:idTab %>','');
+						}
+					}
+        		});
+
+ 
+			}
+       	 	//$('#Searchresult<%=idTab %>').html(newcontent);
+        	refreshForms();
+			listPopupDelete();
+        <% if (!string.IsNullOrEmpty(fromFk)  && !preventPp){ %>
+            listPopupDetails<%=idTab %>();
+    	<%} %>
+	 
+
+       
+  
+       
+          var optionsHorizontalSel = {
+			openBelowContext: true,
+			event: 'click',
+			ignoreHeightOverflow: true,
+			submenuLeftOffset: -1,
+			startTopOffset: -1,
+			fadeIn: 0,
+			autoHide: true
+    		}; 
+			$('#selectAllX<%: ViewData["idTab"] %>').jeegoocontext('sub_menu_select<%: ViewData["idTab"] %>', optionsHorizontalSel);
+			$(".trRow<%=idTab %>").click(
+				function (e) {
+					if(e.target.tagName != "A" && e.target.tagName != "INPUT" && e.target.tagName != "IMG"){
+						var check = $($(e.target).parents("TR").children()[0]).children()[0];
+						if (check.type == "checkbox" && $(check).hasClass("select")){
+							check.click();
+							return false;
+						}
+						
+						}
+					}
+			);
+			updateSelected(allSelected<%=idTab %>, selectRows<%=idTab %>, "<%=idTab %>");
+          	$("#resultsAll<%=idTab %>").unblock( {onUnblock: function(){ $("#resultsAll<%=idTab %>").css("position", "inherit"); }}); 
+            
+    
+        	return false;
+		}else{
+             $("#tableSearchresult<%=idTab %>").hide();
+            $("#noresults<%=idTab %>").show();
+            $(".pagination<%=idTab %>").hide();
+	  		$("#resultsAll<%=idTab %>").unblock( {onUnblock: function(){ $("#resultsAll<%=idTab %>").css("position", "inherit"); }}); 
+        
+			return false;
+        }
+
+    }	
+</script>
+	<%
+        string extraproxy = "";
+        if (manyToMany)
+            extraproxy = "&manyToMany=True&extraParams=relationship:" + fromFk + "|relationshipValue:" + fkValue ;
+  		Html.RenderPartial("PopupView", new SFSdotNet.Framework.Web.Mvc.Models.PopupModel() { FunctionName = "listPopupDelete", OnCloseFunction = "onUpdateListData" + idTab, TargetClassName = "list-delete", ProxyId = "deleteProxy" + idTab, StartUrl = ResolveUrl("~/") + "Messages/Delete?areaName=<#= Model.SafeNamespace #>&controllerName=<#= entityPluralName #>&actionName=DeleteGen" + extraproxy }); %>
+
+<% if (!string.IsNullOrEmpty(fromFk) && !preventPp){ %>	
+	<% Html.RenderPartial("PopupView", new SFSdotNet.Framework.Web.Mvc.Models.PopupModel() { FunctionName = "listPopupDetails" + idTab, OnCloseFunction = "onUpdateListData" + idTab, TargetClassName = "list-details" }); %>
+<%} %>
+<% int pageSize = 20;
+    if (!string.IsNullOrEmpty(Request.QueryString["pag"])) {
+        pageSize =Convert.ToInt32(Request.QueryString["pag"]);
+    }
+    SFSdotNet.Framework.Web.Mvc.Models.SimplePagedListModel model = new SFSdotNet.Framework.Web.Mvc.Models.SimplePagedListModel();
+    model.JsonUrlGetData = ResolveUrl("~/") + "<#= entity.Model.SafeNamespace #>/<#= entityPluralName #>/" + uiModel.PrincipalActionName;
+    model.UrlGetCount = ResolveUrl("~/") + "<#= entity.Model.SafeNamespace #>/<#= entityPluralName #>/GetByCount";
+    model.PageSize = pageSize;
+	model.Filter = filter.ToString();
+	model.IdTab =idTab;
+	model.SortBy = uiModel.SortBy ;
+    model.SortDirection = uiModel.SortDirection.ToString().ToLower();
+    Html.RenderPartial("SimplePagedList", model); %>
+<div id="results<%=idTab %>"></div>
+<div id="resultsAll<%=idTab %>">
+<div id="listContainer" class="ListContainer">
+<table class="simple-list nowrap-table"  id="tableSearchresult<%=idTab %>" style=" display:none">
+<thead>
+<#+ if ((bool)GetCustomProperty(entity, "UICustomList", "Boolean")){ #>
+	<% Html.RenderPartialIfExist("ListHeader<#= entity.Name #>", Model); %>
+<#+ }else{ #>
+<tr class="headers">
+<td nowrap="nowrap" class="select" style=" clear:both;">
+<% Html.RenderPartial("SelectCheckBoxesView"); %>
+</td>
+
+<% foreach (var item in uiModel.Properties.Where(p=>!p.IsNavigationPropertyMany))
+   {
+       if (!item.IsNavigationProperty)
+       {%>
+<td><a href="#" onclick="SortBy<%=idTab %>('<%=item.SortBy %>', this)"><%: item.PropertyDisplayName%></a></td>
+<%      }
+       else
+       { %>       
+            <%
+	%>
+
+<td><a href="#" onclick="SortBy<%=idTab %>('<%:item.SortBy %>', this)"><%: item.PropertyDisplayName  %></a></td>
+           
+
+<%      } 
+    } %>
+<td></td>
+<td></td>
+</tr>
+<#+ } #>
+</thead>
+<tbody id="Searchresult<%=idTab %>">
+<#+ if ((bool)GetCustomProperty(entity, "UICustomList", "Boolean")){ #>
+	<% Html.RenderPartialIfExist("ListBody<#= entity.Name #>", Model); %>
+
+<#+ }else{ #>
+
+<tr >
+<td colspan="5">
+
+</td>
+</tr>
+<#+ } #>
+</tbody>
+<tfoot id="foot<%=idTab %>">
+
+</tfoot>
+</table>
+</div>
+<div id="pagination<%=idTab %>" style=" display:none"  class="pagination pagination<%=idTab %>"></div>
+
+<div class="noResults" id="noresults<%=idTab %>">
+<p><%: GlobalMessages.NO_RESULTS  %></p>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+
+<table border="0" class="listactions">
+<tr>
+<td valign=top ><% Html.RenderPartial("ExportView"); %> </td>
+<td valign=top>
+<ul >
+    <li><a href="javascript: void(0);" onclick="deleteAction(this, null,true, '<%:idTab %>');" id="lnkdelmany" class="onlysel" actionKey="deletemany"> <img src="<%= ResolveUrl("~/") %>Content/icons/delete.png" />  <%: GlobalMessages.DELETE %> (<span id='selnd<%=idTab %>'></span>)</a></li>
+</ul>
+<p></p>
+</td>
+<td><% Html.RenderPartial("CustomActionsView"); %></td>
+</tr>
+</table>
+
+<ul id="ListAction<%:idTab %>" class="jeegoocontext cm_default">
+    <li class="icon <%=iconaddcss%></li>"> <span class="icon <%=iconaddcss%>"></span> <%:GlobalMessages.DETAILS %></li>
+     <li class="icon delete"> <span class="icon delete"></span> <%:GlobalMessages.DELETE %></li>
+     <li class="separator"></li>
+<% 
+    if (uiModel != null )
+    {
+        foreach (var action in uiModel.Actions.Where(p=>p.SelectionMin == "1"))
+        {%>        
+            
+        <li id="liaction<%: action.ActionKey %>" class="icon customAction" actionKey="<%: action.ActionKey %>"><span class="icon action"></span><%: action.Title  %></li>
+
+<%      }
+    }%>
+</ul>
+<% if ((!string.IsNullOrEmpty(Request.QueryString["isLookUp"]) && !string.IsNullOrEmpty(Request.QueryString["propReturn"]))  || manyToMany)
+   { %>
+<script type="text/javascript">
+    function readyForSelectFromLookUp() {
+        $("input.select").click(
+                function () {
+                    callServerGet('<%=ResolveUrl("~/")%><#= entity.Model.SafeNamespace #>/<#= entityPluralName #>/GetByKeyJson/' + $(this).parents("tr").attr("safeKey"), selectFromLookUpDome);
+                }
+            );
+        }
+        function selectFromLookUpDome(data) {
+               window['<%:propReturn %>'] = data;
+            $('#<%= dialogId%>').dialog("close");
+        }
+</script>
+<%} %>
+
+
+<%     string extraParamsDel = "";
+		if (manyToMany) {
+			extraParamsDel += "&ExtraParams=relationship:" + fromFk + "|relationshipValue:" + fkValue ;
+		}
+
+		Html.RenderPartial("PopupView", new SFSdotNet.Framework.Web.Mvc.Models.PopupModel() { FunctionName = "actionDeleteMany" + idTab, OnCloseFunction = "onUpdateListData" + idTab, ProxyId = "deleteProxyMany" + idTab, Message = GlobalMessages.CONFIRM_DELETE_MANY_QUESTION, StartUrl = ResolveUrl("~/") + "Messages/Confirm?areaName=<#= Model.SafeNamespace #>&controllerName=<#= entityPluralName #>&actionName=CustomActionExecute"  + extraParamsDel  }); %>
+
+<#+
+	}catch(Exception ex){
+		throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+	}
+}
+#>
+

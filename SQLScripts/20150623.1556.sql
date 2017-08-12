@@ -1,0 +1,1 @@
+ALTER TABLE dbo.secWFActivity DROP COLUMN GuidCompany;

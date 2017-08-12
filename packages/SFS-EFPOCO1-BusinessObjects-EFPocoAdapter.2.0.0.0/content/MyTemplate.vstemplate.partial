@@ -1,0 +1,10 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+ <WizardExtension>
+    <Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+    <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
+  </WizardExtension>
+  <WizardData>
+    <packages repository="extension" repositoryId="9004e80d-04b4-48a3-aa29-f4f9569c44a5">
+      <package id="SFS-EFPOCO1-BusinessObjects-PocoAdapter" version="2.0.0.0" targetFramework="net45" />
+    </packages>
+  </WizardExtension>

@@ -1,0 +1,1 @@
+ALTER TABLE acc.accCompanyAreas ADD CustomCode VARCHAR(100) NULL;

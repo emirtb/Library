@@ -1,0 +1,2944 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SFSdotNet.Framework</name>
+    </assembly>
+    <members>
+        <member name="M:SFSdotNet.Framework.BR.ServiceBase.HandleException(System.Exception)">
+            <summary>
+            Maneja la excepción de acuerdo al contexto de donde ocurre
+            </summary>
+            <param name="ex">Excepción a manejar</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.BR.ServiceBase.NewException(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="extraInfo"></param>
+        </member>
+        <member name="T:SFSdotNet.Framework.BR.App_LocalResources.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.BR.App_LocalResources.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.BR.App_LocalResources.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.BR.App_LocalResources.Resources.ERROR_GENERAL_BR">
+            <summary>
+              Looks up a localized string similar to Error general en las reglas de negocio.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.BusinessObjects.Resources.GlobalMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.BusinessObjects.Resources.GlobalMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.BusinessObjects.Resources.GlobalMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.BusinessObjects.Resources.GlobalMessages.ErrorMessage">
+            <summary>
+              Looks up a localized string similar to Ha habido un error en el sistema, por favor contáctanos para poder ayudarte con esta operación..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.BusinessObjects.Resources.GlobalMessages.ErrorTitle">
+            <summary>
+              Looks up a localized string similar to Error del sistema.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.BusinessObjects.Resources.GlobalMessages.OkTitle">
+            <summary>
+              Looks up a localized string similar to Hecho.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Configuration.ConfigurationSettings.GetConnectionString(System.String,System.String)">
+            <summary>
+            Obtiene el connection string del Appication module
+            </summary>
+            <param name="connectionString"></param>
+            <param name="applicationModule">Nombre del Application module (Ex. 'MyCompany.MyModule1')</param>
+            <returns>ConnectionString</returns>
+        </member>
+        <member name="P:SFSdotNet.Framework.Context.Application.ApplicationType">
+            <summary>
+            Tipo de aplicación en que se esta ejecutando el actual contexto
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Context.ApplicationTypes">
+            <summary>
+            Tipos de aplicación soportadas por el contexto
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.DAFacade.App_LocalResources.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.DAFacade.App_LocalResources.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.DAFacade.App_LocalResources.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.DAFacade.App_LocalResources.Resources.ENTITY_IS_NOT_RECYCLABLE">
+            <summary>
+              Looks up a localized string similar to La entidad de la tabla {0} no es reciclable.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.DAFacade.App_LocalResources.Resources.ERROR_GENERAL_DA">
+            <summary>
+              Looks up a localized string similar to Error general en el acceso a datos.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.DAFacade.App_LocalResources.Resources.ITEM_NOT_FOUND">
+            <summary>
+              Looks up a localized string similar to Registro no encontrado.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Validation.Check">
+             <summary>
+             Design By Contract Checks.
+             
+             Each method generates an exception or
+             a trace assertion statement if the contract is broken.
+             </summary>
+             <remarks>
+             This example shows how to call the Require method.
+             <code>
+             public void Test(int x)
+             {
+             	try
+             	{
+            			Check.Require(x > 1, "x must be > 1");
+            		}
+            		catch (System.Exception ex)
+            		{
+            			Console.WriteLine(ex.ToString());
+            		}
+            	}
+             </code>
+            
+             You can direct output to a Trace listener. For example, you could insert
+             <code>
+             Trace.Listeners.Clear();
+             Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
+             </code>
+             
+             or direct output to a file or the Event Log.
+             
+             (Note: For ASP.NET clients use the Listeners collection
+             of the Debug, not the Trace, object and, for a Release build, only exception-handling
+             is possible.)
+             </remarks>
+             
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Require(System.Boolean,System.String)">
+            <summary>
+            Precondition check - should run regardless of preprocessor directives.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Require(System.Boolean,System.String,System.Exception)">
+            <summary>
+            Precondition check - should run regardless of preprocessor directives.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Require(System.Boolean)">
+            <summary>
+            Precondition check - should run regardless of preprocessor directives.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Ensure(System.Boolean,System.String)">
+            <summary>
+            Postcondition check.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Ensure(System.Boolean,System.String,System.Exception)">
+            <summary>
+            Postcondition check.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Ensure(System.Boolean)">
+            <summary>
+            Postcondition check.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Invariant(System.Boolean,System.String)">
+            <summary>
+            Invariant check.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Invariant(System.Boolean,System.String,System.Exception)">
+            <summary>
+            Invariant check.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Invariant(System.Boolean)">
+            <summary>
+            Invariant check.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Assert(System.Boolean,System.String)">
+            <summary>
+            Assertion check.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Assert(System.Boolean,System.String,System.Exception)">
+            <summary>
+            Assertion check.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.Check.Assert(System.Boolean)">
+            <summary>
+            Assertion check.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Validation.Check.UseAssertions">
+            <summary>
+            Set this if you wish to use Trace Assert statements 
+            instead of exception handling. 
+            (The Check class uses exception handling by default.)
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Validation.Check.UseExceptions">
+            <summary>
+            Is exception handling being used?
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Validation.DesignByContractException">
+            <summary>
+            Exception raised when a contract is broken.
+            Catch this exception type if you wish to differentiate between 
+            any DesignByContract exception and other runtime exceptions.
+             
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Validation.PreconditionException">
+            <summary>
+            Exception raised when a precondition fails.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.PreconditionException.#ctor">
+            <summary>
+            Precondition Exception.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.PreconditionException.#ctor(System.String)">
+            <summary>
+            Precondition Exception.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.PreconditionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Precondition Exception.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Validation.PostconditionException">
+            <summary>
+            Exception raised when a postcondition fails.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.PostconditionException.#ctor">
+            <summary>
+            Postcondition Exception.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.PostconditionException.#ctor(System.String)">
+            <summary>
+            Postcondition Exception.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.PostconditionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Postcondition Exception.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Validation.InvariantException">
+            <summary>
+            Exception raised when an invariant fails.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.InvariantException.#ctor">
+            <summary>
+            Invariant Exception.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.InvariantException.#ctor(System.String)">
+            <summary>
+            Invariant Exception.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.InvariantException.#ctor(System.String,System.Exception)">
+            <summary>
+            Invariant Exception.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Validation.AssertionException">
+            <summary>
+            Exception raised when an assertion fails.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.AssertionException.#ctor">
+            <summary>
+            Assertion Exception.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.AssertionException.#ctor(System.String)">
+            <summary>
+            Assertion Exception.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Validation.AssertionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Assertion Exception.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Entities.App_LocalResources.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Entities.App_LocalResources.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Entities.App_LocalResources.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Entities.App_LocalResources.Resources.ENTITY_NOT_IS_RECYCLABLE">
+            <summary>
+              Looks up a localized string similar to La entidad no es reciclable.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Base.EntityInfoBase.PrepareForExample">
+            <summary>
+            Habilita las propiedades para hacer una búsqueda a partir de este objeto.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Entities.Base.EntityInfoBase.UseUniqueKey">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Entities.Base.Strings_Validation">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Entities.Base.Strings_Validation.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Entities.Base.Strings_Validation.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Entities.Base.Strings_Validation.REQUIRED_FIELD">
+            <summary>
+              Looks up a localized string similar to The {0} is required.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Metadata.LocalizableDataColumnAttribute.#ctor(System.String)">
+            <summary>
+            Permite establecer el nombre del objeto o del miembro mediante un texto fijo
+            </summary>
+            <param name="displayName">Nombre del objeto o miembro</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Metadata.LocalizableDataTableAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Permite establecer el nombre del objeto o del miembro mediante un texto fijo
+            </summary>
+            <param name="displayName">Nombre del objeto o miembro</param>
+        </member>
+        <member name="T:SFSdotNet.Framework.Entities.Metadata.MyDisplayNameAttribute">
+            <summary>
+            Permite establecer el nombre de una entidad de negocio o un miembro
+            <example></example>
+            <code>
+            public class Person_MD{
+            ...
+            [MyDisplayName("First name")]
+            public object FirstName{ get; set; }
+            ...
+            }
+            </code>
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Metadata.MyDisplayNameAttribute.#ctor(System.String)">
+            <summary>
+            Permite establecer el nombre del objeto o del miembro mediante un texto fijo
+            </summary>
+            <param name="displayName">Nombre del objeto o miembro</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Metadata.MyDisplayNameAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Permite establecer el nombre de un objeto o un miembro por medio de un recurso localizado
+            </summary>
+            <param name="resourceType">Tipo del recurso localizable</param>
+            <param name="resourceKey">Nombre del identificador en el recurso</param>
+        </member>
+        <member name="P:SFSdotNet.Framework.Entities.Metadata.MyDisplayNameAttribute.DisplayName">
+            <summary>
+            Nombre del objeto o miembro
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Entities.Metadata.MyDisplayPluralNameAttribute">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Metadata.MyDisplayPluralNameAttribute.#ctor(System.String)">
+            <summary>
+            Permite establecer el nombre del objeto o del miembro mediante un texto fijo
+            </summary>
+            <param name="displayName">Nombre del objeto o miembro</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Metadata.MyDisplayPluralNameAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Permite establecer el nombre de un objeto o un miembro por medio de un recurso localizado
+            </summary>
+            <param name="resourceType">Tipo del recurso localizable</param>
+            <param name="resourceKey">Nombre del identificador en el recurso</param>
+        </member>
+        <member name="P:SFSdotNet.Framework.Entities.Metadata.MyDisplayPluralNameAttribute.DisplayText">
+            <summary>
+            Nombre del objeto o miembro
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Entities.Metadata.MyDisplayDescriptionAttribute">
+            <summary>
+            Especifica la descripción de un objeto o miembro a través de atributos
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Metadata.MyDisplayDescriptionAttribute.#ctor(System.String)">
+            <summary>
+            Especifica la descripción fija de un objeto o un miembro
+            </summary>
+            <param name="displayDescription">Descripción del elemento</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Metadata.MyDisplayDescriptionAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Especifica la descripción basada en un recurso localizable de un objeto o un miembro
+            </summary>
+            <param name="resourceType">Recurso que contiene el campo localizado</param>
+            <param name="property">Nombre del campo</param>
+        </member>
+        <member name="P:SFSdotNet.Framework.Entities.Metadata.MyDisplayDescriptionAttribute.DisplayDescription">
+            <summary>
+            Descripción del elemento
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Entities.IUISearcherFilter">
+            <summary>
+            Pantalla de creación del filtro
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Utils.GetPropertyKey(System.String,System.String)">
+            <summary>
+            Get one property value fron string key of the entity (ex. property:value;)
+            </summary>
+            <param name="entity"></param>
+            <param name="key">string key (ex. property:value;)</param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Entities.Utils.IsNew(System.Boolean,System.Object[])">
+            <summary>
+            Verifica que el conjunto de propiedades no hayan sido establecidas, si no lo fueron se trata de un objeto nuevo
+            </summary>
+            <param name="values">propiedades que representan la llave de la entidad</param>
+            <returns>Regresa verdadero si considera que las propiedades no fueron establecidas</returns>
+        </member>
+        <member name="T:SFSdotNet.Framework.Globals.Messages">
+            <summary>
+            Esta clase provee algunos de los mensages genéricos más comunes para mostrarlos al usuario, y en todos los casos permite uno o dos parámetros dentro de la cadena
+            <remarks>{0} = Propiedad, {1} = Entidad </remarks>
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Globals.Messages.RequiredField">
+            <summary>
+            El campo '{0}' es requerido
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Globals.Messages.RangeOut">
+            <summary>
+            El valor de '{0}' está fuera del rango válido
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Globals.Messages.ErrorFormat">
+            <summary>
+            El formato de '{0}' no es el correcto
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Globals.Entities.GetPropertyKey(System.String,System.String)">
+            <summary>
+            Get one property value fron string key of the entity (ex. property:value;)
+            </summary>
+            <param name="entity"></param>
+            <param name="key">string key (ex. property:value;)</param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SFSdotNet.Framework.Data.Entity.ObjectContextExtension">
+            <summary>
+            Extension methods on ObjectContext.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectContextExtension.AttachObjectGraph``1(System.Data.Objects.ObjectContext,``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+            <summary>
+            Attaches an entire objectgraph to the context.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectContextExtension.AttachObjectGraphs``1(System.Data.Objects.ObjectContext,System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+            <summary>
+            Attaches multiple entire objectgraphs to the context.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectContextExtension.AddOrAttachInstance(System.Data.Objects.ObjectContext,System.Object,System.Boolean)">
+            <summary>
+            Adds or attaches the entity to the context. If the entity has an EntityKey,
+            the entity is attached, otherwise a clone of it is added.
+            </summary>
+            <returns>The attached entity.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectContextExtension.DetachObjectGraph``1(System.Data.Objects.ObjectContext,``0)">
+            <summary>
+            Detaches an objectgraph given it's root object.
+            </summary>
+            <returns>The detached root object.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectContextExtension.GetEntitySetName(System.Data.Objects.ObjectContext,System.Type)">
+            <summary>
+            Returns the EntitySetName for the given entity type.
+            Courtesy of SCIP.be.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectContextExtension.ReferenceOnly(System.Data.Objects.DataClasses.IEntityWithKey)">
+            <summary>
+            Marker method to indicate this section of the path expression
+            should not be loaded but only referenced.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectContextExtension.WithoutUpdate(System.Data.Objects.DataClasses.IEntityWithKey)">
+            <summary>
+            Marker method to indicate the instances the method is called on
+            within path expressions should not be updated.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectContextExtension.NavigatePropertySet(System.Data.Objects.ObjectContext,SFSdotNet.Framework.Data.TreeNode{SFSdotNet.Framework.Data.Entity.ExtendedPropertyInfo},System.Object,System.Object)">
+            <summary>
+            Navigates a property path on detached instance to translate into attached instance.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectContextExtension.GetShallowEntityClone(System.Object)">
+            <summary>
+            Returns a shallow clone of only the scalar properties.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectContextExtension.SyncList(System.Object,System.Collections.Generic.List{System.Object},System.Collections.Generic.List{System.Object}@)">
+            <summary>
+            Synchronises a targetlist with a sourcelist by adding or removing items from the targetlist.
+            The targetlist is untyped and controlled through reflection.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Data.Entity.ObjectQueryExtension">
+            <summary>
+            Extension methods on ObjectQuery.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.ObjectQueryExtension.Include``1(System.Data.Objects.ObjectQuery{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>
+            Specifies the related objects to include in the query results using
+            a lambda expression listing the path members.
+            </summary>
+            <returns>A new System.Data.Objects.ObjectQuery&lt;T&gt; with the defined query path.</returns>
+        </member>
+        <member name="T:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyAttribute">
+            <summary>
+            Declares a property for optimistic concurrency.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyAttribute.#ctor(System.String,System.Type)">
+            <summary>
+            Declares the optimistic concurrency attribute and its resolvertype.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyAttribute.HasPropertyChanged(System.Data.Objects.ObjectContext,System.Object)">
+            <summary>
+            Whether the optimistic concurrency property has changed on the given instance.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyAttribute.UpdateInstance(System.Object)">
+            <summary>
+            Updates the concurrency property on the given instance.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyAttribute.GetConcurrencyAttributes(System.Type)">
+            <summary>
+            Retrieves the OptimisticConcurrencyAttributes decorating the given entity type.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyAttribute.PropertyName">
+            <summary>
+            Name of the concurrency property.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyAttribute.ConcurrencyResolverType">
+            <summary>
+            Concurrency property value resolver type.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Data.Entity.IConcurrencyResolver`1">
+            <summary>
+            Concurrency Resolver definition.
+            </summary>
+            <typeparam name="T">Type of the optimistic concurrency property</typeparam>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.IConcurrencyResolver`1.NextValue(`0)">
+            <summary>
+            Provide the next value of the optimistic locking field, given
+            it's actual value.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Data.Entity.LocalDateTimeConcurrencyResolver">
+            <summary>
+            A ConcurrencyResolver for DateTime? properties containing LocalDateTime
+            of last change.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Data.Entity.UniversalDateTimeConcurrencyResolver">
+            <summary>
+            A ConcurrencyResolver for DateTime? properties containing UniversalDateTime
+            of last change.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Data.Entity.VersionNumberConcurrencyResolver">
+            <summary>
+            A ConcurrencyResolver for Int64 properties containing a sequence number
+            of last change.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyManager">
+            <summary>
+            An Entity Framework addition to manage optimistic
+            concurrency using OptimisticConcurrencyAttributes.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyManager.#ctor(System.Data.Objects.ObjectContext)">
+            <summary>
+            Instantiates a new OptimisticConcurrencyManager for the
+            given ObjectContext.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyManager.Dispose">
+            <summary>
+            Disposes the OptimisticConcurrencyManager, releasing it
+            from the ObjectContext.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.Entity.OptimisticConcurrencyManager.WhenSavingChanges(System.Object,System.EventArgs)">
+            <summary>
+            Triggered when the attached ObjectContext saves changes.
+            Changes optimistic concurrency attribute values.
+            </summary>
+        </member>
+        <member name="T:Arebis.Reflection.ReflectionExtensions">
+            <summary>
+            Extension methods using reflection.
+            </summary>
+        </member>
+        <member name="M:Arebis.Reflection.ReflectionExtensions.PublicInvokeMethod(System.Object,System.String,System.Object[])">
+            <summary>
+            Invokes a public method by reflection.
+            </summary>
+        </member>
+        <member name="M:Arebis.Reflection.ReflectionExtensions.PublicGetProperty(System.Object,System.String)">
+            <summary>
+            Gets a public property by reflection.
+            </summary>
+        </member>
+        <member name="M:Arebis.Reflection.ReflectionExtensions.PublicSetProperty(System.Object,System.String,System.Object)">
+            <summary>
+            Sets a public property by reflection.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Data.TreeNode`1">
+            <summary>
+            Represents a node in a tree structure and helps
+            constructing and navigating trees based on paths.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.TreeNode`1.#ctor(`0)">
+            <summary>
+            Constructs the root node of a tree.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.TreeNode`1.#ctor(SFSdotNet.Framework.Data.TreeNode{`0},`0)">
+            <summary>
+            Constructs a node in a tree.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.TreeNode`1.AddPath(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds a path of items to the current node, extending
+            the tree if needed.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Data.TreeNode`1.Item">
+            <summary>
+            The item held by the node.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Data.TreeNode`1.Parent">
+            <summary>
+            The parent node. Null for the root node.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Data.TreeNode`1.Children">
+            <summary>
+            The children nodes of the current node.
+            </summary>
+        </member>
+        <member name="T:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40">
+            <Summary>
+            The type contains views for EntitySets and AssociationSets that were generated at design time.
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.#ctor">
+            <Summary>
+            The constructor stores the views for the extents and also the hash values generated based on the metadata and mapping closure and views.
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetViewAt(System.Int32)">
+            <Summary>
+            The method returns the view for the index given.
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView0">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.myAudit
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView1">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.myAuditProperties
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView2">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.myAudits
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView3">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.myAuditProperties
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView4">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_myAuditProperties_myAudit
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView5">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.myConfiguration
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView6">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.myConfigurations
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView7">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.myContentBusinessObjects
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView8">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.myContentMenus
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView9">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.myContentRelations
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView10">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.MyContents
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView11">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.myContentType
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView12">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.myContentBusinessObjects
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView13">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.myContentMenus
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView14">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.myContentRelations
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView15">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.MyContents
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView16">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.myContentTypes
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView17">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_myContentMenus_MyContents
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView18">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_myContentRelations_MyContents
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView19">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_myContentRelations_MyContents1
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView20">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_MyContents_myContentType1
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView21">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.myEventLog
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView22">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.myEventLogs
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView23">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.MyFilterQueries
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView24">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.MyFilterQueries
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView25">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.MyGeoCities
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView26">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.MyGeoCountries
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView27">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.MyGeoStates
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView28">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.MyProfile
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView29">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.MyGeoCities
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView30">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.MyGeoCountries
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView31">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.MyGeoStates
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView32">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.MyProfiles
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView33">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_MyGeoCities_MyGeoStates
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView34">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_MyProfile_MyGeoCities
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView35">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_MyProfile_MyGeoCities1
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView36">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_MyGeoStates_MyGeoCountries
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView37">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_MyProfile_MyGeoCountries
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView38">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_MyProfile_MyGeoCountries1
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView39">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_MyProfile_MyGeoStates
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView40">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.FK_MyProfile_MyGeoStates1
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView41">
+            <Summary>
+            return view for SFSdotNetFrameworkMyModelStoreContainer.myOptions
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets03B7BFE2FF725587018054AF820DE61F00ACBAAF0BC1DE79FD9F7391E0F27A40.GetView42">
+            <Summary>
+            return view for SFSdotNetFrameworkMyContext.myOptions
+            </Summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.secBusinessObjectsBR.AddIfNotExist(System.String,System.String)">
+            <summary>
+            Agrega un objeto de negocio si este mo existe en la base de datos
+            </summary>
+            <param name="moduleKey"></param>
+            <param name="businessObjectKey"></param>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.BR.SinglentonContext.RenewInstance">
+            <summary>
+            Re-new the singlenton instance
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:SFSdotNet.Framework.My.BR.SinglentonContext.NewInstance">
+            <summary>
+            Get a new instance
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.BusinessObjects.EF4.SelfTrackingEntitiesContextExtensions.ApplyChanges``1(System.Data.Objects.ObjectSet{``0},``0)">
+            <summary>
+            ApplyChanges takes the changes in a connected set of entities and applies them to an ObjectContext.
+            </summary>
+            <typeparam name="TEntity">Expected type of the ObjectSet</typeparam>
+            <param name="objectSet">The ObjectSet referencing the ObjectContext to which changes will be applied.</param>
+            <param name="entity">The entity serving as the entry point of the object graph that contains changes.</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.BusinessObjects.EF4.SelfTrackingEntitiesContextExtensions.ApplyChanges``1(System.Data.Objects.ObjectContext,System.String,``0)">
+            <summary>
+            ApplyChanges takes the changes in a connected set of entities and applies them to an ObjectContext.
+            </summary>
+            <typeparam name="TEntity">Expected type of the EntitySet</typeparam>
+            <param name="context">The ObjectContext to which changes will be applied.</param>
+            <param name="entitySetName">The EntitySet name of the entity.</param>
+            <param name="entity">The entity serving as the entry point of the object graph that contains changes.</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.CurrentContextInfo.BuildCompanies">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.My.CurrentContextInfo.Permission">
+            <summary>
+            This utility allow share acces to permission engine
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.EventLog.Exception(System.Exception)">
+            <summary>
+            Registra una excepción no manejada
+            </summary>
+            <param name="ex"></param>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.EventLog.Error(System.Exception)">
+            <summary>
+            Registra una excepción de reglas de negocio
+            </summary>
+            <param name="ex">Excepción</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.EventLog.Error(System.String)">
+            <summary>
+            Registra un error de regla de negocio
+            </summary>
+            <param name="message">Mensaje de error</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.EventLog.Warning(System.String)">
+            <summary>
+            Registra un evento de advertencia 
+            </summary>
+            <param name="message">Mensaje de error</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.EventLog.Action(SFSdotNet.Framework.My.EventLog.Actions,System.String)">
+            <summary>
+            Registra una acción básica como Add, Remove, Update
+            </summary>
+            <param name="action">Acción</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.EventLog.Action(System.String)">
+            <summary>
+            Registra una acción personalizada
+            </summary>
+            <param name="action">Acción</param>
+        </member>
+        <member name="T:SFSdotNet.Framework.My.EventLog.Actions">
+            <summary>
+            Tipos de acción
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.My.EventLog.Actions.Add">
+            <summary>
+            Agregar
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.My.EventLog.Actions.Remove">
+            <summary>
+            Eliminar
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.My.EventLog.Actions.Update">
+            <summary>
+            Actualizar
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:SFSdotNet.Framework.Linq.EntityHelperUtil" -->
+        <!-- Badly formed XML comment ignored for member "M:SFSdotNet.Framework.Linq.EntityHelperUtil.AddObjectOrAttach(System.Data.Objects.ObjectContext,System.String,System.Data.Objects.DataClasses.EntityObject)" -->
+        <!-- Badly formed XML comment ignored for member "M:SFSdotNet.Framework.Linq.EntityHelperUtil.AddObject(System.Data.Objects.ObjectContext,System.String,System.Data.Objects.DataClasses.IEntityWithRelationships)" -->
+        <!-- Badly formed XML comment ignored for member "M:SFSdotNet.Framework.Linq.EntityHelperUtil.Attach(System.Data.Objects.ObjectContext,System.Data.Objects.DataClasses.EntityObject)" -->
+        <!-- Badly formed XML comment ignored for member "M:SFSdotNet.Framework.Linq.EntityHelperUtil.AddRelationships(System.Data.Objects.ObjectContext,System.Collections.Generic.List{SFSdotNet.Framework.Linq.EntityHelperUtil.RelationsShipMapping})" -->
+        <!-- Badly formed XML comment ignored for member "M:SFSdotNet.Framework.Linq.EntityHelperUtil.RemoveRelationships(System.Collections.Generic.List{SFSdotNet.Framework.Linq.EntityHelperUtil.RelationsShipMapping},System.Data.Objects.DataClasses.IEntityWithRelationships,System.Int32)" -->
+        <!-- Badly formed XML comment ignored for member "T:SFSdotNet.Framework.Linq.EntityHelperUtil.RelationsShipMapping" -->
+        <member name="M:SFSdotNet.Framework.Linq.Extensions.Localizable``1(System.Data.Objects.ObjectSet{``0})">
+            <summary>
+            Marca una entidad de consulta en el contexto como candidata a la transformación si es que cuenta con una tabla de localización de columnas
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="objectSet"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SFSdotNet.Framework.Linq.LocalizableDataStructure">
+            <summary>
+            Representa las características de localización de un elemento
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Linq.IContextLocalizable">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Linq.LocalizableData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Linq.LocalizableData.GetLocalizedProcedure(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Create the procedure for update or insert the localizable table
+            </summary>
+            <param name="tableLang">Complete name of the localizable table (with schema name)</param>
+            <param name="columnNames">Columns to update</param>
+            <param name="values">Values to update</param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Linq.LocalizableData.GetLocalizedCommandQueryText(System.String)">
+            <summary>
+            Returns the localized query
+            </summary>
+            <param name="commandText">command text</param>
+            <returns>new command text with localized elements</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Linq.LocalizableData.ReplaceColumns(System.String,System.String,System.String,SFSdotNet.Framework.Linq.LocalizableDataStructure,System.String@,System.String@)">
+            <summary>
+            Replace the column names in the select sentence for localization
+            </summary>
+            <param name="select">select sentence</param>
+            <param name="where">where shetence</param>
+            <param name="alias">table alias on the query</param>
+            <param name="table">localizableItem table </param>
+            <param name="newSelect">select sentence returned</param>
+            <param name="newWhere">new where sentence returned</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Linq.LocalizableData.ReplaceKeys(System.Text.StringBuilder,System.String,SFSdotNet.Framework.Linq.LocalizableDataStructure)">
+            <summary>
+            Replace the keys on the from clause with the localizable names
+            </summary>
+            <param name="sbFrom">String builder with the from clause</param>
+            <param name="alias">Alias from the table in the linq generated query</param>
+            <param name="table">Object localizableItem table</param>
+        </member>
+        <member name="P:SFSdotNet.Framework.Linq.LocalizableData.LocalizableItems">
+            <summary>
+            Valores de localizacion: Nombre de tabla auxiliar, nombres de columnas
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Linq.ContextQueryBuilder.ApplyContextQuery(SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            Aplica al query las opciones de paginación y ordenamiento que contiene el objeto contextRequest
+            </summary>
+            <param name="query">query inicializado previamente, de preferencia debe contener ya el Where</param>
+            <param name="contextRequest">Opciones de paginación y otras</param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Linq.ContextQueryBuilder`1.ApplyContextQuery(System.Linq.IQueryable{`0},SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            Aplica al query las opciones de paginación y ordenamiento que contiene el objeto contextRequest
+            </summary>
+            <param name="query">query inicializado previamente, de preferencia debe contener ya el Where</param>
+            <param name="contextRequest">Opciones de paginación y otras</param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Globals.Security.EncryptString(System.String)">
+            <summary>
+            Encripta un string
+            </summary>
+            <param name="originalString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Globals.Security.DecryptString(System.String)">
+            <summary>
+            Desencripta el string encriptado con EncryptString
+            </summary>
+            <param name="cryptedString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Globals.Security.IsAllowed(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="customAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Globals.Security.IsAllowed(System.String,System.String)">
+            <summary>
+            Its the best method for obtain the permission result
+            </summary>
+            <param name="moduleKey"></param>
+            <param name="customAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.Custom.InstanceClass`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="!:Disposable"/> class.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.Custom.InstanceClass`1.Finalize">
+            <summary>
+            Releases unmanaged resources and performs other cleanup operations before the
+            <see cref="!:Disposable"/> is reclaimed by garbage collection.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.Custom.InstanceClass`1.Dispose">
+            <summary>
+            Releases unmanaged and - optionally - managed resources
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.Custom.InstanceClass`1.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.Custom.InstanceClass`1.CheckDisposed">
+            <summary>
+               <para>
+                   Checks if the instance has been disposed of, and if it has, throws an <see cref="T:System.ObjectDisposedException"/>; otherwise, does nothing.
+               </para>
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">
+               The instance has been disposed of.
+               </exception>
+               <remarks>
+               <para>
+                   Derived classes should call this method at the start of all methods and properties that should not be accessed after a call to <see cref="M:SFSdotNet.Framework.Security.BR.Custom.InstanceClass`1.Dispose"/>.
+               </para>
+            </remarks>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.BR.Custom.InstanceClass`1.IsDisposed">
+            <summary>
+            Gets a value indicating whether this instance is disposed.
+            </summary>
+            <value>
+                <c>true</c> if this instance is disposed; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="E:SFSdotNet.Framework.Security.BR.Custom.InstanceClass`1.Disposed">
+            <summary>
+            Occurs when this instance is disposed.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.BR.LocalResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.BR.LocalResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.BR.LocalResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.BR.LocalResources.EMAIL_VERIFICATION_SUBJECT">
+            <summary>
+              Looks up a localized string similar to Verificación de correo electrónico.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.BR.Resources.AccountMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.BR.Resources.AccountMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.BR.Resources.AccountMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.BR.Resources.AccountMessages.PASSWORD_REMEMBER">
+            <summary>
+              Looks up a localized string similar to Recordatorio de contraseña.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.secRolesBR.CanDeleteRole(SFSdotNet.Framework.Security.BusinessObjects.secRole)">
+            <summary>
+            Identifica si se puede eliminar un rol (true) o no (false)
+            </summary>
+            <param name="rol">Rol a eliminar</param>
+            <returns>Bandera que identifica si se puede (true) o no (false) borrar un rol</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.secRolesBR.GetRoleModulePermissions(System.Guid,System.Guid)">
+            <summary>
+            Gets all the permissions for a role, as allowed and denied
+            </summary>
+            <param name="idRole"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.SinglentonContext.RenewInstance">
+            <summary>
+            Re-new the singlenton instance
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.BR.SinglentonContext.NewInstance">
+            <summary>
+            Get a new instance
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.secUsersBR.ValidateLoginProvider(System.Guid,System.Guid,System.Boolean)">
+            <summary>
+            Verifica la propiedad de un proveedor de autentificación tercero
+            </summary>
+            <param name="keyRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.secUsersBR.CanRegisterUser(SFSdotNet.Framework.Security.BusinessObjects.secUser,SFSdotNet.Framework.Security.BusinessObjects.secUser_LoginProviders,System.String@)">
+            <summary>
+            Verifica si es posible registrar un usuario como NUEVO
+            </summary>
+            <param name="user"></param>
+            <param name="userProvider"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.secUsersBR.OnCreating(System.Object,SFSdotNet.Framework.BR.BusinessRulesEventArgs{SFSdotNet.Framework.Security.BusinessObjects.secUser})">
+            <summary>
+            Antes de que se cree el registro
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.secUsersBR.OnCreated(System.Object,SFSdotNet.Framework.BR.BusinessRulesEventArgs{SFSdotNet.Framework.Security.BusinessObjects.secUser})">
+            <summary>
+            Cuando el registro ya ha sido creado
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BR.secUsersBR.GetUserFromOtherProviders(SFSdotNet.Framework.Security.BusinessObjects.secUser,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Obtiene el registro de login tercero del repositorio si es que ya existe.
+            </summary>
+            <param name="identifier"></param>
+            <param name="email"></param>
+            <param name="providerName"></param>
+            <param name="username"></param>
+            <param name="displayName"></param>
+            <param name="urlProfile"></param>
+            <returns>devuelve nulo solamente si no encuentra relación con una cuenta en el catálogo de usuarios</returns>
+        </member>
+        <member name="T:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E">
+            <Summary>
+            The type contains views for EntitySets and AssociationSets that were generated at design time.
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.#ctor">
+            <Summary>
+            The constructor stores the views for the extents and also the hash values generated based on the metadata and mapping closure and views.
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetViewAt(System.Int32)">
+            <Summary>
+            The method returns the view for the index given.
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView0">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secBusinessObject
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView1">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secCompanies
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView2">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secCompanyExtraData
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView3">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secCompanyType
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView4">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secDataColumn
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView5">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secLoginProviders
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView6">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secMenuForms
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView7">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secModule
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView8">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secModuleObjectPermission
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView9">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secMoneyMovements
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView10">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secMoneyMovementTypes
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView11">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secPaymentMethods
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView12">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secPermission
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView13">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secRoleDataPermission
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView14">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secRoleModuleObjectPermission
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView15">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secRoleModulePermissions
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView16">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secRoles
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView17">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secUser_LoginProviders
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView18">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secUserPayments
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView19">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secUsers
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView20">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secCompanyModules
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView21">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secCompanyRoles
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView22">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secModulePermissions
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView23">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secUserCompanies
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView24">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secUserRoles
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView25">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secBusinessObjects
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView26">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secCompanies
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView27">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secCompanyExtraDatas
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView28">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secCompanyTypes
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView29">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secDataColumns
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView30">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secLoginProviders
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView31">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secMenuForms
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView32">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secModules
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView33">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secModuleObjectPermissions
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView34">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secMoneyMovements
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView35">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secMoneyMovementTypes
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView36">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secPaymentMethods
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView37">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secPermissions
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView38">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secRoleDataPermissions
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView39">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secRoleModuleObjectPermissions
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView40">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secRoleModulePermissions
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView41">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secRoles
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView42">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secUser_LoginProviders
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView43">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secUserPayments
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView44">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secUsers
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView45">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secCompanyModules
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView46">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secCompanyRoles
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView47">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secModulePermissions
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView48">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secUserCompanies
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView49">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secUserRoles
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView50">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityModelStoreContainer.secMoneyPayments
+            </Summary>
+        </member>
+        <member name="M:Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsD4CD17EAB52EEAF0CAA8073D76609751251216C1822631EC4501E4FB97BF978E.GetView51">
+            <Summary>
+            return view for SFSdotNetFrameworkSecurityContext.secMoneyPayments
+            </Summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BusinessObjects.EF4.SelfTrackingEntitiesContextExtensions.ApplyChanges``1(System.Data.Objects.ObjectSet{``0},``0)">
+            <summary>
+            ApplyChanges takes the changes in a connected set of entities and applies them to an ObjectContext.
+            </summary>
+            <typeparam name="TEntity">Expected type of the ObjectSet</typeparam>
+            <param name="objectSet">The ObjectSet referencing the ObjectContext to which changes will be applied.</param>
+            <param name="entity">The entity serving as the entry point of the object graph that contains changes.</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.BusinessObjects.EF4.SelfTrackingEntitiesContextExtensions.ApplyChanges``1(System.Data.Objects.ObjectContext,System.String,``0)">
+            <summary>
+            ApplyChanges takes the changes in a connected set of entities and applies them to an ObjectContext.
+            </summary>
+            <typeparam name="TEntity">Expected type of the EntitySet</typeparam>
+            <param name="context">The ObjectContext to which changes will be applied.</param>
+            <param name="entitySetName">The EntitySet name of the entity.</param>
+            <param name="entity">The entity serving as the entry point of the object graph that contains changes.</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Security.SiteMapBuilder.AddModuleIfNotExist(System.String,System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="pathModule"></param>
+            <param name="parentIdModule"></param>
+            <returns>Devuelve el id del módulo agregado</returns>
+        </member>
+        <member name="T:SFSdotNet.Framework.Utilities.SerializedFormat">
+            <summary>
+            Serialization format types.
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Utilities.SerializedFormat.Binary">
+            <summary>
+            Binary serialization format.
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Utilities.SerializedFormat.Document">
+            <summary>
+            Document serialization format.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Load(System.String)">
+            <summary>
+            Loads an object from an XML file in Document format.
+            </summary>
+            <example>
+            <code>
+            serializableObject = ObjectXMLSerializer&lt;SerializableObject&gt;.Load(@"C:\XMLObjects.xml");
+            </code>
+            </example>
+            <param name="path">Path of the file to load the object from.</param>
+            <returns>Object loaded from an XML file in Document format.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Load(System.String,SFSdotNet.Framework.Utilities.SerializedFormat)">
+            <summary>
+            Loads an object from an XML file using a specified serialized format.
+            </summary>
+            <example>
+            <code>
+            serializableObject = ObjectXMLSerializer&lt;SerializableObject&gt;.Load(@"C:\XMLObjects.xml", SerializedFormat.Binary);
+            </code>
+            </example>		
+            <param name="path">Path of the file to load the object from.</param>
+            <param name="serializedFormat">XML serialized format used to load the object.</param>
+            <returns>Object loaded from an XML file using the specified serialized format.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Load(System.String,System.Type[])">
+            <summary>
+            Loads an object from an XML file in Document format, supplying extra data types to enable deserialization of custom types within the object.
+            </summary>
+            <example>
+            <code>
+            serializableObject = ObjectXMLSerializer&lt;SerializableObject&gt;.Load(@"C:\XMLObjects.xml", new Type[] { typeof(MyCustomType) });
+            </code>
+            </example>
+            <param name="path">Path of the file to load the object from.</param>
+            <param name="extraTypes">Extra data types to enable deserialization of custom types within the object.</param>
+            <returns>Object loaded from an XML file in Document format.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Load(System.String,System.IO.IsolatedStorage.IsolatedStorageFile)">
+            <summary>
+            Loads an object from an XML file in Document format, located in a specified isolated storage area.
+            </summary>
+            <example>
+            <code>
+            serializableObject = ObjectXMLSerializer&lt;SerializableObject&gt;.Load("XMLObjects.xml", IsolatedStorageFile.GetUserStoreForAssembly());
+            </code>
+            </example>
+            <param name="fileName">Name of the file in the isolated storage area to load the object from.</param>
+            <param name="isolatedStorageDirectory">Isolated storage area directory containing the XML file to load the object from.</param>
+            <returns>Object loaded from an XML file in Document format located in a specified isolated storage area.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Load(System.String,System.IO.IsolatedStorage.IsolatedStorageFile,SFSdotNet.Framework.Utilities.SerializedFormat)">
+            <summary>
+            Loads an object from an XML file located in a specified isolated storage area, using a specified serialized format.
+            </summary>
+            <example>
+            <code>
+            serializableObject = ObjectXMLSerializer&lt;SerializableObject&gt;.Load("XMLObjects.xml", IsolatedStorageFile.GetUserStoreForAssembly(), SerializedFormat.Binary);
+            </code>
+            </example>		
+            <param name="fileName">Name of the file in the isolated storage area to load the object from.</param>
+            <param name="isolatedStorageDirectory">Isolated storage area directory containing the XML file to load the object from.</param>
+            <param name="serializedFormat">XML serialized format used to load the object.</param>        
+            <returns>Object loaded from an XML file located in a specified isolated storage area, using a specified serialized format.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Load(System.String,System.IO.IsolatedStorage.IsolatedStorageFile,System.Type[])">
+            <summary>
+            Loads an object from an XML file in Document format, located in a specified isolated storage area, and supplying extra data types to enable deserialization of custom types within the object.
+            </summary>
+            <example>
+            <code>
+            serializableObject = ObjectXMLSerializer&lt;SerializableObject&gt;.Load("XMLObjects.xml", IsolatedStorageFile.GetUserStoreForAssembly(), new Type[] { typeof(MyCustomType) });
+            </code>
+            </example>		
+            <param name="fileName">Name of the file in the isolated storage area to load the object from.</param>
+            <param name="isolatedStorageDirectory">Isolated storage area directory containing the XML file to load the object from.</param>
+            <param name="extraTypes">Extra data types to enable deserialization of custom types within the object.</param>
+            <returns>Object loaded from an XML file located in a specified isolated storage area, using a specified serialized format.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Save(`0,System.String)">
+            <summary>
+            Saves an object to an XML file in Document format.
+            </summary>
+            <example>
+            <code>        
+            SerializableObject serializableObject = new SerializableObject();
+            
+            ObjectXMLSerializer&lt;SerializableObject&gt;.Save(serializableObject, @"C:\XMLObjects.xml");
+            </code>
+            </example>
+            <param name="serializableObject">Serializable object to be saved to file.</param>
+            <param name="path">Path of the file to save the object to.</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Save(`0,System.String,SFSdotNet.Framework.Utilities.SerializedFormat)">
+            <summary>
+            Saves an object to an XML file using a specified serialized format.
+            </summary>
+            <example>
+            <code>
+            SerializableObject serializableObject = new SerializableObject();
+            
+            ObjectXMLSerializer&lt;SerializableObject&gt;.Save(serializableObject, @"C:\XMLObjects.xml", SerializedFormat.Binary);
+            </code>
+            </example>
+            <param name="serializableObject">Serializable object to be saved to file.</param>
+            <param name="path">Path of the file to save the object to.</param>
+            <param name="serializedFormat">XML serialized format used to save the object.</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Save(`0,System.String,System.Type[])">
+            <summary>
+            Saves an object to an XML file in Document format, supplying extra data types to enable serialization of custom types within the object.
+            </summary>
+            <example>
+            <code>        
+            SerializableObject serializableObject = new SerializableObject();
+            
+            ObjectXMLSerializer&lt;SerializableObject&gt;.Save(serializableObject, @"C:\XMLObjects.xml", new Type[] { typeof(MyCustomType) });
+            </code>
+            </example>
+            <param name="serializableObject">Serializable object to be saved to file.</param>
+            <param name="path">Path of the file to save the object to.</param>
+            <param name="extraTypes">Extra data types to enable serialization of custom types within the object.</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Save(`0,System.String,System.IO.IsolatedStorage.IsolatedStorageFile)">
+            <summary>
+            Saves an object to an XML file in Document format, located in a specified isolated storage area.
+            </summary>
+            <example>
+            <code>        
+            SerializableObject serializableObject = new SerializableObject();
+            
+            ObjectXMLSerializer&lt;SerializableObject&gt;.Save(serializableObject, "XMLObjects.xml", IsolatedStorageFile.GetUserStoreForAssembly());
+            </code>
+            </example>
+            <param name="serializableObject">Serializable object to be saved to file.</param>
+            <param name="fileName">Name of the file in the isolated storage area to save the object to.</param>
+            <param name="isolatedStorageDirectory">Isolated storage area directory containing the XML file to save the object to.</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Save(`0,System.String,System.IO.IsolatedStorage.IsolatedStorageFile,SFSdotNet.Framework.Utilities.SerializedFormat)">
+            <summary>
+            Saves an object to an XML file located in a specified isolated storage area, using a specified serialized format.
+            </summary>
+            <example>
+            <code>        
+            SerializableObject serializableObject = new SerializableObject();
+            
+            ObjectXMLSerializer&lt;SerializableObject&gt;.Save(serializableObject, "XMLObjects.xml", IsolatedStorageFile.GetUserStoreForAssembly(), SerializedFormat.Binary);
+            </code>
+            </example>
+            <param name="serializableObject">Serializable object to be saved to file.</param>
+            <param name="fileName">Name of the file in the isolated storage area to save the object to.</param>
+            <param name="isolatedStorageDirectory">Isolated storage area directory containing the XML file to save the object to.</param>
+            <param name="serializedFormat">XML serialized format used to save the object.</param>        
+        </member>
+        <member name="M:SFSdotNet.Framework.Utilities.ObjectXMLSerializer`1.Save(`0,System.String,System.IO.IsolatedStorage.IsolatedStorageFile,System.Type[])">
+            <summary>
+            Saves an object to an XML file in Document format, located in a specified isolated storage area, and supplying extra data types to enable serialization of custom types within the object.
+            </summary>
+            <example>
+            <code>
+            SerializableObject serializableObject = new SerializableObject();
+            
+            ObjectXMLSerializer&lt;SerializableObject&gt;.Save(serializableObject, "XMLObjects.xml", IsolatedStorageFile.GetUserStoreForAssembly(), new Type[] { typeof(MyCustomType) });
+            </code>
+            </example>		
+            <param name="serializableObject">Serializable object to be saved to file.</param>
+            <param name="fileName">Name of the file in the isolated storage area to save the object to.</param>
+            <param name="isolatedStorageDirectory">Isolated storage area directory containing the XML file to save the object to.</param>
+            <param name="extraTypes">Extra data types to enable serialization of custom types within the object.</param>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Controls.MyListView.SelectItem">
+            <summary>
+            Posterior al load
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.FlashCompatibleAuthorizeAttribute">
+            <summary>
+            A custom version of the <see cref="T:System.Web.Mvc.AuthorizeAttribute"/> that supports working
+            around a cookie/session bug in Flash.  
+            </summary>
+            <remarks>
+            Details of the bug and workaround can be found on this blog:
+            http://geekswithblogs.net/apopovsky/archive/2009/05/06/working-around-flash-cookie-bug-in-asp.net-mvc.aspx
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Mvc.FlashCompatibleAuthorizeAttribute.TOKEN_KEY">
+            <summary>
+            The key to the authentication token that should be submitted somewhere in the request.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.FlashCompatibleAuthorizeAttribute.AuthorizeCore(System.Web.HttpContextBase)">
+            <summary>
+            This changes the behavior of AuthorizeCore so that it will only authorize
+            users if a valid token is submitted with the request.
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.FileUploadJsonResult">
+            <summary>
+            A JsonResult with ContentType of text/html and the serialized object contained within textarea tags
+            </summary>
+            <remarks>
+            It is not possible to upload files using the browser's XMLHttpRequest
+            object. So the jQuery Form Plugin uses a hidden iframe element. For a
+            JSON response, a ContentType of application/json will cause bad browser
+            behavior so the content-type must be text/html. Browsers can behave badly
+            if you return JSON with ContentType of text/html. So you must surround
+            the JSON in textarea tags. All this is handled nicely in the browser
+            by the jQuery Form Plugin. But we need to overide the default behavior
+            of the JsonResult class in order to achieve the desired result.
+            </remarks>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.MetaDataGridModel`1">
+            <summary>
+            Class to auto generate columns based on the ModelMetadata
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.MetaDataGridModel`1.#ctor(System.Action{MvcContrib.UI.Grid.ColumnBuilder{`0}})">
+            <summary>
+            Enumerates through the ModelMetadata for a given type and
+            adds columns to the Grid
+            </summary>
+            <param name="insertColumns"></param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.MyModelMetaDataProvider.CreateMetadata(System.Collections.Generic.IEnumerable{System.Attribute},System.Type,System.Func{System.Object},System.Type,System.String)">
+            <summary>
+            Custom ModelMedataProvider used to store the SearchFilterAttribute and OrderByAttribute
+            in ModelMetadata AdditionValues
+            ref: http://bradwilson.typepad.com/blog/2010/01/why-you-dont-need-modelmetadataattributes.html
+            </summary>
+            <param name="attributes"></param>
+            <param name="containerType"></param>
+            <param name="modelAccessor"></param>
+            <param name="modelType"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.PagingSorting.ExtensionMethods.AsFiltered``1(System.Linq.IQueryable{``0},``0)">
+            <summary>
+            Adds filter criteria to the IQueryable based on the properties of the 
+            filter of type T.
+            For a filter to be applied, the field has to be decorated with 
+            [SearchFilter()] and the value passed in should not be null
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="queryable"></param>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.PagingSorting.ExtensionMethods.AsPagination``1(System.Linq.IQueryable{``0},SFSdotNet.Framework.Web.Mvc.PagingSorting.PageSortOptions)">
+            <summary>
+            Converts an IQueryable into an IPagination using the PageSortOptions.
+            Sorting will be done on the sortField passed in the PageSortOptions
+            if that field has the attribute [OrderBy()]. If not the field that 
+            has [OrderBy(IsDefault=true)] is used.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source"></param>
+            <param name="paged"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.PagingSorting.ExtensionMethods.GetModelMetadataForOrderByField(System.String,System.Type)">
+            <summary>
+            Gets the ModelMedataData for the field being sorted on. 
+            If the field being sorted on does not have the OrderBy attribute,
+            we return the ModelMetaData for the field that has IsDefault set to true.
+            [OrderBy(IsDefault = true)]
+            </summary>
+            <param name="sortField"></param>
+            <param name="iqueryableType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.PagingSorting.ExtensionMethods.GetModelMetadataByAdditionalValueKey(System.Type,System.String)">
+            <summary>
+            Find all ModelMetaData that have AdditionalValues with the given key
+            </summary>
+            <param name="model"></param>
+            <param name="modelType"></param>
+            <param name="attributeKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.PagingSorting.PageSortOptions">
+            <summary>
+            Container for holding Paging/Sorting information
+            </summary>
+        </member>
+        <member name="M:CSSFriendly.ChangePasswordAdapter.OnInit(System.EventArgs)">
+            ///////////////////////////////////////////////////////////////////////////////
+            PROTECTED        
+        </member>
+        <member name="M:CSSFriendly.ChangePasswordAdapter.RegisterScripts">
+            ///////////////////////////////////////////////////////////////////////////////
+            PRIVATE        
+        </member>
+        <member name="M:CSSFriendly.CompositeDataBoundControlAdapter.OnInit(System.EventArgs)">
+            ///////////////////////////////////////////////////////////////////////////////
+            METHODS
+        </member>
+        <member name="M:CSSFriendly.CreateUserWizardAdapter.OnInit(System.EventArgs)">
+            ///////////////////////////////////////////////////////////////////////////////
+            PROTECTED        
+        </member>
+        <member name="M:CSSFriendly.CreateUserWizardAdapter.RegisterScripts">
+            ///////////////////////////////////////////////////////////////////////////////
+            PRIVATE        
+        </member>
+        <member name="M:CSSFriendly.DataListAdapter.OnInit(System.EventArgs)">
+            ///////////////////////////////////////////////////////////////////////////////
+            PROTECTED        
+        </member>
+        <member name="M:CSSFriendly.DataListAdapter.RegisterScripts">
+            ///////////////////////////////////////////////////////////////////////////////
+            PRIVATE        
+        </member>
+        <member name="M:CSSFriendly.GridViewAdapter.OnInit(System.EventArgs)">
+            ///////////////////////////////////////////////////////////////////////////////
+            PROTECTED        
+        </member>
+        <member name="M:CSSFriendly.GridViewAdapter.RegisterScripts">
+            ///////////////////////////////////////////////////////////////////////////////
+            PRIVATE        
+        </member>
+        <member name="M:CSSFriendly.LoginAdapter.OnInit(System.EventArgs)">
+            ///////////////////////////////////////////////////////////////////////////////
+            PROTECTED        
+        </member>
+        <member name="M:CSSFriendly.LoginAdapter.RegisterScripts">
+            ///////////////////////////////////////////////////////////////////////////////
+            PRIVATE        
+        </member>
+        <member name="M:CSSFriendly.LoginStatusAdapter.RegisterScripts">
+            ///////////////////////////////////////////////////////////////////////////////
+            PRIVATE        
+        </member>
+        <member name="M:CSSFriendly.PasswordRecoveryAdapter.OnInit(System.EventArgs)">
+            ///////////////////////////////////////////////////////////////////////////////
+            PROTECTED        
+        </member>
+        <member name="M:CSSFriendly.PasswordRecoveryAdapter.RegisterScripts">
+            ///////////////////////////////////////////////////////////////////////////////
+            PRIVATE        
+        </member>
+        <member name="M:System.Web.Mvc.ViewPageBase.AddValidatorGroup(System.String)">
+            <summary>
+            Agrega un nuevo summaryValidator para un grupo de validación en particular, esto se utiliza cuando en una misma forma se tendrán varios grupos de controles validados independientemente
+            </summary>
+            <param name="groupName">Nombre del grupo sin caracteres especiales ni espacios</param>
+        </member>
+        <member name="M:System.Web.Mvc.ViewPageBase.ShowMessage(System.String)">
+            <summary>
+            Envía un mensaje al usuario
+            </summary>
+            <param name="message">Mensaje</param>
+        </member>
+        <member name="P:System.Web.Mvc.ViewPageBase.CurrentContext">
+            <summary>
+            Proporciona información del usuario en contexto
+            </summary>
+        </member>
+        <member name="P:System.Web.Mvc.ViewPageBase.TitleForm">
+            <summary>
+            Titulo de la forma
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.CodeBase.PageBase.AddValidatorGroup(System.String)">
+            <summary>
+            Agrega un nuevo summaryValidator para un grupo de validación en particular, esto se utiliza cuando en una misma forma se tendrán varios grupos de controles validados independientemente
+            </summary>
+            <param name="groupName">Nombre del grupo sin caracteres especiales ni espacios</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.CodeBase.PageBase.ShowMessage(System.String)">
+            <summary>
+            Envía un mensaje al usuario
+            </summary>
+            <param name="message">Mensaje</param>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.CodeBase.PageBase.CurrentContext">
+            <summary>
+            Proporciona información del usuario en contexto
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.CodeBase.PageBase.TitleForm">
+            <summary>
+            Titulo de la forma
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage">
+            <summary>
+            To use this class, simply call the RedirectSavingPageState(string url) method instead of
+            Response.Redirect to call a page and have this page keep its state.
+            You must also replace Request.Form with PostData throughout the existing code in your page.
+            
+            The substitution of Request.Form in existing code is necessary because the .NET framework doesn't
+            let us replace or modify the Request.Form collection.
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.pageState">
+            <summary>
+            The persisted PageState.
+            This is non-null if a postback is being emulated from the persisted PageState.
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.redirectSavingPageStateURL">
+            <summary>
+            Contains the URL to redirect to
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.RedirectSavingPageState(System.String)">
+            <summary>
+            Call this method instead of Response.Redirect(url) to cause this page to restore its current state when it is next displayed.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.RedirectToSavedPage(System.String,System.Boolean)">
+            <summary>
+            Call this method to redirect to the specified relative URL,
+            specifying whether to restore the page's saved state
+            (assuming its state was saved when it was last shown).
+            The specified URL is relative to that of the current request.
+            This method is usually called from a "sub-page", which doesn't extend this class. 
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.RemoveSavedPageState(System.String)">
+            <summary>
+            Call this method to clear the saved PageState of the page with the specified relative URL.
+            This ensures that the next redirect to the specified page will not revert to the saved state.
+            The specified URL is relative to that of the current request.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.DeterminePostBackMode">
+            <summary>
+            This method is called by the framework after the Init event to determine whether a postback is being performed.
+            The Page.IsPostBack property returns true iff this method returns a non-null.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.LoadPageStateFromPersistenceMedium">
+            <summary>
+            This method is called by the framework after DeterminePostBackMode(), but before custom event handling.
+            It returns the view state that the framework uses to restore the state of the controls.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.OnLoad(System.EventArgs)">
+            <summary>
+            This method is called by the framework after LoadPageStateFromPersistenceMedium() to raise the Load event.
+            Controls are populated with data from PostData here because it has to happen after
+            the framework has loaded the view state, which happens after the execution of the
+            LoadPageStateFromPersistenceMedium() method.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.LoadPostData(System.Web.UI.Control,System.Collections.ArrayList)">
+            <summary>
+            This method performs depth-first recursion on all controls contained in the specified control,
+            calling the framework's LoadPostData on each and adding those modified to the modifiedControls list.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.SavePageStateToPersistenceMedium(System.Object)">
+            <summary>
+            This method is called by the framework between the PreRender and Render events.
+            It is only called if this page is to be redisplayed, not if Response.Redirect has been called.
+            To ensure it is called before we redirect, we must postpone the Response.Redirect call until now.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.LoadPageState(System.Uri)">
+            <summary>
+            Override this method to load the state from a persistence medium other than the Session object.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.SavePageState(System.Uri,SFSdotNet.Framework.Web.Shared.CodeBase.PageState)">
+            <summary>
+            Override this method to save the state to a persistence medium other than the Session object.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.RemoveSavedPageState(System.Uri)">
+            <summary>
+            Override this method to remove the state from a persistence medium other than the Session object.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.GetPageStateKey(System.Uri)">
+            <summary>
+            Returns a key which will uniquely identify a page in a global namespace based on its URL.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.IsRestoredPageState">
+            <summary>
+            Indicates whether the current page is being or has been restored from a persisted state
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.PostData">
+            <summary>
+            Returns the post data from the persisted PageState if it exists, otherwise the actual post data from Request.Form
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Shared.CodeBase.PersistentStatePage.PassBackData">
+            <summary>
+            Returns the data passed back from the sub-page which can be used to make changes to the saved page state.
+            This data is passed back via the query string.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Shared.CodeBase.PageState">
+            <summary>
+            This is the object stored in the persistence medium, containing the view state, post data, and URL.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Shared.CodeBase.SerializableViewState">
+            <summary>
+            This is a simple wrapper around the view state object to make it serializable.
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.CustomFields.ForeignKeyField.HyperLink1">
+            <summary>
+            HyperLink1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="T:DefaultMaster">
+            <summary>
+            DefaultMaster class.
+            </summary>
+            <remarks>
+            Auto-generated class.
+            </remarks>
+        </member>
+        <member name="F:DefaultMaster.Head">
+            <summary>
+            Head control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:DefaultMaster.mainForm">
+            <summary>
+            mainForm control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:DefaultMaster.NavigationTreeView">
+            <summary>
+            NavigationTreeView control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:DefaultMaster.DefaultBreadCrumb">
+            <summary>
+            DefaultBreadCrumb control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:DefaultMaster.ContentPlaceHolder1">
+            <summary>
+            ContentPlaceHolder1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:DefaultMaster.ApplicationSiteMap">
+            <summary>
+            ApplicationSiteMap control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.DesignMode.HeadContentPlaceHolder">
+            <summary>
+            HeadContentPlaceHolder control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.DesignMode.form1">
+            <summary>
+            form1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.DesignMode.ColumnLeft">
+            <summary>
+            ColumnLeft control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.DesignMode.ContentPlaceHolder1">
+            <summary>
+            ContentPlaceHolder1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.Head1">
+            <summary>
+            Head1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.HeadContentPlaceHolder">
+            <summary>
+            HeadContentPlaceHolder control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.AdaptersInvariantImportCSS">
+            <summary>
+            AdaptersInvariantImportCSS control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.IEMenu6CSS">
+            <summary>
+            IEMenu6CSS control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.form1">
+            <summary>
+            form1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.ScriptManager1">
+            <summary>
+            ScriptManager1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.LoginView1">
+            <summary>
+            LoginView1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.Menu1">
+            <summary>
+            Menu1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.ApplicationSiteMap">
+            <summary>
+            ApplicationSiteMap control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.DefaultBreadCrumb">
+            <summary>
+            DefaultBreadCrumb control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.AlwaysVisibleControlExtender1">
+            <summary>
+            AlwaysVisibleControlExtender1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.AlwaysVisibleControlExtender2">
+            <summary>
+            AlwaysVisibleControlExtender2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.MessageBoxContainer">
+            <summary>
+            MessageBoxContainer control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.UpdatePanel1">
+            <summary>
+            UpdatePanel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.ValidationSummary1">
+            <summary>
+            ValidationSummary1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.lblFormTitle">
+            <summary>
+            lblFormTitle control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.ColumnLeft">
+            <summary>
+            ColumnLeft control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.ContentPlaceHolder1">
+            <summary>
+            ContentPlaceHolder1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.ColumnRight">
+            <summary>
+            ColumnRight control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.VersionInfo1">
+            <summary>
+            VersionInfo1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.progressWrapper">
+            <summary>
+            progressWrapper control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.UpdatePanel2">
+            <summary>
+            UpdatePanel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.MasterPages.MyMasterPage.btnExcetionProxy">
+            <summary>
+            btnExcetionProxy control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.CreatedAndModify.LiCreate">
+            <summary>
+            LiCreate control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.CreatedAndModify.lblCreatedBy">
+            <summary>
+            lblCreatedBy control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.CreatedAndModify.uiCreatedBy">
+            <summary>
+            uiCreatedBy control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.CreatedAndModify.uiCreatedDate">
+            <summary>
+            uiCreatedDate control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.CreatedAndModify.LiModify">
+            <summary>
+            LiModify control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.CreatedAndModify.Label1">
+            <summary>
+            Label1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.CreatedAndModify.uiModifiedBy">
+            <summary>
+            uiModifiedBy control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.CreatedAndModify.Label2">
+            <summary>
+            Label2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.CreatedAndModify.uiDateLastChanged">
+            <summary>
+            uiDateLastChanged control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.DetailsButtonsFooter.btnSave">
+            <summary>
+            btnSave control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.DetailsButtonsFooter.btnEdit">
+            <summary>
+            btnSave control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.DetailsButtonsFooter.btnRead">
+            <summary>
+            btnSave control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.DetailsButtonsFooter.btnDelete">
+            <summary>
+            btnDelete control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.DetailsButtonsFooter.btnCancel">
+            <summary>
+            btnCancel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.DetailsButtonsFooter.chkContinueEditing">
+            <summary>
+            chkContinueEditing control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.DetailsButtonsFooter.chkAddMore">
+            <summary>
+            chkAddMore control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.DetailsButtonsFooter.MutuallyExclusiveCheckBoxExtender1">
+            <summary>
+            MutuallyExclusiveCheckBoxExtender1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.DetailsButtonsFooter.MutuallyExclusiveCheckBoxExtender2">
+            <summary>
+            MutuallyExclusiveCheckBoxExtender2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.btnDelete">
+            <summary>
+            btnDelete control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.btnAddNew">
+            <summary>
+            btnAddNew control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.DrlPageSize">
+            <summary>
+            drlPageSize control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.lblPageSize">
+            <summary>
+            lblPageSize control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.btnStart">
+            <summary>
+            btnStart control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.btnPrevious">
+            <summary>
+            btnPrevious control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.DrlPages">
+            <summary>
+            DrlPages control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.btnNext">
+            <summary>
+            btnNext control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.btnEnd">
+            <summary>
+            btnEnd control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.DetailsWindow">
+            <summary>
+            DetailsWindow control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.DetailsWindowUP">
+            <summary>
+            DetailsWindowUP control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.editBox_OK">
+            <summary>
+            editBox_OK control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.editBox_Cancel">
+            <summary>
+            editBox_Cancel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.hiddenTargetControlForModalPopup">
+            <summary>
+            hiddenTargetControlForModalPopup control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.ModalPopupExtender1">
+            <summary>
+            ModalPopupExtender1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="E:SFSdotNet.Framework.Web.Shared.WebUserControls.ListPagerBase.Action">
+            <summary>
+            Acción al hacer clic en algún botón del grid
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.UpdatePanel1">
+            <summary>
+            UpdatePanel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.DivMessageBox">
+            <summary>
+            DivMessageBox control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.MessageText">
+            <summary>
+            MessageText control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.ExtraInfoPlaceHolder">
+            <summary>
+            ExtraInfoPlaceHolder control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.ButtonsPlaceHolder">
+            <summary>
+            ButtonsPlaceHolder control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.btnMinimize">
+            <summary>
+            btnMinimize control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.btnClose">
+            <summary>
+            btnClose control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.btnClose_AnimationExtender">
+            <summary>
+            btnClose_AnimationExtender control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.divMessageBoxMini">
+            <summary>
+            divMessageBoxMini control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.LinkButton1">
+            <summary>
+            LinkButton1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.LinkButton2">
+            <summary>
+            LinkButton2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.MessageBox.Timer1">
+            <summary>
+            Timer1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.SearcherBuilder.UpdatePanel1">
+            <summary>
+            UpdatePanel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.SearcherBuilder.TableFilter">
+            <summary>
+            TableFilter control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.SearcherBuilder.btnAddFilter">
+            <summary>
+            btnAddFilter control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.SearcherBuilder.btnApplyFilter">
+            <summary>
+            btnApplyFilter control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.SearcherBuilder.btnResetFilter">
+            <summary>
+            btnResetFilter control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Shared.WebUserControls.VersionInfo.Label1">
+            <summary>
+            Label1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+    </members>
+</doc>

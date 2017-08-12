@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SFS-EFPOCO1-BR-Tests</id>
+    <version>2.0.0.1</version>
+    <title>SFS Business Rules test layer</title>
+    <authors>Emir Trevino</authors>
+    <owners>sfsdotnet.com</owners>
+    <licenseUrl>http://en.sfsdotnet.com/public-license</licenseUrl>
+    <projectUrl>http://www.sfsdotnet.com</projectUrl>
+    <iconUrl>http://es.sfsdotnet.com/logo_for_nuget.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Business Rules test Layer for SFS Tools.  This component require of other layer/projects for work. Is the default template of SFS.</description>
+    <summary>Business Rules Layer  test for SFS Tools</summary>
+    <releaseNotes>This is the first release of the new version in 2013</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <language>en-US</language>
+    <tags>SFS architecture n layers entity framework poco robust enterprise</tags>
+    <references />
+  </metadata>
+</package>

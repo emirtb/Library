@@ -1,0 +1,308 @@
+﻿<#@ template debug="True" language="C#v3.5" #>
+<#@ import namespace="SFSdotNet.VSAddin2012.Model" #> 
+<#@ import namespace="SFSdotNet.VSAddin2012.Model.Utils" #> 
+<#@ dom processor="SFSEdmxProcessor"  
+requires="EntityModel='$safenamespace$Model.edmx'"  #>
+// <Template>
+//   <SolutionTemplate>EF POCO 1</SolutionTemplate>
+//   <Version>1.1422.1</Version>
+//   <Update>True</Update>
+// </Template>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using <#= Model.Namespace #>.BusinessObjects;
+using EFProviderWrapperToolkit;
+using EFCachingProvider;
+using EFCachingProvider.Caching;
+
+using EFTracingProvider;
+using System.IO;
+using SFSdotNet.Framework.Cache;
+using System.Data.Objects;
+using SFSdotNet.Framework.My.BusinessObjects;
+using System.Data;
+using EFPocoAdapter.DataClasses;
+using SFSdotNet.Framework.Linq;
+
+
+namespace <#= Model.Namespace #>.BR
+{
+//    public class EFContext : <#= Model.Namespace #>.BusinessObjects.EFPocoAdapter.<#= Model.SafeNamespace #>Context
+      public class EFPocoContext : <#= Model.Namespace #>.BusinessObjects.<#= Model.SafeNamespace #>Context,IContextLocalizable
+    {
+		List<myAudit> auditTrailList = new List<myAudit>();
+
+        public EFPocoContext()
+            : base(EntityConnectionWrapperUtils.CreateEntityConnectionWithWrappers(
+                SFSdotNet.Framework.Configuration.ConfigurationSettings.GetConnectionString("<#= Model.SafeNamespace #>Context", "<#= Model.Namespace #>"),
+                "EFTracingProvider",
+                "EFCachingProvider"
+                ))
+        {
+            if (EFCache.EnableCache)
+            {
+                this.Cache = EFCache.SameCache;
+                this.CachingPolicy = CachingPolicy.CacheAll;
+            }
+            else
+            {
+                this.CachingPolicy = CachingPolicy.NoCaching;
+            }
+
+    this.LocalizableItems = new List<LocalizableDataStructure>();
+			this.CommandExecuting += new EventHandler<CommandExecutionEventArgs>(EFPocoContext_CommandExecuting);
+            //this.WrappedContext.SavingChanges += new EventHandler(WrappedContext_SavingChanges);
+        }
+
+        void EFPocoContext_CommandExecuting(object sender, CommandExecutionEventArgs e)
+        {
+            if (this.LocalizableItems.Count > 0) {
+                var loc = new LocalizableData();
+                loc.LocalizableItems = this.LocalizableItems;
+                e.Command.CommandText = loc.GetLocalizedCommandText(e.Command.CommandText);
+
+            }
+            //var loc = new LocalizableData();
+            //loc.LocalizableItems = this.LocalizableItems;
+            //e.Command.CommandText = loc.GetLocalizedCommandText(e.Command.CommandText);
+        }
+		public void AuditChanges(object entity, SFSdotNet.Framework.My.Audit.AuditActions action, params string[] properties) { 
+            SFSdotNet.Framework.My.Audit.AuditTrailFactory(entity, action, "<#= Model.SafeNamespace #>", properties);
+        
+        }
+        #region Tracing Extensions
+        private TextWriter logOutput;
+
+        private EFTracingConnection TracingConnection
+        {
+            get { return this.WrappedContext.UnwrapConnection<EFTracingConnection>(); }
+        }
+
+        public event EventHandler<CommandExecutionEventArgs> CommandExecuting
+        {
+            add { this.TracingConnection.CommandExecuting += value; }
+            remove { this.TracingConnection.CommandExecuting -= value; }
+        }
+
+        public event EventHandler<CommandExecutionEventArgs> CommandFinished
+        {
+            add { this.TracingConnection.CommandFinished += value; }
+            remove { this.TracingConnection.CommandFinished -= value; }
+        }
+
+        public event EventHandler<CommandExecutionEventArgs> CommandFailed
+        {
+            add { this.TracingConnection.CommandFailed += value; }
+            remove { this.TracingConnection.CommandFailed -= value; }
+        }
+
+        private void AppendToLog(object sender, CommandExecutionEventArgs e)
+        {
+            if (this.logOutput != null)
+            {
+                this.logOutput.WriteLine(e.ToTraceString().TrimEnd());
+                this.logOutput.WriteLine();
+            }
+        }
+
+        public TextWriter Log
+        {
+            get { return this.logOutput; }
+            set
+            {
+                if ((this.logOutput != null) != (value != null))
+                {
+                    if (value == null)
+                    {
+                        CommandExecuting -= AppendToLog;
+                    }
+                    else
+                    {
+                        CommandExecuting += AppendToLog;
+                    }
+                }
+
+                this.logOutput = value;
+            }
+        }
+
+
+        #endregion
+
+        #region Caching Extensions
+
+        private EFCachingConnection CachingConnection
+        {
+            get { return this.WrappedContext.UnwrapConnection<EFCachingConnection>(); }
+        }
+
+        public ICache Cache
+        {
+            get { return CachingConnection.Cache; }
+            set { CachingConnection.Cache = value; }
+        }
+
+        public CachingPolicy CachingPolicy
+        {
+            get { return CachingConnection.CachingPolicy; }
+            set { CachingConnection.CachingPolicy = value; }
+        }
+
+        #endregion
+		public string Culture
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public List<LocalizableDataStructure> LocalizableItems { get; set; }
+      
+
+    }
+	
+	      public class EFContext : <#= Model.Namespace #>.BusinessObjects.EF4.<#= Model.SafeNamespace #>Context, IContextLocalizable
+    {
+		List<myAudit> auditTrailList = new List<myAudit>();
+
+        public EFContext()
+            : base(EntityConnectionWrapperUtils.CreateEntityConnectionWithWrappers(
+                SFSdotNet.Framework.Configuration.ConfigurationSettings.GetConnectionString("<#= Model.SafeNamespace #>Context", "<#= Model.Namespace #>"),
+                "EFTracingProvider",
+                "EFCachingProvider"
+                ))
+        {
+            if (EFCache.EnableCache)
+            {
+                this.Cache = EFCache.SameCache;
+                this.CachingPolicy = CachingPolicy.CacheAll;
+            }
+            else
+            {
+                this.CachingPolicy = CachingPolicy.NoCaching;
+            }
+			 this.LocalizableItems = new List<LocalizableDataStructure>();
+            this.CommandExecuting += new EventHandler<CommandExecutionEventArgs>(EFPocoContext_CommandExecuting);
+            //this.WrappedContext.SavingChanges += new EventHandler(WrappedContext_SavingChanges);
+        }
+
+        void EFPocoContext_CommandExecuting(object sender, CommandExecutionEventArgs e)
+        {
+            if (this.LocalizableItems.Count > 0) {
+                var loc = new LocalizableData();
+                loc.LocalizableItems = this.LocalizableItems;
+                e.Command.CommandText = loc.GetLocalizedCommandText(e.Command.CommandText);
+
+            }
+            //var loc = new LocalizableData();
+            //loc.LocalizableItems = this.LocalizableItems;
+            //e.Command.CommandText = loc.GetLocalizedCommandText(e.Command.CommandText);
+        }
+        public void AuditChanges(object entity, SFSdotNet.Framework.My.Audit.AuditActions action, params string[] properties) { 
+            SFSdotNet.Framework.My.Audit.AuditTrailFactory(entity, action, "<#= Model.SafeNamespace #>", properties);
+        
+        }
+        #region Tracing Extensions
+        private TextWriter logOutput;
+
+        private EFTracingConnection TracingConnection
+        {
+            get { return this.UnwrapConnection<EFTracingConnection>(); }
+        }
+
+        public event EventHandler<CommandExecutionEventArgs> CommandExecuting
+        {
+            add { this.TracingConnection.CommandExecuting += value; }
+            remove { this.TracingConnection.CommandExecuting -= value; }
+        }
+
+        public event EventHandler<CommandExecutionEventArgs> CommandFinished
+        {
+            add { this.TracingConnection.CommandFinished += value; }
+            remove { this.TracingConnection.CommandFinished -= value; }
+        }
+
+        public event EventHandler<CommandExecutionEventArgs> CommandFailed
+        {
+            add { this.TracingConnection.CommandFailed += value; }
+            remove { this.TracingConnection.CommandFailed -= value; }
+        }
+
+        private void AppendToLog(object sender, CommandExecutionEventArgs e)
+        {
+            if (this.logOutput != null)
+            {
+                this.logOutput.WriteLine(e.ToTraceString().TrimEnd());
+                this.logOutput.WriteLine();
+            }
+        }
+
+        public TextWriter Log
+        {
+            get { return this.logOutput; }
+            set
+            {
+                if ((this.logOutput != null) != (value != null))
+                {
+                    if (value == null)
+                    {
+                        CommandExecuting -= AppendToLog;
+                    }
+                    else
+                    {
+                        CommandExecuting += AppendToLog;
+                    }
+                }
+
+                this.logOutput = value;
+            }
+        }
+
+
+        #endregion
+
+        #region Caching Extensions
+
+        private EFCachingConnection CachingConnection
+        {
+            get { return this.UnwrapConnection<EFCachingConnection>(); }
+        }
+
+        public ICache Cache
+        {
+            get { return CachingConnection.Cache; }
+            set { CachingConnection.Cache = value; }
+        }
+
+        public CachingPolicy CachingPolicy
+        {
+            get { return CachingConnection.CachingPolicy; }
+            set { CachingConnection.CachingPolicy = value; }
+        }
+
+        #endregion
+
+		public string Culture
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public List<LocalizableDataStructure> LocalizableItems { get; set; }
+      
+    }
+
+}

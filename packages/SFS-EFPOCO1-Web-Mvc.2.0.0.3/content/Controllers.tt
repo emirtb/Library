@@ -1,0 +1,1315 @@
+﻿<#@ output  extension="txt" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core.dll" #>
+
+<#@ import namespace="SFSdotNet.VSAddin2012.Model" #>
+<#@ import namespace="SFSdotNet.VSAddin2012.Model.Utils" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Linq" #>
+// <Template>
+//   <SolutionTemplate></SolutionTemplate>
+//   <Version>20110316.1</Version>
+//   <Update></Update>
+// </Template>
+<#+ void GenerateController(EntityInfo entity)
+{
+	try{
+	//entityPluralName = entity.SetName;
+	string controllerName = entityPluralName;
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "ControllerName", "String")))
+	{
+		controllerName =(string)GetCustomProperty(entity, "ControllerName", "String");
+	}
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using <#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entity.SetName #>;
+using <#= entity.Model.Namespace #>.BR;
+using System.Web.Script.Serialization;
+using <#= entity.Model.Namespace #>.Web.Mvc.Models;
+using <#= entity.Model.Namespace #>.Web.Mvc.Resources;
+using BO = <#= entity.Model.Namespace #>.BusinessObjects;
+using SFSdotNet.Framework.Web.Mvc.Security;
+using SFSdotNet.Framework.Web.Mvc;
+using SFSdotNet.Framework.Web.Mvc.Models;
+using SFSdotNet.Framework.Web.Mvc.Resources;
+using SFSdotNet.Framework.Web.Mvc.Controllers;
+using MvcSiteMapProvider;
+using System.Web.Routing;
+//using <#= entity.Model.Namespace #>.BusinessObjects;
+<#+
+	System.Text.StringBuilder sbExcludes = new System.Text.StringBuilder();
+	if (entity.Properties.Where(p=>p.Type == "Binary").Count()> 0){
+		sbExcludes.Append(@"[Bind(Exclude = """);
+		int nForExcludes = 0;
+		foreach (var file in entity.Properties.Where(p=>p.Type == "Binary")){
+			if (nForExcludes > 0)
+				sbExcludes.Append(",");	
+			sbExcludes.Append(file.Name);
+			nForExcludes ++;
+		}
+		sbExcludes.Append(@""")]");
+	}
+#>
+namespace <#= entity.Model.Namespace #>.Web.Mvc.Controllers
+{
+    public partial class <#= controllerName #>Controller : SFSdotNet.Framework.Web.Mvc.ControllerBase
+    {
+        private RouteValueDictionary GetRouteData() {
+            var popupextra = new RouteValueDictionary();
+
+            foreach (var qs in Request.QueryString.AllKeys)
+            {
+                List<KeyValuePair<string, string>> extraparams = new List<KeyValuePair<string, string>>();
+
+                if (!string.IsNullOrEmpty(Request.QueryString[qs]))
+                {
+                    popupextra.Add(qs, Request.QueryString[qs]);
+
+                }
+            }
+            
+            return popupextra;
+        }
+
+
+	#region partial methods
+        ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e = null;
+        partial void OnValidating(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+        partial void OnCreating(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+        partial void OnCreated(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+        partial void OnEditing(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+        partial void OnEdited(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+        partial void OnDeleting(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+        partial void OnDeleted(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+    	partial void OnShowing(object sender, MyEventArgs<UIModel<Models.<#= entity.SetName #>.<#= entity.Name #>Model>> e);
+    	partial void OnGettingByKey(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+        partial void OnTaken(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+       	partial void OnCreateShowing(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+		partial void OnEditShowing(object sender, ControllerEventArgs<Models.<#= entity.SetName #>.<#= entity.Name #>Model> e);
+ 		partial void OnActionsCreated(object sender, MyEventArgs<UIModel<Models.<#= entity.SetName #>.<#= entity.Name #>Model >> e);
+		partial void OnCustomActionExecuting(object sender, MyEventArgs<ContextActionModel<Models.<#= entity.SetName #>.<#= entity.Name #>Model>> e);
+        partial void OnDownloading(object sender, MyEventArgs<ContextActionModel<Models.<#= entity.SetName #>.<#= entity.Name #>Model>> e);
+      	partial void OnAuthorization(object sender, AuthorizationContext context);
+
+	#endregion
+#region Validation methods	
+	    private void Validations(<#= entity.Name #>Model model) { 
+            #region Remote validations
+
+<#+ foreach (PropertyInfo property in entity.Properties.Where(p=>!string.IsNullOrEmpty((string)GetCustomProperty(p, "RemoteValidationAction", "String")))) { 
+		string methodName = (string)GetCustomProperty(property, "RemoteValidationAction", "String"); #>	
+		bool result<#= methodName #> = true;
+		string message<#= methodName #> = "";
+		On<#= methodName #>(ref result<#= methodName #>, ref message<#= methodName #>, model.<#= property.Name #>, Request.Form["Initial<#= property.Name #>"]);
+		if (!result<#= methodName #>)
+        	ModelState.AddModelError("<#= property.Name #>", message<#= methodName #>);
+<#+ } #>
+            #endregion
+		}
+
+<#+ foreach (PropertyInfo property in entity.Properties.Where(p=>!string.IsNullOrEmpty((string)GetCustomProperty(p, "RemoteValidationAction", "String")))) { 
+		string methodName = (string)GetCustomProperty(property, "RemoteValidationAction", "String"); #>	
+
+        partial void On<#= methodName #>(ref bool result, ref string message, string candidate, string initialValue);
+        public ActionResult <#= methodName #>(string <#= property.Name #>, string Initial<#= property.Name #>)
+        {
+            bool result = true;
+			string message = "";
+            On<#= methodName #>(ref result, ref message, <#= property.Name #>, Initial<#= property.Name #>);
+			if (result)
+            	return Json(result, JsonRequestBehavior.AllowGet);
+			else
+				return Json(message, JsonRequestBehavior.AllowGet);
+        }
+<#+ } #>
+#endregion
+<#+ if (!entity.IsCustom && !string.IsNullOrEmpty((string)GetCustomProperty(entity, "UIListFooter", "String"))) {#>
+
+ 		public ActionResult GetSummaryOperation(string operation, string filter) {
+            <#= entity.Name #>Model result = new <#= entity.Name #>Model();
+
+            var ob = BR.<#= entity.SetName #>BR.Instance.GetSummaryOperation(operation,filter);
+            if (ob != null) {
+                result.Bind(ob);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet) ;
+
+        }
+<#+ } #>
+		
+ 		public AuthorizationContext Authorization(AuthorizationContext context)
+        {
+            OnAuthorization(this,  context );
+            return context ;
+        }
+		public List<<#= entity.Name #>Model> GetAll() {
+            <#+ 
+				string _orderBy ="";
+				if (!string.IsNullOrEmpty(entity.DefaultProperty)){
+					var propertyDefault = entity.Properties.Find(p=>p.Name == entity.DefaultProperty);
+					if (propertyDefault != null ){
+						if (string.IsNullOrEmpty((string)GetCustomProperty(propertyDefault, "Computed", "String"))){
+							_orderBy = propertyDefault.Name;
+						}
+					}
+						
+					
+				}
+				if (string.IsNullOrEmpty(_orderBy)){
+					var candidatesOrderBy = entity.Properties.Where(p=>(bool)GetCustomProperty(p, "IsOrderBy", "Boolean")).OrderBy(p=>p.Order);
+					if (candidatesOrderBy.Count() > 0)
+						_orderBy = candidatesOrderBy.ToList()[0].Name;
+					if (candidatesOrderBy.Count() > 1){
+						
+					}
+				}
+				if (string.IsNullOrEmpty(_orderBy)){
+					var candidatesOrderBy = entity.Properties.Where(p=>string.IsNullOrEmpty((string)GetCustomProperty(p, "Computed", "String")));
+					if (candidatesOrderBy.Count() > 0)
+						_orderBy = candidatesOrderBy.ToList()[0].Name;
+				}
+			if (!string.IsNullOrEmpty(_orderBy))  { #>
+			var bos = BR.<#= entity.SetName #>BR.Instance.GetBy("",
+					new SFSdotNet.Framework.My.ContextRequest()
+					{
+						CustomQuery = new SFSdotNet.Framework.My.CustomQuery()
+						{
+							OrderBy = "<#=_orderBy #>",
+							SortDirection = SFSdotNet.Framework.Data.SortDirection.Ascending
+						}
+					});
+            <#+ }else{ #>
+
+			var bos = BR.<#= entity.SetName #>BR.Instance.GetAll();
+			
+			<#+ } #>
+			List<<#= entity.Name #>Model> results = new List<<#= entity.Name #>Model>();
+            <#= entity.Name #>Model model = null;
+            foreach (var bo in bos)
+            {
+                model = new <#= entity.Name #>Model();
+                model.Bind(bo);
+                results.Add(model);
+            }
+            return results;
+
+        }
+        //
+        // GET: /<#= entityPluralName #>/
+		[MyAuthorize("r", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+		public ActionResult Index()
+        {
+    		var uiModel = GetContextModel(UIModelContextTypes.ListForm, null);
+			
+			uiModel.FilterStart = (string)ViewData["startFilter"];
+                    MyEventArgs<UIModel<<#= entity.Name #>Model>> me = null;
+
+            OnActionsCreated(this, me = new MyEventArgs<UIModel<<#= entity.Name #>Model>>() { Object = uiModel });
+
+            if (me != null)
+            {
+                uiModel = me.Object;
+            }
+            if (me == null)
+                me = new MyEventArgs<UIModel<<#= entity.Name #>Model>>() { Object = uiModel };
+           
+            Showing(ref uiModel);
+            ViewData["startFilter"] = uiModel.FilterStart;
+
+
+            return View("ListGen");
+        }
+		[MyAuthorize("r", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+		public ActionResult ListViewGen()
+        {
+			ViewData["idTab"] = Request.QueryString["idTab"]; 
+		 	ViewData["detpop"] = true; // details in popup
+            if (!string.IsNullOrEmpty(Request.QueryString["fk"])) {
+                ViewData["fk"] = Request.QueryString["fk"]; 
+            }
+			if (!string.IsNullOrEmpty(Request.QueryString["fkValue"]))
+            {
+                ViewData["fkValue"] = Request.QueryString["fkValue"];
+            }
+			if (!string.IsNullOrEmpty(Request.QueryString["startFilter"]))
+            {
+                ViewData["startFilter"] = Request.QueryString["startFilter"];
+            }
+			
+			UIModel<<#= entity.Name #>Model> uiModel = GetContextModel(UIModelContextTypes.ListForm, null);
+
+            MyEventArgs<UIModel<<#= entity.Name #>Model>> me = null;
+
+            OnActionsCreated(this, me = new MyEventArgs<UIModel<<#= entity.Name #>Model>>() { Object = uiModel });
+            if (me == null)
+                me = new MyEventArgs<UIModel<<#= entity.Name #>Model>>() { Object = uiModel };
+            uiModel.Properties = GetProperties(uiModel);
+            uiModel.ContextType = UIModelContextTypes.ListForm;
+             uiModel.FilterStart = (string)ViewData["startFilter"];
+            Showing(ref uiModel);
+            ViewData["startFilter"] = uiModel.FilterStart;
+            return View("ListViewGen");
+        }
+			
+		private List<PropertyDefinition> GetProperties(UIModel<<#= entity.Name #>Model> uiModel)
+            {
+                List<PropertyDefinition> results = new List<PropertyDefinition>();
+			string id<#= entity.Name #> = "";
+			if (this.Request.RequestContext.RouteData.Values["id"] != null){
+				id<#= entity.Name #> = SFSdotNet.Framework.Entities.Utils.GetPropertyKey(this.Request.RequestContext.RouteData.Values["id"].ToString().Replace("-","/"), "<#= entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey).Name #>");
+			}
+			bool visibleProperty = true;	
+			 bool conditionalshow =false;
+                if (uiModel.ContextType == UIModelContextTypes.EditForm || uiModel.ContextType == UIModelContextTypes.DisplayForm ||  uiModel.ContextType == UIModelContextTypes.GenericForm )
+                    conditionalshow = true;
+<#+ 		bool 	isvisible =true;
+			bool ismany =false;
+			string link;
+			foreach(var item in entity.Properties.Where(p=>IsVisibleProperty(p) && p.IsPrimaryKey == false && p.Name != "IsDeleted" && (p.Visible) && !p.Type.ToLower().Contains("xml") && !p.Type.ToLower().Contains("captcha")).OrderBy(p=>p.Order)) { 
+					string visibilityCondition = "";
+						if (!string.IsNullOrEmpty((string)GetCustomProperty(item, "UIVisibilityCondition", "String"))){
+							visibilityCondition =(string)GetCustomProperty(item, "UIVisibilityCondition", "String");
+						}
+				link ="";
+				if (item.Type== "String" && item.MaxLength ==0){
+					//isvisible = false;
+				
+				}else
+					isvisible=true;
+				if(isvisible){
+					EntityInfo entityRel = null;
+					string propertyNameSort = item.Name;
+					string pathName ="";
+					if (item.IsNavigationProperty)  {
+					
+						var navprop = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName== item.Name);
+						var entityRelName = navprop.EntityType.Split(char.Parse("."))[navprop.EntityType.Split(char.Parse(".")).Length -1];
+						entityRel = entity.Model.Entities.Find(p=>p.Name == entityRelName);
+						if (!string.IsNullOrEmpty(entityRel.DefaultProperty))
+							propertyNameSort = entityRel.DefaultProperty;
+						else
+							propertyNameSort = entityRel.Properties[0].Name;
+						propertyNameSort = item.Name + "." + propertyNameSort;
+						pathName= entityRel.SetName;
+					
+						if (item.IsNavigationPropertyMany){
+							if (item.Type.Substring(item.Type.LastIndexOf(".") + 1) != entity.Name) // solo aplica en que caso de que no se trate de la misma entidad
+								ismany = true;
+							else
+								ismany = false;
+							var relNav = entityRel.NavigationProperties.Where(p=>p.RelationshipName == item.NavigationProperty.RelationshipName).FirstOrDefault();
+							
+							var relPropertyName = relNav.PropertyName;
+							var propertyKey = entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey);
+							string propertyKeyName = "";
+							if (propertyKey != null)
+								propertyKeyName = propertyKey.Name;
+										System.Text.StringBuilder sbParams = new System.Text.StringBuilder();
+					
+							string startFilter = "";
+							// many to many direct
+							string convertDynStart = "";
+							string convertDynEnd = "";
+							if (propertyKey.Type.ToLower().Contains("guid")){
+								convertDynStart = @"Guid(\""";
+								convertDynEnd = @"\"")";
+							}
+							if (relNav.Multiplicity == "*")
+							{
+								startFilter =  @"+ Url.Encode(""" + relPropertyName + ".Any( " + propertyKeyName + @" = "  + convertDynStart + @""" + id" + entity.Name +  @" +"""+ convertDynEnd + @") = True"")+ ""&isManyToMany=" + Code.PascalCase(ismany.ToString());
+							}else{
+								startFilter =  @"+ Url.Encode(""" + relPropertyName + "." + propertyKeyName + @" = "  + convertDynStart + @""" + id" + entity.Name + @" +"""  + convertDynEnd + @""")+ """;
+							}
+							
+							bool pal = (bool)GetCustomProperty(item, "UIExcludeSearch", "Boolean");
+							sbParams.Append(string.Format("pal={0}&", pal.ToString()));
+							bool es= (bool)GetCustomProperty(item, "UIPreventAutoLoad", "Boolean");
+							sbParams.Append(string.Format("es={0}&", es.ToString()));
+							int pag=20;				
+							if ((int?)GetCustomProperty(item, "UIPaging", "Int?") != null){
+								pag =(int)GetCustomProperty(item, "UIPaging", "Int?");
+							}
+							sbParams.Append(string.Format("pag={0}&", pag.ToString()));
+					
+							link = @"VirtualPathUtility.ToAbsolute(""~/"") + """ + entity.Model.SafeNamespace + @"/" + entityRel.SetName +"/ListViewGen?" + sbParams.ToString() +"idTab=" + item.Name +"&fk=" + relPropertyName + @"&startFilter=""" + startFilter + @"&fkValue="" + id" + entity.Name ;
+						
+							
+						}else{
+							link="";
+							ismany =false;
+						}
+
+					}
+		var property = item;		
+			System.Text.StringBuilder sbExtraField = new System.Text.StringBuilder();
+		if (property.Type == "Binary"){
+			string groupFileName = (string)GetCustomProperty(property,"FileData", "String");
+			if (!string.IsNullOrEmpty(groupFileName)){
+					sbExtraField.AppendLine(string.Format(@"FileDataField = ""{0}""", property.Name));
+				
+					
+				
+
+				var fileSizeProperty = entity.Properties.FirstOrDefault(p=>(string)GetCustomProperty(p,"FileSize", "String") == groupFileName);
+				if (fileSizeProperty != null ){
+					//if (fileSizeProperty.Name == groupFileName){
+						if (sbExtraField.Length > 0)
+							sbExtraField.Append(", ");
+						sbExtraField.AppendLine(string.Format(@"FileSizeField = ""{0}""", fileSizeProperty.Name));
+						
+					//}
+				}
+				
+					var fileTypeProperty = entity.Properties.FirstOrDefault(p=>(string)GetCustomProperty(p,"FileType", "String") == groupFileName);
+					if (fileTypeProperty != null){
+				//if (fileTypeProperty.Name == groupFileName){
+						if (sbExtraField.Length > 0)
+							sbExtraField.Append(", ");
+						sbExtraField.AppendLine(string.Format(@"FileTypeField = ""{0}""", fileTypeProperty.Name));
+						
+				//	}
+					}
+					var fileNameProperty = entity.Properties.FirstOrDefault(p=>(string)GetCustomProperty(p,"FileName", "String") == groupFileName);
+					if (fileNameProperty != null){
+					//if (fileNameProperty.Name == groupFileName){
+						if (sbExtraField.Length > 0)
+							sbExtraField.Append(", ");
+						sbExtraField.AppendLine(string.Format(@"FileNameField =  ""{0}""", fileNameProperty.Name));
+						
+					}
+					
+					var fileIdProperty = entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey);
+					if (fileIdProperty != null){
+					//if (fileNameProperty.Name == groupFileName){
+						if (sbExtraField.Length > 0)
+							sbExtraField.Append(", ");
+						sbExtraField.AppendLine(string.Format(@"FileIdField =  ""{0}""", fileIdProperty.Name));
+						sbExtraField.Append(", ");
+					}
+					//}
+				
+			}
+		}
+#>
+visibleProperty =true;
+<#+ if (!item.VisibleInGrid || !item.VisibleInForm ) { #>				
+if (uiModel.ContextType == UIModelContextTypes.ListForm )
+	visibleProperty = <#= item.VisibleInGrid.ToString().ToLower() #>;
+else if (uiModel.ContextType == UIModelContextTypes.EditForm || uiModel.ContextType == UIModelContextTypes.DisplayForm )
+	visibleProperty = <#= item.VisibleInForm.ToString().ToLower() #>;
+<#+ } #>
+if (visibleProperty){				
+<#+ if(!string.IsNullOrEmpty(visibilityCondition))  { #>
+	if (conditionalshow && uiModel.Items[0].<#= visibilityCondition #>)
+    {
+<#+ } #>
+	//<#= entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName== item.Name) != null? entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName== item.Name).RelationshipName : "Null" #>
+		//if (this.Request.QueryString["fk"] != "<#= item.Name #>")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+				<#+ if (sbExtraField.Length > 0)  { #>
+					<#= sbExtraField.ToString() #>
+				<#+ } #>
+				<#+  if ((bool)GetCustomProperty(item, "IsHidden", "Boolean")) { #>
+					IsHidden = true,	
+<#+ } #>
+<#+ 	if (item.IsNavigationPropertyMany) { #>				
+					Link = <#= link #>,
+<#+ 	}else if(item.IsNavigationProperty) { 
+				string getAction ="GetAll";	
+				string getParams ="";
+			
+				if (!string.IsNullOrEmpty((string)GetCustomProperty(item, "UIGetParams", "String"))){
+					getParams = (string)GetCustomProperty(item, "UIGetParams", "String");
+				}
+				if (!string.IsNullOrEmpty((string)GetCustomProperty(item, "UIGetAction", "String"))){
+						getAction= (string)GetCustomProperty(item, "UIGetAction", "String");
+				}
+				var entityFKDefaultColumn = entityRel.DefaultProperty?? entityRel.Properties[0].Name;
+
+				string displayText = entityFKDefaultColumn;
+				var keyEntityFK = entityRel.Properties.Find(p=>p.IsPrimaryKey);
+
+				string displayValue = keyEntityFK.Name;
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(item, "UIDisplayText", "String"))){
+					displayText= (string)GetCustomProperty(item, "UIDisplayText", "String");
+			}
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(item, "UIDisplayValue", "String"))){
+					displayValue= (string)GetCustomProperty(item, "UIDisplayValue", "String");
+			}
+
+	
+	
+	#>				
+					ModuleKey = "<#= entity.Model.SafeNamespace #>",
+					BusinessObjectKey = "<#= entityRel.Name #>",
+					
+					GetMethodName = "<#= getAction #>",
+					GetMethodParameters = "<#= getParams.Replace("\"",@"\""") #>",
+					GetMethodDisplayText ="<#= displayText #>",
+					GetMethodDisplayValue = "<#= displayValue #>",
+<#+ 	} #>					
+		//			CustomProperties = customProperties,
+                    PropertyName = "<#= item.Name #>",
+                    SortBy = "<#= propertyNameSort #>",
+<#+ if (!string.IsNullOrEmpty((string)GetCustomProperty(item, "UIListFooter", "String"))){ #>
+					Sum = true,
+<#+ } #>					
+                    TypeName = "<#= item.Type #>",
+                    IsNavigationProperty = <#= item.IsNavigationProperty.ToString().ToLower() #>,
+					IsNavigationPropertyMany = <#= item.IsNavigationPropertyMany.ToString().ToLower() #>,
+                    PathName = "<#= entity.Model.SafeNamespace #>/<#= pathName #>",
+                    PropertyDisplayName = Resources.<#= entity.Name #>Resources.<#= item.Name == "Culture" ? (item.Name + "_").ToUpper() :  item.Name.ToUpper() #>
+                });
+		//	}
+<#+ if(!string.IsNullOrEmpty(visibilityCondition))  { #>
+	}
+<#+ } #>	
+	}
+<#+ 			}
+		} #>					
+                
+				return results;
+            }
+
+			
+		
+		public List<<#= entity.Name #>Model> GetBy(string filter, int? pageSize, int? page, string orderBy, string orderDir,  params  object[] extraParams)
+        {
+
+		var bos = BR.<#= entity.SetName #>BR.Instance.GetBy(HttpUtility.UrlDecode(filter), pageSize, page, orderBy, orderDir, extraParams);
+            <#= entity.Name #>Model model = null;
+            List<<#= entity.Name #>Model> results = new List<<#= entity.Name #>Model>();
+            foreach (var item in bos)
+            {
+                model = new <#= entity.Name #>Model();
+				model.Bind(item);
+				results.Add(model);
+            }
+            return results;
+        }
+        [MyAuthorize("r", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+		public ContentResult GetByJson(string filter, int? pageSize, int? page, string orderBy, string orderDir)
+        {
+            var filteredResults = GetBy(HttpUtility.UrlDecode(filter), pageSize, page, orderBy, orderDir);
+   			 UIModel<<#= entity.Name #>Model> uiModel = GetContextModel(UIModelContextTypes.Items, null);
+            uiModel.Items = filteredResults;
+            Showing(ref uiModel);
+            JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+            var jsonString = jsonSerializer.Serialize(uiModel.Items).ToString();
+            return Content(jsonString);
+        }
+			
+		public int GetByCount(string filter) {
+            return BR.<#= entityPluralName #>BR.Instance.GetCount(HttpUtility.UrlDecode(filter));
+        }
+		[MyAuthorize("r", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+		public ActionResult GetByKeyJson(string id)
+        {
+            return Json(GetByKey(id), JsonRequestBehavior.AllowGet);
+        }
+		public <#= entity.Name #>Model GetByKey(string id) {
+			return GetByKey(id, null);
+       	}
+		 public <#= entity.Name #>Model GetByKey(string id, string includes) {
+             <#= entity.Name #>Model model = null;
+            ControllerEventArgs<<#= entity.Name #>Model> e = null;
+			string objectKey = id.Replace("-","/");
+             OnGettingByKey(this, e=  new ControllerEventArgs<<#= entity.Name #>Model>() { Id = objectKey  });
+             bool cancel = false;
+             <#= entity.Name #>Model eItem = null;
+             if (e != null)
+             {
+                 cancel = e.Cancel;
+                 eItem = e.Item;
+             }
+			if (cancel == false && eItem == null)
+             {
+<#+ 	System.Text.StringBuilder sbQueryKeys = new System.Text.StringBuilder();
+		foreach(PropertyInfo property in entity.Properties.Where(p=>p.IsPrimaryKey)){ #>
+<#+ 		if (property.Type == "Guid") { #>
+			<#= property.Type #> <#= Code.CamelCase(property.Name) #> = new Guid(SFSdotNet.Framework.Entities.Utils.GetPropertyKey(objectKey, "<#= property.Name #>"));
+<#+ 		}else{ #>		
+			<#= property.Type #> <#= Code.CamelCase(property.Name) #> = Convert.To<#= property.Type #>(SFSdotNet.Framework.Entities.Utils.GetPropertyKey(objectKey, "<#= property.Name #>"));
+<#+ 		} #>
+<#+ 		if (sbQueryKeys.Length > 0) 
+				sbQueryKeys.Append(", ");
+			sbQueryKeys.Append(string.Format("{0}", Code.CamelCase(property.Name)));
+			#>
+<#+ 	} #>            
+				model = new <#= entity.Name #>Model();
+				var bo = BR.<#= entityPluralName #>BR.Instance.GetByKey(<#= sbQueryKeys.ToString() #>, includes);
+				if (bo!=null )
+					model.Bind(bo);
+			}
+             else {
+                 model = eItem;
+             }
+			model.IsNew = false;
+
+            return model;
+        }
+        // GET: /<#= entity.SetName #>/DetailsGen/5
+		[MyAuthorize("r", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+		[MvcSiteMapNode(AreaName="<#= Model.SafeNamespace #>", Clickable=false, ParentKey = "<#= Model.SafeNamespace #>_<#= entity.Name #>_List")]
+        public ActionResult DetailsGen(string id)
+        {
+			if (SiteMap.CurrentNode != null)
+				SiteMap.CurrentNode.Title = <#= entity.Name #>Resources.ENTITY_PLURAL;
+			UIModel<<#= entity.Name #>Model> uiModel = GetContextModel(UIModelContextTypes.DisplayForm, GetByKey(id));
+			
+            MyEventArgs<UIModel<<#= entity.Name #>Model>> me = null;
+
+            OnActionsCreated(this, me = new MyEventArgs<UIModel<<#= entity.Name #>Model>>() { Object = uiModel });
+
+            if (me != null) {
+                uiModel = me.Object;
+            }
+			
+            Showing(ref uiModel);
+            if(!string.IsNullOrEmpty(Request.QueryString["popup"]))
+                ViewData["ispopup"] = true;
+			
+            return View("DisplayGen", uiModel.Items[0]);
+        }
+		[MyAuthorize("r", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+		public ActionResult DetailsViewGen(string id)
+        {
+			if(!string.IsNullOrEmpty(Request.QueryString["popup"]))
+                ViewData["ispopup"] = true;
+ 			if (!string.IsNullOrEmpty(Request.QueryString["fk"]))
+                ViewData["fk"] = Request.QueryString["fk"];
+            if (!string.IsNullOrEmpty(Request.QueryString["fkValue"]))
+                ViewData["fkValue"] = Request.QueryString["fkValue"];
+           
+        	 var uiModel = GetContextModel(UIModelContextTypes.DisplayForm, GetByKey(id));
+            MyEventArgs<UIModel<<#= entity.Name #>Model>> me = null;
+
+            OnActionsCreated(this, me = new MyEventArgs<UIModel<<#= entity.Name #>Model>>() { Object = uiModel });
+
+            if (me != null)
+            {
+                uiModel = me.Object;
+            }
+            
+            Showing(ref uiModel);
+            return View("DisplayViewGen", uiModel.Items[0]);
+        
+        }
+        //
+        // GET: /<#= entityPluralName #>/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+        //
+        // GET: /<#= entityPluralName #>/CreateGen
+		[MyAuthorize("c", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+        public ActionResult CreateGen()
+        {
+			<#= entity.Name #>Model model = new <#= entity.Name #>Model();
+            model.IsNew = true;
+			 var me = GetContextModel(UIModelContextTypes.EditForm, model);
+
+             if (!string.IsNullOrEmpty(Request.QueryString["popup"]))
+                 ViewData["ispopup"] = true;
+             if (!string.IsNullOrEmpty(Request.QueryString["fk"]))
+                 ViewData["fk"] = Request.QueryString["fk"];
+             if (!string.IsNullOrEmpty(Request.QueryString["fkValue"]))
+                 ViewData["fkValue"] = Request.QueryString["fkValue"];
+
+            Showing(ref me);
+
+			return View("CreateGen",me.Items[0]);
+        } 
+			
+		 private UIModel<<#= entity.Name #>Model> GetContextModel(UIModelContextTypes formMode, <#= entity.Name #>Model model) {
+            UIModel<<#= entity.Name #>Model> me = new UIModel<<#= entity.Name #>Model>(true, "<#= entity.SetName #>");
+			if (!string.IsNullOrEmpty(Request.QueryString["usemode"]))
+				me.UseMode = Request.QueryString["usemode"];
+			me.ContextType = formMode ;
+            me.Properties = GetProperties(me);
+ 			#region Buttons
+            me.ActionButtons.Add(new ActionModel() { ActionKey = "return", Title = GlobalMessages.RETURN, Url = System.Web.VirtualPathUtility.ToAbsolute("~/") + "<#= entity.Model.SafeNamespace #>/<#= entity.SetName #>" });
+			if (!this.HttpContext.SkipAuthorization){
+				me.SetAction("u", (new SFSdotNet.Framework.Globals.Security.Permission()).IsAllowed("u", "<#= entity.Name #>", "<#= entity.Model.SafeNamespace #>"));
+				me.SetAction("c", (new SFSdotNet.Framework.Globals.Security.Permission()).IsAllowed("c", "<#= entity.Name #>", "<#= entity.Model.SafeNamespace #>"));
+			
+			}else{
+				me.SetAction("u", true);
+				me.SetAction("c", true);
+			}
+            #endregion              
+         
+            switch (formMode)
+            {
+                case UIModelContextTypes.DisplayForm:
+					me.TitleForm = <#= entity.Name #>Resources.<#= entity.SetName.ToUpper() #>_DETAILS;
+                    me.ActionButtons.First(p => p.ActionKey == "u").Title = GlobalMessages.EDIT;
+
+                    break;
+                case UIModelContextTypes.EditForm:
+					if (model != null)
+                    {
+					                        me.ActionButtons.First(p => p.ActionKey == "c").Title = GlobalMessages.SAVE;
+						if (model.IsNew ){
+							me.TitleForm = <#= entity.Name #>Resources.<#= entity.SetName.ToUpper() #>_ADD_NEW;
+							me.ActionName = "CreateGen";
+
+						}else{
+							me.ActionName = "EditGen";
+
+							me.TitleForm = <#= entity.Name #>Resources.<#= entity.SetName.ToUpper() #>_EDIT;
+						}
+					}
+                    break;
+                case UIModelContextTypes.FilterFields:
+                    break;
+                case UIModelContextTypes.GenericForm:
+                    break;
+                case UIModelContextTypes.Items:
+                    break;
+                case UIModelContextTypes.ListForm:
+					me.PrincipalActionName = "GetByJson";
+					me.TitleForm = <#= entity.Name #>Resources.<#= entity.SetName.ToUpper() #>_LIST;
+                    break;
+                default:
+                    break;
+            }
+            
+			if (model != null )
+            	me.Items.Add(model);
+            return me;
+        }
+		// GET: /<#= entityPluralName #>/CreateViewGen
+		[MyAuthorize("c", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+        public ActionResult CreateViewGen()
+        {
+				<#= entity.Name #>Model model = new <#= entity.Name #>Model();
+            model.IsNew = true;
+			e= null;
+			OnCreateShowing(this, e = new ControllerEventArgs<<#= entity.Name #>Model>() { Item = model });
+   			if (e!=null)
+				model = e.Item;
+			
+				
+            if(!string.IsNullOrEmpty(Request.QueryString["popup"]))
+                ViewData["ispopup"] = true;
+            if (!string.IsNullOrEmpty(Request.QueryString["fk"]))
+                   ViewData["fk"] = Request.QueryString["fk"];
+			if (!string.IsNullOrEmpty(Request.QueryString["fkValue"]))
+                ViewData["fkValue"] = Request.QueryString["fkValue"];
+			
+      
+            var me = GetContextModel(UIModelContextTypes.EditForm, model);
+
+            me.Items.Add(model);
+            Showing(ref me);
+            return View("EditorViewGen", me.Items[0]);
+        }
+		private void Showing(ref UIModel<<#= entity.Name #>Model> uiModel) {
+          	
+			MyEventArgs<UIModel<<#= entity.Name #>Model>> me = null;
+            OnShowing(this, me = new MyEventArgs<UIModel<<#= entity.Name #>Model>>() { Object = uiModel });
+
+            if (me != null)
+            {
+                uiModel = me.Object;
+            }
+            if (me == null)
+                me = new MyEventArgs<UIModel<<#= entity.Name #>Model>>() { Object = uiModel };
+            ViewData["UIModel"] = uiModel;
+
+        }
+        //
+        // POST: /<#= entityPluralName #>/Create
+		[MyAuthorize("c", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+        [HttpPost]
+		[ValidateInput(false)] 
+        public ActionResult CreateGen(<#= sbExcludes.ToString() #><#= entity.Name #>Model  model)
+        {
+		 	e = null;
+			this.Validations(model);
+
+            OnValidating(this, e = new ControllerEventArgs<<#= entity.Name #>Model>() { Item = model });
+           
+		  	if (!ModelState.IsValid) {
+				model.IsNew = true;
+				var me = GetContextModel(UIModelContextTypes.EditForm, model);
+                Showing(ref me);
+                 if (!string.IsNullOrEmpty(Request.QueryString["popup"]))
+                {
+                    if (!string.IsNullOrEmpty(Request.QueryString["popup"]))
+                        ViewData["ispopup"] = true;
+                    if (!string.IsNullOrEmpty(Request.QueryString["fk"]))
+                        ViewData["fk"] = Request.QueryString["fk"];
+                    if (!string.IsNullOrEmpty(Request.QueryString["fkValue"]))
+                        ViewData["fkValue"] = Request.QueryString["fkValue"];
+
+                    return View("EditorViewGen", model);
+                }
+                else
+                    return View("CreateGen", model);
+            }
+            try
+            {
+<#+ 		foreach(PropertyInfo property in entity.Properties.Where(p=>p.IsPrimaryKey && p.Type == "Guid" && p.IsIdentity==false)) { #>
+				model.<#= property.Name #> = Guid.NewGuid();
+<#+ 		} #>	
+				// habilitando método parcial
+                #region implementación de método parcial
+               
+                bool cancel = false; bool replaceResult = false;
+                OnCreating(this, e = new ControllerEventArgs<<#= entity.Name #>Model>() { Item = model });
+                if (e != null) {
+                    if (e.Cancel && e.ActionResult != null)
+                        return e.ActionResult;
+                    else if (e.Cancel == true)
+                        cancel = true;
+                    else if (e.ActionResult != null)
+                        replaceResult = true;
+                }
+                #endregion
+                // si fue implementado el método parcial y no se ha decidido suspender la acción
+                if (!cancel)
+                	model.Bind(<#= entityPluralName #>BR.Instance.Create(model.GetBusinessObject()));
+				OnCreated(this, e = new ControllerEventArgs<<#= entity.Name #>Model>() { Item = model });
+                 if (e != null )
+					if (e.ActionResult != null)
+                    	replaceResult = true;		
+				if (!replaceResult)
+                {
+                    if (!string.IsNullOrEmpty(Request.Form["__continue"]))
+                    {
+                        ViewData["__continue"] = true;
+                    }
+                    if (!string.IsNullOrEmpty(Request.QueryString["popup"]) || !string.IsNullOrEmpty(Request.Form["popup"]))
+                    {
+                        if (!string.IsNullOrEmpty(Request.Form["__continue"]))
+
+                        {
+                            var popupextra = GetRouteData();
+                            popupextra.Add("id", model.SafeKey);
+                            return RedirectToAction("EditViewGen", popupextra);
+                        }
+                        else
+                        {
+                            return PartialView("ResultMessageView", (new MessageModel()).GetDone(GlobalMessages.ADD_DONE));
+                        }
+                    }        			if (!string.IsNullOrEmpty(Request.QueryString["ReturnAfter"]))
+                        return Redirect(Request.QueryString["ReturnAfter"]);
+                    else{
+                            if (!string.IsNullOrEmpty(Request.Form["__continue"])) {
+                                                   var popupextra = GetRouteData();
+                                popupextra.Add("id", model.SafeKey);
+                                return RedirectToAction("EditGen", popupextra);
+
+                            }
+                            return RedirectToAction("Index");
+                        }
+						 }
+                else {
+                    return e.ActionResult;
+                    }
+				}
+            catch
+            {
+                return View();
+            }
+        }        
+        //
+        // GET: /<#= entityPluralName #>/Edit/5 
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+			
+<#+ 
+	List<PropertyInfo> propManys = new List<PropertyInfo>();
+	foreach (var item in entity.Properties.Where(p=>p.IsNavigationPropertyMany)) { 
+		if ( item.Type.Substring(item.Type.LastIndexOf(".") + 1) != entity.Name){
+			var navprop = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName == item.Name);
+			var entityRelName = navprop.EntityType.Substring(navprop.EntityType.LastIndexOf(".") + 1);
+			var entityRel = entity.Model.Entities.Find(p=>p.Name == entityRelName);
+			var relNav = entityRel.NavigationProperties.Where(p=>p.RelationshipName == item.NavigationProperty.RelationshipName).FirstOrDefault();
+			if(relNav.Multiplicity == "*"){ // muchos a muchos
+				propManys.Add(navprop.Property);
+	 		}
+		
+		}
+	}#>
+<#+ if (propManys.Count > 0 ) { #>		
+		public ActionResult AddRelation(string objectKey, string relationship, string relationshipValue) {
+
+            UpdateRelation("c", objectKey, relationship, relationshipValue);
+            return Content("ok");
+        }
+
+
+
+				
+		private void UpdateRelation(string action, string objectKey, string relationship, string relationshipValue){
+		<#+ System.Text.StringBuilder sbKey3 = new System.Text.StringBuilder();	
+	foreach(PropertyInfo property in entity.Properties.Where(p=>p.IsPrimaryKey)) { 
+		string preConvert = "To";
+		if (property.Type == "Guid")
+			preConvert = "new Guid";
+		else
+			preConvert = "Convert.To" + property.Type;
+		if (sbKey3.Length > 0)
+			sbKey3.Append(", ");
+		sbKey3.Append(string.Format("{0} = {1}", property.Name, Code.CamelCase(property.Name)));
+		#>			
+				<#= property.Type #> <#= Code.CamelCase(property.Name) #> = <#= preConvert #>(SFSdotNet.Framework.Entities.Utils.GetPropertyKey(objectKey.Replace("-", "/"), "<#= property.Name #>")); 
+<#+ } #> 
+           
+                BO.<#= entity.Name #> obj = new BO.<#= entity.Name #>() { <#= sbKey3.ToString() #>  };
+
+                
+                switch (relationship) {
+<#+ 	foreach (var many in propManys) { 
+			var entityRel = entity.Model.Entities.FirstOrDefault(p=>p.Name == many.Type.Substring(many.Type.LastIndexOf(".") + 1));
+			System.Text.StringBuilder sbKrm = new System.Text.StringBuilder();
+			if (entityRel.Properties.First(p=>p.IsPrimaryKey).Type.Contains("Guid")){
+				sbKrm.Append(string.Format("{0} = new Guid({1})", entityRel.Properties.First(p=>p.IsPrimaryKey).Name, "relationshipValue"));
+			}else{
+				sbKrm.Append(string.Format("{0} = Convert.To{1}({2})", entityRel.Properties.First(p=>p.IsPrimaryKey).Name, entityRel.Properties.First(p=>p.IsPrimaryKey).Type, "relationshipValue"));
+			
+			}
+	#>				
+					case "<#= many.Name #>":
+                    
+                    if (action == "c")
+                        BR.<#= entityPluralName #>BR.Instance.AddRelation(obj, new BO.<#= entityRel.Name #>() { <#= sbKrm.ToString() #> });
+                    else if (action == "d")
+                        BR.<#= entityPluralName #>BR.Instance.RemoveRelation(obj, new BO.<#= entityRel.Name #>() { <#= sbKrm.ToString() #> });
+					break;
+<#+ } #>                
+				}
+        
+        }
+<#+ } #>		
+		[MyAuthorize("u", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+		[MvcSiteMapNode(AreaName="<#= Model.SafeNamespace #>", Clickable=false, ParentKey = "<#= Model.SafeNamespace #>_<#= entity.Name #>_List")]
+		public ActionResult EditGen(string id)
+        {
+			if (SiteMap.CurrentNode != null)
+				SiteMap.CurrentNode.Title = <#= entity.Name #>Resources.ENTITY_SINGLE;		 	
+  // habilitando método parcial
+            #region implementación de método parcial
+
+            bool cancel = false; bool replaceResult = false;
+            OnEditShowing(this, e = new ControllerEventArgs<<#= entity.Name #>Model>() { Id= id });
+            if (e != null)
+            {
+                if (e.Cancel && e.ActionResult != null)
+                    return e.ActionResult;
+                else if (e.Cancel == true)
+                    cancel = true;
+                else if (e.ActionResult != null)
+                    replaceResult = true;
+            }
+            #endregion
+            <#= entity.Name #>Model model = null;
+            // si fue implementado el método parcial y no se ha decidido suspender la acción
+            if (!cancel)
+                model = GetByKey(id);
+            else
+                model = e.Item;
+			 var me = GetContextModel(UIModelContextTypes.EditForm, model);
+            Showing(ref me);
+
+
+            if (!replaceResult)
+            {
+                 return View("EditGen", me.Items[0]);
+            }
+            else {
+                return e.ActionResult;
+            }
+        }
+			[MyAuthorize("u", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+		public ActionResult EditViewGen(string id)
+        {
+            if (!string.IsNullOrEmpty(Request.QueryString["popup"]))
+                ViewData["ispopup"] = true;
+			  if (!string.IsNullOrEmpty(Request.QueryString["fk"]))
+                ViewData["fk"] = Request.QueryString["fk"];
+            if (!string.IsNullOrEmpty(Request.QueryString["fkValue"]))
+                ViewData["fkValue"] = Request.QueryString["fkValue"];
+
+					  // habilitando método parcial
+            #region implementación de método parcial
+
+            bool cancel = false; bool replaceResult = false;
+            OnEditShowing(this, e = new ControllerEventArgs<<#= entity.Name #>Model>() { Id= id });
+            if (e != null)
+            {
+                if (e.Cancel && e.ActionResult != null)
+                    return e.ActionResult;
+                else if (e.Cancel == true)
+                    cancel = true;
+                else if (e.ActionResult != null)
+                    replaceResult = true;
+            }
+            #endregion
+			
+            <#= entity.Name #>Model model = null;
+            // si fue implementado el mÃ©todo parcial y no se ha decidido suspender la acciÃ³n
+            if (!cancel)
+                model = GetByKey(id);
+            else
+                model = e.Item;
+            var me = GetContextModel(UIModelContextTypes.EditForm, model);
+            Showing(ref me);
+
+            return View("EditorViewGen", me.Items[0]);
+        }
+		[MyAuthorize("u", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+		[HttpPost]
+		[ValidateInput(false)] 
+        public ActionResult EditGen(<#= entity.Name #>Model model)
+        {
+			e = null;
+			this.Validations(model);
+
+            OnValidating(this, e = new ControllerEventArgs<<#= entity.Name #>Model>() { Item = model });
+           
+            if (!ModelState.IsValid)
+            {
+			   	var me = GetContextModel(UIModelContextTypes.EditForm, model);
+                Showing(ref me);
+			
+				if (!string.IsNullOrEmpty(Request.Form["popup"])){
+                	ViewData["ispopup"] = true;
+					return View("EditorViewGen", model);
+				}
+				else
+					return View("EditGen", model);
+            }
+            try
+            {
+			
+				// habilitando método parcial
+                #region implementación de método parcial
+               
+                bool cancel = false; bool replaceResult = false;
+                OnEditing(this, e = new ControllerEventArgs<<#= entity.Name #>Model>() { Item = model });
+                if (e != null) {
+                    if (e.Cancel && e.ActionResult != null)
+                        return e.ActionResult;
+                    else if (e.Cancel == true)
+                        cancel = true;
+                    else if (e.ActionResult != null)
+                        replaceResult = true;
+                }
+                #endregion
+                // si fue implementado el método parcial y no se ha decidido suspender la acción
+                if (!cancel)
+                	<#= entity.SetName #>BR.Instance.Update(model.GetBusinessObject());
+
+                if (!string.IsNullOrEmpty(Request.QueryString["autosave"]))
+                {
+                    return Json("ok", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+				if (!replaceResult)
+                {
+					if (!string.IsNullOrEmpty(Request.Form["popup"]))
+						return PartialView("ResultMessageView", (new MessageModel()).GetDone(GlobalMessages.UPDATE_DONE));
+        			if (!string.IsNullOrEmpty(Request.Form["ReturnAfter"]))
+                        return Redirect(Request.Form["ReturnAfter"]);
+                    else
+                        return RedirectToAction("Index", new { usemode = Request.Form["usemode"]});
+				 }
+                else {
+                    return e.ActionResult;
+				}
+                }		
+            }
+            catch
+            {
+                if (!string.IsNullOrEmpty(Request.QueryString["autosave"]))
+                {
+                    return Json("error", JsonRequestBehavior.AllowGet);
+                }
+                else {
+                    return View();
+                }
+            }
+        }
+        //
+        // POST: /<#= entityPluralName #>/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                //  Add update logic here
+ 
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        //
+        // GET: /<#= entityPluralName #>/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+		[MyAuthorize("d", "<#= entity.Name #>",  ControllerType=typeof(<#= controllerName #>Controller))]
+		[HttpDelete]
+        public ActionResult DeleteGen(string objectKey, string extraParams)
+        {
+            try
+            {
+<#+ if (propManys.Count > 0) { #>			
+			if (!string.IsNullOrEmpty(extraParams)) {
+                    if (extraParams.Contains("relationship:")) { 
+                        // delete many to many 
+                        string relationship = extraParams.Split(char.Parse("|")).FirstOrDefault(p=>p.Contains("relationship:")).Split(char.Parse(":"))[1];
+                        string relationshipValue = extraParams.Split(char.Parse("|")).FirstOrDefault(p=>p.Contains("relationshipValue:")).Split(char.Parse(":"))[1];
+
+                        UpdateRelation("d", objectKey, relationship, relationshipValue);
+
+                        return PartialView("ResultMessageView", (new MessageModel()).GetDone(GlobalMessages.DELETE_DONE));
+
+                    }
+                }
+<#+ } #>					
+<#+ System.Text.StringBuilder sbKey2 = new System.Text.StringBuilder();	
+	foreach(PropertyInfo property in entity.Properties.Where(p=>p.IsPrimaryKey)) { 
+		string preConvert = "To";
+		if (property.Type == "Guid")
+			preConvert = "new Guid";
+		else
+			preConvert = "Convert.To" + property.Type;
+		if (sbKey2.Length > 0)
+			sbKey2.Append(", ");
+		sbKey2.Append(string.Format("{0} = {1}", property.Name, Code.CamelCase(property.Name)));
+		#>			
+				<#= property.Type #> <#= Code.CamelCase(property.Name) #> = <#= preConvert #>(SFSdotNet.Framework.Entities.Utils.GetPropertyKey(objectKey.Replace("-", "/"), "<#= property.Name #>")); 
+<#+ } #>
+                BO.<#= entity.Name #> entity = new BO.<#= entity.Name #>() { <#= sbKey2.ToString() #> };
+
+                BR.<#= entity.SetName #>BR.Instance.Delete(entity);               
+                return PartialView("ResultMessageView", (new MessageModel()).GetDone(GlobalMessages.DELETE_DONE));
+
+            }
+            catch(Exception ex)
+            {
+                if (Request.IsAjaxRequest())
+                {
+                    string message = GlobalMessages.ERROR_TRY_LATER;
+                    if (ex.Data["usermessage"] != null)
+                    {
+                        message = ex.Data["usermessage"].ToString();
+                    }
+
+                    return PartialView("ResultMessageView", (new MessageModel()).GetException(message));
+                }
+                else
+                {
+                    return View();
+                }
+            }
+        }
+			
+		public FileMediaResult Download(string query, bool allSelected, string selected, string orderBy, string direction, string format, string actionKey)
+        {
+<#+ 		System.Text.StringBuilder sbKeyArrayParams = new System.Text.StringBuilder();
+			int nKey = 0;
+			foreach (var itemKey in entity.Properties.Where(p=>p.IsPrimaryKey)) { 
+				nKey ++;
+				if (sbKeyArrayParams.Length > 0 )
+					sbKeyArrayParams.Append(", ");
+				sbKeyArrayParams.Append("keysSelected" + nKey.ToString()); #>			
+            List<<#= itemKey.Type #>> keysSelected<#= nKey.ToString() #> = new List<<#= itemKey.Type #>>();
+            if (!string.IsNullOrEmpty(selected)) {
+                foreach (var keyString in selected.Split(char.Parse("|")))
+                {
+<#+ 	if (itemKey.Type != "String") { #>				
+                    keysSelected<#= nKey.ToString() #>.Add(<#= itemKey.Type #>.Parse(keyString));
+<#+ 	}else{ #>
+                    keysSelected<#= nKey.ToString() #>.Add(keyString);
+					
+<#+ 	} #>
+                }
+            }
+<#+ } #>				
+            query = SFSdotNet.Framework.Web.Mvc.Lists.GetQuery(query, allSelected, selected, "<#= entity.Properties.Where(p=>p.IsPrimaryKey).ToList()[0].Name #>");
+            MyEventArgs<ContextActionModel<<#= entity.Name #>Model>> eArgs = null;
+            List<<#= entity.Name #>Model> results = GetBy(query, null, null, orderBy, direction, <#= sbKeyArrayParams.ToString() #>);
+            OnDownloading(this, eArgs = new MyEventArgs<ContextActionModel<<#= entity.Name #>Model>>() { Object = new ContextActionModel<<#= entity.Name #>Model>() { Query = query, SelectedItems = results, Selected=selected, SelectAll = allSelected, Direction = direction , OrderBy = orderBy, ActionKey=actionKey  } });
+
+            if (eArgs != null)
+            {
+                if (eArgs.Object.Result != null)
+                    return (FileMediaResult)eArgs.Object.Result;
+            }
+            
+
+            return (new FeaturesController()).ExportDownload(typeof(<#= entity.Name #>Model), results, format, <#= entity.Name #>Resources.<#= entity.SetName.ToUpper() #>_LIST);
+            
+        }
+			
+		
+		[HttpPost]
+        public ActionResult CustomActionExecute(ContextActionModel model) {
+		 try
+            {
+<#+ 		 nKey = 1;
+			foreach (var propertyKey in entity.Properties.Where(p=>p.IsPrimaryKey )) { 
+	#>
+			List<<#= propertyKey.Type #>> keysSelected<#= nKey.ToString() #> = new List<<#= propertyKey.Type #>>();
+<#+ 		nKey ++;
+			} #>
+            if (!string.IsNullOrEmpty(model.Selected))
+            {
+                foreach (var keyString in model.Selected.Split(char.Parse(",")))
+                {
+<#+ 		 nKey = 1;
+			System.Text.StringBuilder propertyKeysParams = new System.Text.StringBuilder();
+			System.Text.StringBuilder propertyKeyArraysParams = new System.Text.StringBuilder();
+			foreach (var propertyKey in entity.Properties.Where(p=>p.IsPrimaryKey )) {
+				if (propertyKeysParams.Length > 0)
+					propertyKeysParams.Append(",");
+				propertyKeysParams.Append(string.Format(@"""{0}""",propertyKey.Name));
+				if (propertyKeyArraysParams.Length > 0){
+					propertyKeyArraysParams.Append(", ");
+				}
+				propertyKeyArraysParams.Append("keysSelected" + nKey.ToString());
+	#>
+<#+ 	if (propertyKey.Type != "String") { #>				
+				keysSelected<#= nKey.ToString() #>.Add(<#= propertyKey.Type #>.Parse(keyString.Split(char.Parse("|"))[<#= ((int)(nKey - 1)).ToString() #>]));
+<#+ 	}else{ #>
+				keysSelected<#= nKey.ToString() #>.Add(keyString.Split(char.Parse("|"))[<#= ((int)(nKey - 1)).ToString() #>]);					
+<#+ 	} #>                        
+<#+ 		nKey ++;
+			} #>                    
+
+			
+                }
+            }
+
+            model.Query = SFSdotNet.Framework.Web.Mvc.Lists.GetQuery(model.Query , model.SelectAll , model.Selected, <#= propertyKeysParams.ToString() #>);
+           
+			List<<#= entity.Name #>Model> results = GetBy(model.Query, null, null, model.OrderBy, model.Direction , <#= propertyKeyArraysParams.ToString() #>);
+			#region implementación de método parcial
+            bool replaceResult = false;
+            MyEventArgs<ContextActionModel<<#= entity.Name #>Model>> actionEventArgs = null;
+            OnCustomActionExecuting(this, actionEventArgs=new MyEventArgs<ContextActionModel<<#= entity.Name #>Model>>() { Object= new ContextActionModel<<#= entity.Name #>Model>() { ActionKey= model.ActionKey , Direction = model.Direction, OrderBy = model.OrderBy, SelectedItems = results, SelectedKeys = model.Selected, Query = model.Query } });
+            if (model.ActionKey == "deletemany") { 
+                // eliminar muchos, como una acción custom
+                List<BO.<#= entity.Name #>> entities = new List<BO.<#= entity.Name #>>();
+                foreach (var item in results)
+                {
+                    entities.Add(item.GetBusinessObject());
+                }
+                BR.<#= entity.SetName #>BR.Instance.Delete(entities);
+
+
+            }
+<#+ if (propManys.Count > 0 ) { #>
+			else if (model.ActionKey == "deleterelmany")
+            {
+
+                if (!string.IsNullOrEmpty(model.ExtraParams)){
+                    string relationship = model.ExtraParams.Split(char.Parse("|")).FirstOrDefault(p=>p.Contains("relationship:")).Split(char.Parse(":"))[1];
+                    string relationshipValue = model.ExtraParams.Split(char.Parse("|")).FirstOrDefault(p=>p.Contains("relationshipValue:")).Split(char.Parse(":"))[1];
+                    
+                    if (!string.IsNullOrEmpty(relationship) && !string.IsNullOrEmpty(relationshipValue))
+                                foreach (var item in results)
+                                {
+                                    UpdateRelation("d", item.SafeKey, relationship, relationshipValue);
+
+                                }
+    
+                    }
+            
+            }
+<#+ } #>			
+                 if (actionEventArgs == null)
+                {
+                    if (model.ActionKey != "deletemany"  && model.ActionKey != "deleterelmany")
+                    {
+                        throw new NotImplementedException("");
+                    }
+                }
+                else
+                {
+                    replaceResult = actionEventArgs.Object.Result is ActionResult /*actionEventArgs.Object.ReplaceResult*/;
+                }
+                #endregion
+                if (!replaceResult)
+                {
+                    if (Request.IsAjaxRequest())
+                    {
+                        return PartialView("ResultMessageView", (new MessageModel()).GetDone(GlobalMessages.DONE));
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return (ActionResult)actionEventArgs.Object.Result;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                if (Request.IsAjaxRequest())
+                {
+                    string message = GlobalMessages.ERROR_TRY_LATER;
+                    if (ex.Data["usermessage"] != null) {
+                        message = ex.Data["usermessage"].ToString();
+                    }
+
+                    return PartialView("ResultMessageView", (new MessageModel()).GetException(message));
+                }
+                else
+                {
+                    return View();
+                }
+
+            }
+        }
+        //
+        // POST: /<#= entityPluralName #>/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // Add delete logic here
+ 
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+			
+	
+    }
+}
+<#+
+	}catch(Exception ex){
+		throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+	}
+}
+#>

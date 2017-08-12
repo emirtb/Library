@@ -1,0 +1,1 @@
+ALTER TABLE dbo.secWFActivity ADD GuidCompany UniqueIdentifier NULL;

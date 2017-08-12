@@ -1,0 +1,544 @@
+﻿<#@ output  extension="txt" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core.dll" #>
+
+<#@ import namespace="SFSdotNet.VSAddin2012.Model" #>
+<#@ import namespace="SFSdotNet.VSAddin2012.Model.Utils" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Linq" #>
+// <Template>
+//   <SolutionTemplate></SolutionTemplate>
+//   <Version>20110113.1</Version>
+//   <Update></Update>
+// </Template>
+
+
+
+
+<#+ void GenerateDisplay(EntityInfo entity)
+{
+	try{
+#>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>" %>
+<%@ Import Namespace="<#= entity.Model.Namespace #>.Web.Mvc.Resources" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+<% UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model> uiModel = (UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>)ViewData["uiModel"]; %>
+<%: uiModel.TitleForm %>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<div class="<%=Config.GetValue("parentformclass").ToString() %> alpha omega details" >
+	<div class="spacetop spacebottom">
+
+	<% Html.RenderPartial("DisplayViewGen"); %>
+	<#+
+	List<string> localizableColumns = new List<string>();
+	if ( !string.IsNullOrEmpty((string)GetCustomProperty(entity, "LocalizableDataFields", "String")) ) {
+			foreach(var prop in ((string)GetCustomProperty(entity, "LocalizableDataFields", "String")).Split(char.Parse(","))){
+				localizableColumns.Add(prop);
+			}
+			
+		}
+	 #>
+<#+ if (entity.NavigationProperties.Count > 0 || (bool)GetCustomProperty(entity, "UICreateChilds", "Boolean")) { #>    
+	<div class="childs">
+        <% Html.RenderPartial("ChildsViewGen", Model); %>
+    </div>
+<#+ } #>	
+<#+ if ((bool)GetCustomProperty(entity, "Auditable", "Boolean")) { 
+	System.Text.StringBuilder sbKeys = new System.Text.StringBuilder();
+	foreach(var prop in entity.Properties.Where(p=>p.IsPrimaryKey)){
+		if (sbKeys.Length > 0){
+			sbKeys.Append("|");
+		}
+		sbKeys.Append(prop.Name);
+	}
+	#> 	
+	<%  ViewData["entityKey"] = "<#= entityPluralName #>.<#= entity.Name #>";
+ 		ViewData["entityName"] = "<#= entity.Name #>";
+	 	ViewData["keys"] = "<#= sbKeys.ToString() #>";
+		ViewData["moduleNS"] = "<#= entity.Model.Namespace #>";
+
+    Html.RenderPartial("AuditChangesView"); %>
+<#+ } #>	
+    <p>
+
+<#+ if ((bool)GetCustomProperty(entity, "UIFooterInclude", "Boolean")) { #>
+
+	<% Html.RenderPartialIfExist("Footer<#= entity.Name #>", Model); %>	
+
+<#+ } #>	
+    <div class="line"></div>
+    </p>
+
+
+	</div>
+</div>
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="CustomScript" runat="server">
+<%= Html.HeaderResources("popup") %>
+<%= Html.HeaderResources("datepicker") %>
+<%= Html.HeaderResources("simplelist") %>
+<%= Html.HeaderResources("pagination") %>
+<%= Html.HeaderResources("form") %>
+<%= Html.HeaderResources("tabs") %>
+<#+ if (entity.NavigationProperties.Where(p=>p.Entity.Properties.Any(x=>x.Type == "String" && x.MaxLength == 0) && p.Multiplicity == "*" ).Count() > 0 )  {#>
+<%= Html.HeaderResources("richeditor") %>
+<#+ } #>
+<#+ if ((bool)GetCustomProperty(entity, "UIHeaderInclude", "Boolean")){
+#>
+<% Html.RenderPartialIfExist("Header<#= entity.Name #>", Model); %>
+
+<#+	}
+#>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="LeftContent" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content5" ContentPlaceHolderID="RightContent" runat="server">
+</asp:Content>
+
+<#+
+	}catch(Exception ex){
+			throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+		}
+}
+#>
+
+<#+ void GenerateDisplayView( EntityInfo entity) { 
+	try{ #>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>" %>
+<%@ Import Namespace="<#= entity.Model.Namespace #>.Web.Mvc.Resources" %>
+<% 
+   UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model> uiModel = (UIModel<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= entityPluralName #>.<#= entity.Name #>Model>)ViewData["uiModel"];
+	PropertyDefinition currentProperty = null;
+	SFSdotNet.Framework.Web.Mvc.Models.Features.HelpModel help = new SFSdotNet.Framework.Web.Mvc.Models.Features.HelpModel("<#= entity.Model.SafeNamespace #>", "<#= entity.Name #>"); 
+ 	help.ActionKey ="rd";
+  string fromFK = "";
+    if (ViewData["fk"] != null)
+        fromFK = ViewData["fk"].ToString();
+
+    string fkValue = "";
+    if (ViewData["fkValue"] != null)
+        fkValue = ViewData["fkValue"].ToString();
+	object popupextra = new  { };
+	<#+
+	List<string> localizableColumns = new List<string>();
+	if ( !string.IsNullOrEmpty((string)GetCustomProperty(entity, "LocalizableDataFields", "String")) ) {
+			foreach(var prop in ((string)GetCustomProperty(entity, "LocalizableDataFields", "String")).Split(char.Parse(","))){
+				localizableColumns.Add(prop);
+			}
+			
+		}
+	 #>
+<#+ int UIGridFormColumns = 16;
+	int UILabelColumns =6;
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIGridFormColumns", "String"))) {
+		UIGridFormColumns =int.Parse((string)GetCustomProperty(entity.Model, "UIGridFormColumns", "String"));
+	}
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UILabelColumns", "String"))) {
+		UILabelColumns =int.Parse((string)GetCustomProperty(entity.Model, "UILabelColumns", "String"));
+	}
+	string UIPopupColumns = "12";
+	string UIPopupLabelColumns = "4";
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIPopupColumns", "String"))) {
+		UIPopupColumns =(string)GetCustomProperty(entity.Model, "UIPopupColumns", "String");
+	}
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIPopupLabelColumns", "String"))) {
+		UIPopupLabelColumns =(string)GetCustomProperty(entity.Model, "UIPopupLabelColumns", "String");
+	}
+	
+	#>
+	string UIGridFormColumns = "<#= UIGridFormColumns #>";
+    string UILabelColumns = "<#= UILabelColumns #>";
+    if(!string.IsNullOrEmpty(Request.QueryString["popup"])){
+        popupextra = new { popup=1 };
+	
+		UIGridFormColumns = "<#= UIPopupColumns #>";
+        UILabelColumns = "<#= UIPopupLabelColumns #>";
+
+	}
+	string onSuccess = "";
+	if(!string.IsNullOrEmpty(Request.QueryString["onSuccess"]))
+		onSuccess = Request.QueryString["onSuccess"];
+	
+if (ViewData["ispopup"] != null)
+   { %>
+
+   <div class="popup" id="popup_<#= entity.Name #>">
+<#+ if ((bool)GetCustomProperty(entity, "UIHeaderInclude", "Boolean")){
+#>
+		<% Html.RenderPartialIfExist("Header<#= entity.Name #>", Model); %>
+
+<#+	}
+#>
+    <div class="container_16">
+  <%} %>
+<#+ int UIGridMaxColumns =1;
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIGridMaxColumns", "String"))){
+		UIGridMaxColumns = int.Parse((string)GetCustomProperty(entity.Model, "UIGridMaxColumns", "String"));
+			
+		if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")){
+			//
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "UIGridMaxColumns", "String")))
+				UIGridMaxColumns = int.Parse((string)GetCustomProperty(entity, "UIGridMaxColumns", "String"));
+			
+		}else{
+			UIGridMaxColumns =1;
+		}
+	}
+
+	#>	
+ 		<div class="form col<#= UIGridMaxColumns.ToString() #> display">
+  			<h2><%: uiModel.TitleForm %> <% Html.RenderPartial("Help", help.GetForForm(uiModel.UseMode, uiModel.TitleForm)); %></h2>			
+			<div class="line"></div>
+<#+ string gridClassContainer= "";
+	string gridClassField= "";
+	decimal uiSpace = 0.00m;
+	int rowNumber = 1;
+	int cols = 0;
+	decimal sumRowCols = 0.00m;
+	int UIGridColumns = 16;
+	UIGridFormColumns = 16;
+	if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIGridColumns", "String"))){
+		UIGridColumns = int.Parse((string)GetCustomProperty(entity.Model, "UIGridColumns", "String"));		
+	}
+		if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "UIGridFormColumns", "String"))){
+		UIGridFormColumns = int.Parse((string)GetCustomProperty(entity.Model, "UIGridFormColumns", "String"));		
+	}
+	if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")){
+		if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "UIGridMaxColumns", "String"))){
+			UIGridMaxColumns = int.Parse((string)GetCustomProperty(entity, "UIGridMaxColumns", "String"));		
+		}
+		
+	}
+	int order = 0;
+	foreach(PropertyInfo property in entity.Properties.Where(p=>p.IsNavigationPropertyMany == false && p.IsPrimaryKey== false && p.Name.ToLower() != "isdeleted" && p.Visible && p.VisibleInForm && (bool)GetCustomProperty(p, "UIEditVisibleOnly", "Boolean") == false && !p.Type.ToLower().Contains("xml") && !p.Type.ToLower().Contains("captcha")).OrderBy(p=>p.Order)){	#>
+
+<#+ 	if (IsVisibleProperty(property)){
+		
+		System.Text.StringBuilder sbExtraField = new System.Text.StringBuilder();
+		if (property.Type == "Binary"){
+			string groupFileName = (string)GetCustomProperty(property,"FileData", "String");
+			if (!string.IsNullOrEmpty(groupFileName)){
+					sbExtraField.Append(string.Format(@"PropertyData = ""{0}""", property.Name));
+						sbExtraField.Append(", ");
+					sbExtraField.Append(string.Format(@"SafeKey = Model.SafeKey"));
+						sbExtraField.Append(", ");
+					sbExtraField.Append(string.Format(@"ControllerName = ""{0}""", entity.SetName));
+						sbExtraField.Append(", ");
+					sbExtraField.Append(string.Format(@"TypeName = ""{0}.{1}""", entity.SetName, entity.Name));
+
+						sbExtraField.Append(", ");
+					sbExtraField.Append(string.Format(@"Namespace = ""{0}""", entity.Model.Namespace));
+
+				var fileSizeProperty = entity.Properties.FirstOrDefault(p=>(string)GetCustomProperty(p,"FileSize", "String") == groupFileName);
+				if (fileSizeProperty != null ){
+					//if (fileSizeProperty.Name == groupFileName){
+						if (sbExtraField.Length > 0)
+							sbExtraField.Append(", ");
+						sbExtraField.Append(string.Format(@"PropertySize = ""{0}""", fileSizeProperty.Name));
+						sbExtraField.Append(", ");
+						sbExtraField.Append(string.Format(@"FileSize = Model.{0}", fileSizeProperty.Name));
+					//}
+				}
+				
+					var fileTypeProperty = entity.Properties.FirstOrDefault(p=>(string)GetCustomProperty(p,"FileType", "String") == groupFileName);
+					if (fileTypeProperty != null){
+				//if (fileTypeProperty.Name == groupFileName){
+						if (sbExtraField.Length > 0)
+							sbExtraField.Append(", ");
+						sbExtraField.Append(string.Format(@"PropertyType = ""{0}""", fileTypeProperty.Name));
+						
+				//	}
+					}
+					var fileNameProperty = entity.Properties.FirstOrDefault(p=>(string)GetCustomProperty(p,"FileName", "String") == groupFileName);
+					if (fileNameProperty != null){
+					//if (fileNameProperty.Name == groupFileName){
+						if (sbExtraField.Length > 0)
+							sbExtraField.Append(", ");
+						sbExtraField.Append(string.Format(@"FileName = Model.{0}", fileNameProperty.Name));
+						sbExtraField.Append(", ");
+						sbExtraField.Append(string.Format(@"PropertyName = ""{0}""", fileNameProperty.Name));
+					}
+					//}
+				
+			}
+		}
+		uiSpace = 0.00m;
+		cols = 0;
+		order++;
+		// Espacio que se le destinará a lo ancho
+		if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")){
+			var percentSpace = (string)GetCustomProperty(property, "UISpace", "String");
+			//Write(percentSpace.ToString());
+			if (!string.IsNullOrEmpty(percentSpace)){
+				percentSpace = percentSpace.Replace("%",""); 
+				uiSpace = Convert.ToDecimal(percentSpace);
+				uiSpace = uiSpace / 100.00m;
+				cols = Convert.ToInt32(uiSpace * UIGridFormColumns);
+				gridClassField = "grid_" + cols.ToString();
+				gridClassContainer = "grid_" + cols.ToString();
+			}
+		}else{
+			gridClassField = "grid_7";
+			gridClassContainer = "";
+		}
+				// si ya suman el 100 por ciento de lo ancho disponible
+		
+		if ((sumRowCols + uiSpace) > 1.00m){#>
+				<div class="clear"></div>
+		
+<#+			// se reinicia el contador para una nueva fila
+			sumRowCols = 0.00m; 
+		}
+		string visibilityCondition = "";
+		if (!string.IsNullOrEmpty((string)GetCustomProperty(property, "UIVisibilityCondition", "String"))){
+					visibilityCondition =(string)GetCustomProperty(property, "UIVisibilityCondition", "String");
+		} 
+		string _safename = property.Name;
+		if (property.IsNavigationProperty){
+			_safename = "Fk" + property.Name;
+		}
+		#>
+<%  currentProperty = uiModel.Properties.FirstOrDefault(p=>p.PropertyName == "<#= property.Name #>");
+			
+	if (currentProperty != null ){ 
+		if (currentProperty.IsHidden) {
+				
+	%>
+				<#+ if (property.Type.ToLower() != "include"){ #>
+	<%: Html.HiddenFor(m=>m.<#= _safename #>) %>
+				<#+ } #>
+	<% }else{	%>	
+<#+	if (property.IsNavigationProperty)  { 
+		// Es foreign key
+		
+				
+		#>
+<#+ if(!string.IsNullOrEmpty(visibilityCondition))  { #>
+<%	if (Model.Fk<#= visibilityCondition #>)
+    { 
+%>
+<#+ } #>
+			<div class="li <#= gridClassContainer #>" id="dc<#= property.Name #>">
+				<div class="spacetop spacebottom">
+<#+ if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")) { #>
+					<div class="<#= gridClassField #> alpha desc"><%: Html.LabelFor(m=>m.Fk<#= property.Name #>) %> <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>", Regex.Replace(Html.LabelFor(  m=>m.Fk<#= property.Name  #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+<#+ }else{ #>					
+					<div class="grid_<%=UILabelColumns.ToString() %> alpha desc"><%: Html.LabelFor(m=>m.Fk<#= property.Name #>  ) %> <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>", Regex.Replace(Html.LabelFor(  m=>m.Fk<#= property.Name  #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+<#+ } #>
+					<div class="<#= gridClassField #> omega display-field"><span id="" ><%: Model.Fk<#= property.Name #>Text ?? "(" +GlobalMessages.UNDEFINED + ")" %></span>
+					</div>
+					<div class="clear"></div>
+
+				</div>
+	        </div>
+<#+ if(!string.IsNullOrEmpty(visibilityCondition))  { #>
+<% } %>
+<#+ } #>				
+<#+ 	}else if (property.Type.ToLower()== "selectitemlist"){ #>
+			<div class="li <#= gridClassContainer #>" id="dc<#= property.Name #>">
+				<div class="spacetop spacebottom">
+<#+ if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")) { #>
+					<div class="<#= gridClassField #> alpha desc"><%: Html.LabelFor(m=>m.<#= property.Name #>Value) %> <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>", Regex.Replace(Html.LabelFor(  m=>m.<#= property.Name  #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+<#+ }else{ #>
+					<div class="grid_<%=UILabelColumns.ToString() %> alpha desc"><%: Html.LabelFor(m=>m.<#= property.Name #>Value) %> <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>", Regex.Replace(Html.LabelFor(  m=>m.<#= property.Name  #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+<#+ } #>
+					<div class="<#= gridClassField #> omega display-field"><span id="" ><%: Model.<#= property.Name #>Text ?? "(" +GlobalMessages.UNDEFINED + ")" %></span>
+					</div>
+					<div class="clear"></div>
+
+				</div>
+	        </div>
+<#+ 	}else{ #>
+<#+ 		if (property.Type.ToLower() == "include") {#>
+<#+						if(!string.IsNullOrEmpty((string)GetCustomProperty(property, "FormLayout", "String"))) {#>
+			<div id="dc<#= property.Name #>" class="li focushl <#= gridClassContainer #>">
+				<div class="spacetop spacebottom">
+<#+ if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")) { #>
+				<div class="<#= gridClassField #> alpha desc">
+<#+ }else{ #>				
+				<div class="grid_<%=UILabelColumns.ToString() %> alpha desc">
+<#+ } #>
+				&nbsp;
+				</div>
+				<div class="<#= gridClassField #> omega display-field">
+					<% Html.RenderPartialIfExist("Display<#= property.Name #>", Model); %>
+				
+				</div>
+				<div class="clear"></div>
+
+				</div>
+	        </div>
+<#+				}else{ #>
+			<% Html.RenderPartialIfExist("Display<#= property.Name #>", Model); %>
+
+<#+ 		}    #>
+<#+ 		}else{ #>
+
+<#+ if(!string.IsNullOrEmpty(visibilityCondition))  { #>
+<%	if (Model.<#= visibilityCondition #>)
+    {
+%>
+<#+ } #>
+			<div class="li <#= gridClassContainer #>" id="dc<#= property.Name #>">
+				<div class="spacetop spacebottom">
+<#+ if ((bool)GetCustomProperty(entity, "UIMultiColumn", "Boolean")) { #>
+					<div class="<#= gridClassField #> alpha desc"><%: Html.LabelFor(m=>m.<#= property.Name #>) %> <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>", Regex.Replace(Html.LabelFor(  m=>m.<#= property.Name  #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+<#+ }else{ #>
+					<div class="grid_<%=UILabelColumns.ToString() %> alpha desc"><%: Html.LabelFor(m=>m.<#= property.Name #> ) %> <% Html.RenderPartial("Help", help.GetForProperty("<#= property.Name #>", Regex.Replace(Html.LabelFor(  m=>m.<#= property.Name  #>).ToHtmlString(), "<.*?>", string.Empty), <#= order.ToString() #>)); %></div>
+<#+ } #>					
+					<div class="<#= gridClassField #> omega display-field"><%: Html.DisplayFor(m=>m.<#= property.Name #>, new { <#= sbExtraField.ToString() #>}) %>
+					</div>
+					<div class="clear"></div>
+
+				</div>
+	        </div>
+
+<#+
+	if (localizableColumns.Contains(property.Name)) { #>
+	  <script>
+        $(document).ready(
+                        function () {
+                            $("#dc<#= property.Name #>").find(".display-field").html(decode($("#dc<#= property.Name #>").find(".display-field").text()));
+                        }
+                        );
+                    </script>
+<#+	}
+#>
+<#+ if(!string.IsNullOrEmpty(visibilityCondition))  { #>
+<%	} %>
+<#+ } #>
+	
+<#+ 			}
+			} #>
+<%			}
+			
+		}
+			%>
+<#+ 	} #>				
+<#+ } #>	
+<#+ if (((bool)GetCustomProperty(entity, "UIExcludeDisplayButtons","Boolean")) == false) { #>
+
+			<div class="li buttons">
+				<div class="spacetop spacebottom">
+				<div class="grid_<%=UILabelColumns.ToString() %> alpha desc">   &nbsp;</div>
+				<div class="<#= gridClassField #> omega editor-field">
+				 <table border="0" >
+                    <tr>
+                    <td>
+<%  ButtonLinkModel buttonModel = null;
+	if (ViewData["ispopup"] != null)
+   { %>
+				<%  if(uiModel.CanAction("u")) {
+					
+						buttonModel = ButtonLinkModel.GetCustom(GlobalMessages.EDIT, 2, "edit", ResolveUrl("~/") + "<#= entity.Model.SafeNamespace #>/<#= entity.SetName #>/EditViewGen/" + Model.SafeKey + "?popup=1&usemode=" + Request.QueryString["usemode"] + "&fk=" + fromFK + "&fkValue=" + fkValue + "", "popup_<#= entity.Name #>");
+						buttonModel.Id = "<#= entity.Name #>_EditButton";
+						Html.RenderPartial("ButtonLink", buttonModel  );
+					}%>
+				<% Html.RenderPartial("ButtonLink", ButtonLinkModel.GetClosePopUp()); %>
+<%}
+   else
+   { %>
+				<% if(uiModel.CanAction("u")) {
+					buttonModel = ButtonLinkModel.GetCustom(GlobalMessages.EDIT, 2, "edit", ResolveUrl("~/") + "<#= entity.Model.SafeNamespace #>/<#= entity.SetName #>/EditGen/" + Model.SafeKey + "?usemode=" + Request.QueryString["usemode"]);
+					buttonModel.Id = "<#= entity.Name #>_EditButton";
+					Html.RenderPartial("ButtonLink", buttonModel );
+					}%> 
+					<%  var buttonReturn = ButtonLinkModel.GetCustom(uiModel.ActionButtons.First(p => p.ActionKey == "return").Title, 3, "return", uiModel.ActionButtons.First(p => p.ActionKey == "return").Url);
+                    buttonReturn.Id = "returnLink";
+                    Html.RenderPartial("ButtonLink", buttonReturn); %>
+<% } %>
+		
+</td>
+        <td>
+				
+                <%  	string sJSON = System.Web.Helpers.Json.Encode(Model);
+                        ViewData["onCloseActionWindow"] = "onCloseActionWindow";
+						
+						ViewData["ObjectKey"] = SFSdotNet.Framework.Entities.Utils.GetPropertyKey(Model.SafeKey.Replace("-", "/"), "<#= entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey).Name #>");
+                          Html.RenderPartial("CustomActionsView"); %>
+                          <script>
+							var item = null;
+							$(document).ready(function () {
+								try{
+                                    item = jQuery.parseJSON('<%= sJSON  %>');
+<% foreach (var action in uiModel.Actions.Where(p=>!string.IsNullOrEmpty(p.Condition))) { %>
+                                if ((<%: action.Condition %>) == false){
+                                    $("#li<%: action.ActionKey %>").remove();
+                            	}
+								
+<%  } %>
+								}catch(e){
+								
+								}
+                            });
+                              var lastActionExecuted = false; 
+                              var lastAction = "";
+                              function <%: ViewData["onCloseActionWindow"] %>() {
+                                  if (lastActionExecuted == true){
+                                      if (typeof(onCloseActionWindowDone) != "undefined") {  
+                                        var data =null;
+                                        onCloseActionWindowDone(data);
+                                      }else{ 
+
+                                       blockUI();
+                                       window.location = $("#returnLink").attr("href");
+                                      }
+                                   }
+
+                              }
+                          </script>
+
+                </td>
+                    </tr>
+                </table>
+                </div>
+				
+			<div class="clear"></div>
+			</div>
+           </div>
+<#+ if ((bool)GetCustomProperty(entity, "Auditable", "Boolean")) { 
+	System.Text.StringBuilder sbKeys = new System.Text.StringBuilder();
+	foreach(var prop in entity.Properties.Where(p=>p.IsPrimaryKey)){
+		if (sbKeys.Length > 0){
+			sbKeys.Append("|");
+		}
+		sbKeys.Append(prop.Name);
+	}
+	#> 	
+<% if (ViewData["ispopup"] != null)
+   	{ %>	
+	<%  ViewData["entityKey"] = "<#= entityPluralName #>.<#= entity.Name #>";
+ 		ViewData["entityName"] = "<#= entity.Name #>";
+	 	ViewData["keys"] = "<#= sbKeys.ToString() #>";
+		ViewData["moduleNS"] = "<#= entity.Model.Namespace #>";
+
+    	Html.RenderPartial("AuditChangesView"); 
+	}%>
+		
+<#+ } #>	
+
+<#+ } #>
+		</div>
+<#+ if ((bool)GetCustomProperty(entity, "UIFooterInclude", "Boolean")) { #>
+
+	<% Html.RenderPartialIfExist("Footer<#= entity.Name #>", Model); %>	
+
+<#+ } #>	
+<% if (ViewData["ispopup"] != null)
+   { %>
+
+   </div>
+</div>
+  <%} %>
+		
+<#+ 	}catch(Exception ex){
+		throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+	}
+
+} #>

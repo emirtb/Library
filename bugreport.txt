@@ -1,0 +1,17 @@
+    #!python
+    ** Mercurial version (2.8).  TortoiseHg version (2.10)
+    ** Command: --nofork commit
+    ** CWD: C:\Proyectos\Library
+    ** Encoding: cp1252
+    ** Extensions loaded: 
+    ** Python version: 2.7.3 (default, Apr 10 2012, 23:24:47) [MSC v.1500 64 bit (AMD64)]
+    ** Windows version: sys.getwindowsversion(major=6, minor=2, build=9200, platform=2, service_pack='')
+    ** Processor architecture: x64
+    ** Qt-4.8.4 PyQt-4.10.2 QScintilla-2.7.2
+    Traceback (most recent call last):
+      File "tortoisehg\hgqt\fileview.pyo", line 755, in timerBuildDiffMarkers
+    AttributeError: 'HgFileView' object has no attribute '_linestoprocess'
+    Traceback (most recent call last):
+      File "tortoisehg\hgqt\fileview.pyo", line 755, in timerBuildDiffMarkers
+    AttributeError: 'HgFileView' object has no attribute '_linestoprocess'
+    

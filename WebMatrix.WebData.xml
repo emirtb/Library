@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebMatrix.WebData</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Internal.Web.Utils.CommonResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Cannot_Be_Null_Or_Empty">
+            <summary>
+              Looks up a localized string similar to Value cannot be null or an empty string..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_Between">
+            <summary>
+              Looks up a localized string similar to Value must be between {0} and {1}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_Enum_Member">
+            <summary>
+              Looks up a localized string similar to Value must be a value from the &quot;{0}&quot; enumeration..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_GreaterThan">
+            <summary>
+              Looks up a localized string similar to Value must be greater than {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_GreaterThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to Value must be greater than or equal to {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_LessThan">
+            <summary>
+              Looks up a localized string similar to Value must be less than {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_LessThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to Value must be less than or equal to {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_Null_Or_Non_Empty">
+            <summary>
+              Looks up a localized string similar to Value cannot be an empty string. It must either be null or a non-empty string..
+            </summary>
+        </member>
+        <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.DeleteOAuthAccount(System.String,System.String)">
+            <summary>
+            Deletes the OAuth and OpenID account with the specified provider name and provider user id.
+            </summary>
+            <param name="provider">The provider.</param>
+            <param name="providerUserId">The provider user id.</param>
+        </member>
+        <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateOrUpdateOAuthAccount(System.String,System.String,System.String)">
+            <summary>
+            Creates a new OAuth account with the specified data or update an existing one if it already exists.
+            </summary>
+            <param name="provider">The provider.</param>
+            <param name="providerUserId">The provider userid.</param>
+            <param name="userName">The username.</param>
+        </member>
+        <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetUserIdFromOAuth(System.String,System.String)">
+            <summary>
+            Gets the id of the user with the specified provider name and provider user id.
+            </summary>
+            <param name="provider">The provider.</param>
+            <param name="providerUserId">The provider user id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetUserNameFromId(System.Int32)">
+            <summary>
+            Gets the username of a user with the given id
+            </summary>
+            <param name="userId">The user id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.HasLocalAccount(System.Int32)">
+            <summary>
+            Determines whether there exists a local account (as opposed to OAuth account) with the specified userId.
+            </summary>
+            <param name="userId">The user id to check for local account.</param>
+            <returns>
+              <c>true</c> if there is a local account with the specified user id]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetOAuthTokenSecret(System.String)">
+            <summary>
+            Gets the OAuth token secret from the specified OAuth token.
+            </summary>
+            <param name="token">The token from which to retrieve secret.</param>
+            <returns>The token secret of the specified token</returns>
+        </member>
+        <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.StoreOAuthRequestToken(System.String,System.String)">
+            <summary>
+            Stores the specified token and secret into database.
+            </summary>
+            <param name="requestToken">The token.</param>
+            <param name="requestTokenSecret">The secret.</param>
+        </member>
+        <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.ReplaceOAuthRequestTokenWithAccessToken(System.String,System.String,System.String)">
+            <summary>
+            Replaces the request token with access token and secret in the database.
+            </summary>
+            <param name="requestToken">The request token.</param>
+            <param name="accessToken">The access token.</param>
+            <param name="accessTokenSecret">The access token secret.</param>
+        </member>
+        <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.DeleteOAuthToken(System.String)">
+            <summary>
+            Deletes the OAuth token from the backing store from the database.
+            </summary>
+            <param name="token">The token to be deleted.</param>
+        </member>
+        <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetAccountsForUser(System.String)">
+            <summary>
+            Gets all OAuth accounts associated with the specified username
+            </summary>
+            <param name="userName">Name of the user.</param>
+            <returns></returns>
+        </member>
+        <member name="T:WebMatrix.WebData.FormsAuthenticationSettings">
+            <summary>
+            Defines key names for use in a web.config &lt;appSettings&gt; section to override default settings.
+            </summary>
+        </member>
+        <member name="T:WebMatrix.WebData.OAuthAccountData">
+            <summary>
+            Represents an OpenAuth and OpenID account.
+            </summary>
+        </member>
+        <member name="M:WebMatrix.WebData.OAuthAccountData.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebMatrix.WebData.OAuthAccountData"/> class.
+            </summary>
+            <param name="provider">The provider.</param>
+            <param name="providerUserId">The provider user id.</param>
+        </member>
+        <member name="P:WebMatrix.WebData.OAuthAccountData.Provider">
+            <summary>
+            Gets the provider name.
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.OAuthAccountData.ProviderUserId">
+            <summary>
+            Gets the provider user id.
+            </summary>
+        </member>
+        <member name="T:WebMatrix.WebData.Resources.WebDataResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.Security_DbFailure">
+            <summary>
+              Looks up a localized string similar to Database operation failed..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.Security_FailedToFindUserTable">
+            <summary>
+              Looks up a localized string similar to No user table found that has the name &quot;{0}&quot;..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.Security_InitializeAlreadyCalled">
+            <summary>
+              Looks up a localized string similar to The &quot;WebSecurity.InitializeDatabaseConnection&quot; method can be called only once..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.Security_InitializeMustBeCalledFirst">
+            <summary>
+              Looks up a localized string similar to You must call the &quot;WebSecurity.InitializeDatabaseConnection&quot; method before you call any other method of the &quot;WebSecurity&quot; class. This call should be placed in an _AppStart.cshtml file in the root of your site..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.Security_NoAccountFound">
+            <summary>
+              Looks up a localized string similar to No account exists for &quot;{0}&quot;..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.Security_NoExtendedMembershipProvider">
+            <summary>
+              Looks up a localized string similar to To call this method, the &quot;Membership.Provider&quot; property must be an instance of &quot;ExtendedMembershipProvider&quot;..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.Security_NoUserFound">
+            <summary>
+              Looks up a localized string similar to No user found was found that has the name &quot;{0}&quot;..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.SimpleMembership_FailToStoreOAuthToken">
+            <summary>
+              Looks up a localized string similar to Failed to store OAuth token to database..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.SimpleMembership_PasswordTooLong">
+            <summary>
+              Looks up a localized string similar to The membership password is too long. (Maximum length is 128 characters)..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.SimpleMembership_ProviderUnrecognizedAttribute">
+            <summary>
+              Looks up a localized string similar to Provider unrecognized attribute: &quot;{0}&quot;..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.SimpleRoleProvder_RolePopulated">
+            <summary>
+              Looks up a localized string similar to The role &quot;{0}&quot; cannot be deleted because there are still users in the role..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.SimpleRoleProvder_UserAlreadyInRole">
+            <summary>
+              Looks up a localized string similar to User &quot;{0}&quot; is already in role &quot;{1}&quot;..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.SimpleRoleProvder_UserNotInRole">
+            <summary>
+              Looks up a localized string similar to User &quot;{0}&quot; is not in role &quot;{1}&quot;..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.SimpleRoleProvider_NoRoleFound">
+            <summary>
+              Looks up a localized string similar to No role found that has the name &quot;{0}&quot;..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.WebData.Resources.WebDataResources.SimpleRoleProvider_RoleExists">
+            <summary>
+              Looks up a localized string similar to Role &quot;{0}&quot; already exists..
+            </summary>
+        </member>
+        <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ConfirmAccount(System.String,System.String)">
+            <summary>
+            Sets the confirmed flag for the username if it is correct.
+            </summary>
+            <returns>True if the account could be successfully confirmed. False if the username was not found or the confirmation token is invalid.</returns>
+            <remarks>Inherited from ExtendedMembershipProvider ==> Simple Membership MUST be enabled to use this method</remarks>
+        </member>
+        <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ConfirmAccount(System.String)">
+            <summary>
+            Sets the confirmed flag for the username if it is correct.
+            </summary>
+            <returns>True if the account could be successfully confirmed. False if the username was not found or the confirmation token is invalid.</returns>
+            <remarks>Inherited from ExtendedMembershipProvider ==> Simple Membership MUST be enabled to use this method.
+            There is a tiny possibility where this method fails to work correctly. Two or more users could be assigned the same token but specified using different cases.
+            A workaround for this would be to use the overload that accepts both the user name and confirmation token.
+            </remarks>
+        </member>
+        <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ReplaceOAuthRequestTokenWithAccessToken(System.String,System.String,System.String)">
+            <summary>
+            Replaces the request token with access token and secret.
+            </summary>
+            <param name="requestToken">The request token.</param>
+            <param name="accessToken">The access token.</param>
+            <param name="accessTokenSecret">The access token secret.</param>
+        </member>
+        <member name="M:WebMatrix.WebData.SimpleMembershipProvider.DeleteOAuthToken(System.String)">
+            <summary>
+            Deletes the OAuth token from the backing store from the database.
+            </summary>
+            <param name="token">The token to be deleted.</param>
+        </member>
+        <member name="M:WebMatrix.WebData.SimpleMembershipProvider.HasLocalAccount(System.Int32)">
+            <summary>
+            Determines whether there exists a local account (as opposed to OAuth account) with the specified userId.
+            </summary>
+            <param name="userId">The user id to check for local account.</param>
+            <returns>
+              <c>true</c> if there is a local account with the specified user id]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:WebMatrix.WebData.WebSecurity.Initialized">
+            <summary>
+            Gets a value indicating whether the <see cref="M:InitializeDatabaseConnection"/> method has been initialized.
+            </summary>
+            <value>
+              <c>true</c> if initialized; otherwise, <c>false</c>.
+            </value>
+        </member>
+    </members>
+</doc>

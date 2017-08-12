@@ -1,0 +1,1 @@
+ALTER TABLE dbo.secCompAppHistory ADD TotalNowGlobalBytes FLOAT NULL;

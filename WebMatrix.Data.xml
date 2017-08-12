@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebMatrix.Data</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Internal.Web.Utils.CommonResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Cannot_Be_Null_Or_Empty">
+            <summary>
+              Looks up a localized string similar to Value cannot be null or an empty string..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_Between">
+            <summary>
+              Looks up a localized string similar to Value must be between {0} and {1}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_Enum_Member">
+            <summary>
+              Looks up a localized string similar to Value must be a value from the &quot;{0}&quot; enumeration..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_GreaterThan">
+            <summary>
+              Looks up a localized string similar to Value must be greater than {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_GreaterThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to Value must be greater than or equal to {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_LessThan">
+            <summary>
+              Looks up a localized string similar to Value must be less than {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_LessThanOrEqualTo">
+            <summary>
+              Looks up a localized string similar to Value must be less than or equal to {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Internal.Web.Utils.CommonResources.Argument_Must_Be_Null_Or_Non_Empty">
+            <summary>
+              Looks up a localized string similar to Value cannot be an empty string. It must either be null or a non-empty string..
+            </summary>
+        </member>
+        <member name="T:WebMatrix.Data.Resources.DataResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:WebMatrix.Data.Resources.DataResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:WebMatrix.Data.Resources.DataResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:WebMatrix.Data.Resources.DataResources.ConnectionStringNotFound">
+            <summary>
+              Looks up a localized string similar to Connection string &quot;{0}&quot; was not found..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.Data.Resources.DataResources.InvalidColumnName">
+            <summary>
+              Looks up a localized string similar to Invalid column name &quot;{0}&quot;..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.Data.Resources.DataResources.RecordIsReadOnly">
+            <summary>
+              Looks up a localized string similar to Unable to modify the value of column &quot;{0}&quot; because the record is read only..
+            </summary>
+        </member>
+        <member name="P:WebMatrix.Data.Resources.DataResources.UnableToDetermineDatabase">
+            <summary>
+              Looks up a localized string similar to Unable to determine the provider for the database file &quot;{0}&quot;..
+            </summary>
+        </member>
+    </members>
+</doc>

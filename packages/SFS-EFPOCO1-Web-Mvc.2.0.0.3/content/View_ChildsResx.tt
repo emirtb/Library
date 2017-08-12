@@ -1,0 +1,210 @@
+﻿<#@ output  extension="txt" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core.dll" #>
+
+<#@ import namespace="SFSdotNet.VSAddin2012.Model" #>
+<#@ import namespace="SFSdotNet.VSAddin2012.Model.Utils" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Linq" #>
+// <Template>
+//   <SolutionTemplate></SolutionTemplate>
+//   <Version>20101221.1</Version>
+//   <Update></Update>
+// </Template>
+
+
+
+
+<#+ void GenerateChildsView(EntityInfo entity)
+{
+	try{
+		
+		
+		
+		string folderModelsName = entityPluralName;
+		if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "RelativeFolder", "String"))){
+			folderModelsName = (string)GetCustomProperty(entity, "RelativeFolder", "String");
+		}
+		//entityPluralName = entity.SetName;
+		string controllerName = entityPluralName;
+		if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "ControllerName", "String")))
+		{
+			controllerName =(string)GetCustomProperty(entity, "ControllerName", "String");
+		}
+
+#>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= folderModelsName #>.<#= entity.Name #>Model>" %>
+<%@ Import Namespace="<#= entity.Model.Namespace #>.Web.Mvc.Models.<#= folderModelsName #>"%>
+<#+ int indexTab = 0;
+	#>
+<%
+<#+ if (entity.NavigationProperties.Where(p=>p.Multiplicity == "*").Count() > 0 || (bool)GetCustomProperty(entity, "UICreateChilds", "Boolean")) { #>
+ 	string id<#= entity.Name #> = "";
+    if (this.ViewContext.RequestContext.RouteData.Values["id"] != null){
+         id<#= entity.Name #> = SFSdotNet.Framework.Entities.Utils.GetPropertyKey(this.ViewContext.RequestContext.RouteData.Values["id"].ToString().Replace("-","/"), "<#= entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey).Name #>");
+	}
+    SFSdotNet.Framework.Web.Mvc.Models.MenuTabModel model = new SFSdotNet.Framework.Web.Mvc.Models.MenuTabModel();
+
+    model.TabId = "tabs";
+	SFSdotNet.Framework.Web.Mvc.Models.MenuTabItemModel menuItem = null;
+	UIModel<<#= entity.Name #>Model> uiModel = (UIModel<<#= entity.Name #>Model>)ViewData["uiModel"];
+    int nTab = 0;
+	 string returnAfter = "";
+    
+    foreach (var item in uiModel.Properties.Where(p=>p.IsNavigationPropertyMany))
+    {
+        menuItem = new SFSdotNet.Framework.Web.Mvc.Models.MenuTabItemModel();
+        menuItem.Text = item.PropertyDisplayName;
+        menuItem.Link = item.Link;
+        menuItem.Index = nTab;
+		if (item.PreventPopUp)
+        {
+            menuItem.Link = menuItem.Link + "&preventPp=1&ReturnAfter=" + HttpUtility.UrlEncode(Request.Url.ToString() + (!string.IsNullOrEmpty(Request.QueryString["currentTabIndex"]) ? "" : "&currentTabIndex=" + menuItem.Index.ToString()));
+        }
+        model.Items.Add(menuItem);
+        nTab++;
+
+    }	
+  
+	
+	
+	Html.RenderPartial("MenuTabs", model); 
+<#+ } #> 
+%>
+
+
+
+
+<#+
+		}catch(Exception ex){
+			throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+		}
+}
+#>
+
+
+<#+void GenerateResourcesRESX(EntityInfo entity)
+{
+	try{
+		
+		
+#>
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema><resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>  
+   <data name="ENTITY_PLURAL" xml:space="preserve">
+    <value><#= UppercaseFirst(entityPluralName) #></value>
+  </data>
+  <data name="ENTITY_SINGLE" xml:space="preserve">
+    <value><#= UppercaseFirst(Code.MakeSingle(entity.Name)) #></value>
+  </data>
+
+  <data name="<#= entityPluralName.ToUpper() #>_ADD_NEW" xml:space="preserve">
+    <value>Adding a new <#= Code.MakeSingle(entity.Name) #></value>
+  </data>
+  <data name="<#= entityPluralName.ToUpper() #>_DETAILS" xml:space="preserve">
+    <value>Details of <#= Code.MakeSingle(entity.Name) #></value>
+  </data>
+  <data name="<#= entityPluralName.ToUpper() #>_EDIT" xml:space="preserve">
+    <value>Editing <#= Code.MakeSingle(entity.Name) #></value>
+  </data>
+  <data name="<#= entityPluralName.ToUpper() #>_LIST" xml:space="preserve">
+    <value>List of  <#= entityPluralName.ToLower() #></value>
+  </data>
+  <data name="REQUIRED_FIELD" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="<#= entityPluralName.ToUpper() #>_ADDED" xml:space="preserve">
+    <value>The <#= entitySingularName #> has been added</value>
+  </data>
+<#+ foreach(PropertyInfo property in entity.Properties){ 
+		string ___safename = "";
+		if(property.Name == "Culture")
+			___safename = "Culture_";
+		else
+			___safename = property.Name;
+#>
+  <data name="<#= ___safename.ToUpper() #>" xml:space="preserve">
+    <value><#= property.Name #></value>
+  </data>
+<#+ if (!property.Nullable || property.UIRequired) {#>	
+  <data name="VAL_<#= property.Name.ToUpper() #>_REQUIRED" xml:space="preserve">
+    <value>The field <#= property.Name #> is required</value>
+  </data>
+
+<#+ } #>
+
+<#+ if (!string.IsNullOrEmpty((string)GetCustomProperty(property, "RemoteValidationAction", "String"))) {#>	
+  <data name="VAL_<#= property.Name.ToUpper() #>_VALUE" xml:space="preserve">
+    <value>The field <#= property.Name #> is incorrect</value>
+  </data>
+
+<#+ } #>
+
+<#+ } #>
+</root>
+
+
+<#+
+		}catch(Exception ex){
+			throw new Exception(string.Format("Error in code generation in entity {0}",entity.Name),ex);
+		}
+    }
+#>

@@ -1,0 +1,1959 @@
+﻿<#@ template debug="True" language="C#V3.5" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ import namespace="SFSdotNet.VSAddin2012.Model" #> 
+<#@ import namespace="SFSdotNet.VSAddin2012.Model.Utils" #> 
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Linq" #>
+<#@ dom processor="SFSEdmxProcessor"  
+requires="EntityModel='$safenamespace$Model.edmx'"  #>
+// <Template>
+//   <SolutionTemplate>EF POCO 1</SolutionTemplate>
+//   <Version>20110406.1</Version>
+//   <Update>True</Update>
+// </Template>
+#region using
+using System;
+using System.Collections.Generic;
+using System.Text;
+using SFSdotNet.Framework.BR;
+using System.Linq.Dynamic;
+using System.Collections;
+using System.Linq;
+using LinqKit;
+using SFSdotNet.Framework.Entities;
+using SFSdotNet.Framework.Linq;
+using System.Linq.Expressions;
+using System.Data;
+using SFSdotNet.Framework;
+using SFSdotNet.Framework.Data.Entity;
+using SFSdotNet.Framework.My;
+using System.Data.EntityClient;
+using System.Data.Objects.DataClasses;
+using System.Data.Objects;
+using EFPocoAdapter;
+using <#= Model.Namespace #>.BusinessObjects;
+//using <#= Model.Namespace #>.BusinessObjects.EFPocoAdapter;
+//using EFPocoAdapter;
+using <#= Model.Namespace #>.BusinessObjects.PocoAdapters;
+#endregion
+namespace <#= Model.Namespace #>.BR
+{
+public class SinglentonContext
+    {
+        private static EFPocoContext context = null;
+        public static EFPocoContext Instance {
+            get {
+               if (context == null)
+                    context = new EFPocoContext();
+                return context;
+            }
+        }
+        /// <summary>
+    /// Re-new the singlenton instance
+    /// </summary>
+    /// <returns></returns>
+        public static EFPocoContext RenewInstance() {
+            context = new EFPocoContext();
+            return context;
+        }
+    /// <summary>
+    /// Get a new instance
+    /// </summary>
+        public static EFPocoContext NewInstance {
+            get {
+                return new EFPocoContext();
+            }
+        }
+    }
+	
+	
+	<# foreach(EntityInfo entity in this.Model.Entities) {
+		
+		try{
+		int ew=2;
+		if (string.IsNullOrEmpty((string)GetCustomProperty(entity, "UIEntityExtended", "String"))){
+		
+		
+System.Text.StringBuilder includesFK = new System.Text.StringBuilder();
+System.Text.StringBuilder includesChilds = new System.Text.StringBuilder();
+System.Text.StringBuilder includesSave = new System.Text.StringBuilder();
+
+		
+foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!p.IsCustom)){
+	
+		if (navprop.Multiplicity != "*"){
+			if(includesFK.Length > 0) includesFK.Append(@",");
+			includesFK.Append(navprop.PropertyName);
+		}else{
+			if(includesChilds.Length > 0) includesChilds.Append(@",");
+			includesChilds.Append(navprop.PropertyName);
+		}
+	includesSave.Append(", p=>p." + navprop.PropertyName);
+}
+#>
+	public partial class <#=entity.SetName#>BR{
+	 	
+           
+		 #region Partial methods
+
+           partial void OnUpdating(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
+
+            partial void OnUpdated(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
+
+            partial void OnCreating(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
+            partial void OnCreated(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
+
+            partial void OnDeleting(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
+            partial void OnDeleted(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
+
+            partial void OnGetting(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
+            partial void OnTaken(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
+            partial void OnCounting(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
+ 
+ 
+            #endregion
+			
+		private static <#=entity.SetName#>BR singlenton =null;
+				public static <#=entity.SetName#>BR NewInstance(){
+					return  new <#=entity.SetName#>BR();
+					
+				}
+		public static <#=entity.SetName#>BR Instance{
+			get{
+				if (singlenton == null)
+					singlenton = new <#=entity.SetName#>BR();
+				return singlenton;
+			}
+		}
+		private bool preventSecurityRestrictions = false;
+
+		#region Fields
+        EFPocoContext context = null;
+        #endregion
+        #region Constructor
+        public <#=entity.SetName#>BR()
+        {
+            context = new EFPocoContext();
+        }
+		 public <#=entity.SetName#>BR(bool preventSecurity)
+            {
+                this.preventSecurityRestrictions = preventSecurity;
+				context = new EFPocoContext();
+            }
+        #endregion
+		
+		#region Get
+<#
+	System.Text.StringBuilder keyParams = new System.Text.StringBuilder();
+	System.Text.StringBuilder keyParamValues = new System.Text.StringBuilder();
+	System.Text.StringBuilder keyVars = new System.Text.StringBuilder();
+	System.Text.StringBuilder keyVarsForExpression = new System.Text.StringBuilder();
+	System.Text.StringBuilder keyFromComKey = new System.Text.StringBuilder();
+	System.Text.StringBuilder keyForOld = new System.Text.StringBuilder();
+	foreach(PropertyKeyInfo propertyKey in entity.EntityKey){
+			if(keyFromComKey.Length > 0) keyFromComKey.Append( ", " );
+			if(keyVarsForExpression.Length >0 )keyVarsForExpression.Append(" && ");
+			if(keyParams.Length > 0) keyParams.Append(", ");
+			keyParams.Append(propertyKey.Property.Type + " " + Code.CamelCase(propertyKey.PropertyName));
+			if(keyParamValues.Length > 0) keyParamValues.Append(", ");
+			if (keyForOld.Length > 0) keyForOld.Append(" && "); 
+			keyParamValues.Append(Code.CamelCase(propertyKey.PropertyName));
+			keyVars.AppendLine(propertyKey.Property.NetType + " " + Code.CamelCase(propertyKey.PropertyName) + " = entity." + propertyKey.PropertyName + ";");
+			keyVarsForExpression.Append("p." + propertyKey.PropertyName + " == " + Code.CamelCase(propertyKey.PropertyName));
+			keyFromComKey.Append(string.Format("itemKey.{0}",propertyKey.PropertyName));
+			keyForOld.Append(string.Format("p.{0} == entity.{0}",propertyKey.PropertyName));
+	}
+#>
+<# if (!entity.IsCustom) { #>
+
+ 		public IQueryable<<#= entity.Name #>> Get()
+        {
+            //using (EFContext con = new EFContext())
+            //{
+				EFContext con = new EFContext();
+                var query = con.<#= entity.SetName #>.AsQueryable();
+                con.ContextOptions.ProxyCreationEnabled = false;
+
+                //query = ContextQueryBuilder<Nutrient>.ApplyContextQuery(query, contextRequest);
+
+                return query;
+
+
+
+
+            //}
+
+        }
+<# } #>		
+		public List<<#= entity.Name #>> GetAll()
+        {
+            return this.GetBy(p => true);
+        }
+        public List<<#= entity.Name #>> GetAll(string includes)
+        {
+            return this.GetBy(p => true, includes);
+        }
+        public <#= entity.Name #> GetByKey(<#=keyParams.ToString()#>)
+        {
+            return GetByKey(<#= keyParamValues.ToString() #>, true);
+        }
+        public <#=entity.Name#> GetByKey(<#=keyParams.ToString()#>, bool loadIncludes)
+        {
+            <#=entity.Name#> item = null;
+			var query = PredicateBuilder.True<<#=entity.Name#>>();
+<#
+	System.Text.StringBuilder keyValues = new System.Text.StringBuilder();
+	System.Text.StringBuilder keyValuesForParams = new System.Text.StringBuilder();
+	foreach(PropertyKeyInfo propertyKey in entity.EntityKey){
+		
+			if(keyValues.Length > 0) keyValues.Append(@"+ "" And "" + ");
+			if (propertyKey.Property.Type.ToLower().Contains("guid")){
+				keyValues.Append(@"@""" + propertyKey.PropertyName + @" = Guid(""""""" + " + " + Code.CamelCase(propertyKey.PropertyName) + ".ToString()" + @"+@"""""")""");
+			}else{
+				keyValues.Append(@"""" + propertyKey.PropertyName + @" = """ + " + " + Code.CamelCase(propertyKey.PropertyName) + ".ToString()");
+			}
+			if(keyValuesForParams.Length > 0) keyValuesForParams.Append(", ");
+			keyValuesForParams.Append("entity." + propertyKey.PropertyName);
+		
+	}
+#>                    
+			string strWhere = <#= keyValues.ToString() #>;
+            Expression<Func<<#= entity.Name #>, bool>> predicate = null;
+            if (!string.IsNullOrEmpty(strWhere))
+                predicate = System.Linq.Dynamic.DynamicExpression.ParseLambda<<#= entity.Name #>, bool>(strWhere);
+			
+			 ContextRequest contextRequest = new ContextRequest();
+            contextRequest.CustomQuery = new CustomQuery();
+            contextRequest.CustomQuery.FilterExpressionString = strWhere;
+
+			//item = GetBy(predicate, loadIncludes, contextRequest).FirstOrDefault();
+			item = GetBy(strWhere,loadIncludes,contextRequest).FirstOrDefault();
+            return item;
+        }
+         public List<<#= entity.Name #>> GetBy(string strWhere, bool loadRelations, ContextRequest contextRequest)
+        {
+            if (!loadRelations)
+                return GetBy(strWhere, contextRequest);
+            else
+                return GetBy(strWhere, contextRequest, "");
+
+        }
+		  public List<<#= entity.Name #>> GetBy(string strWhere, bool loadRelations)
+        {
+              if (!loadRelations)
+                return GetBy(strWhere, new ContextRequest());
+            else
+                return GetBy(strWhere, new ContextRequest(), "");
+
+        }
+         public <#= entity.Name #> GetByKey(<#=keyParams.ToString()#>, params Expression<Func<<#= entity.Name #>, object>>[] includes)
+        {
+            <#=entity.Name#> item = null;
+			string strWhere = <#= keyValues.ToString() #>;
+          Expression<Func<<#= entity.Name #>, bool>> predicate = null;
+            if (!string.IsNullOrEmpty(strWhere))
+                predicate = System.Linq.Dynamic.DynamicExpression.ParseLambda<<#= entity.Name #>, bool>(strWhere);
+			
+        item = GetBy(predicate, includes).FirstOrDefault();
+         ////   item = GetBy(strWhere,includes).FirstOrDefault();
+			return item;
+
+        }
+        public <#= entity.Name #> GetByKey(<#=keyParams.ToString()#>, string includes)
+        {
+            <#=entity.Name#> item = null;
+			string strWhere = <#= keyValues.ToString() #>;
+            
+			
+            item = GetBy(strWhere, includes).FirstOrDefault();
+            return item;
+
+        }
+
+        #region Dynamic Predicate
+        public List<<#=entity.Name#>> GetBy(Expression<Func<<#=entity.Name#>, bool>> predicate, int? pageSize, int? page)
+        {
+            return this.GetBy(predicate, pageSize, page, null, null);
+        }
+        public List<<#=entity.Name#>> GetBy(Expression<Func<<#=entity.Name#>, bool>> predicate, ContextRequest contextRequest)
+        {
+
+            return GetBy(predicate, contextRequest,"");
+        }
+        
+        public List<<#= entity.Name #>> GetBy(Expression<Func<<#= entity.Name #>, bool>> predicate, ContextRequest contextRequest, params Expression<Func<<#= entity.Name #>, object>>[] includes)
+        {
+            StringBuilder sb = new StringBuilder();
+           if (includes != null)
+            {
+                foreach (var path in includes)
+                {
+
+						if (sb.Length > 0) sb.Append(",");
+						sb.Append(SFSdotNet.Framework.Linq.Utils.IncludeToString<<#= entity.Name #>>(path));
+
+               }
+            }
+            return GetBy(predicate, contextRequest, sb.ToString());
+        }
+        
+        
+        public List<<#= entity.Name #>> GetBy(Expression<Func<<#= entity.Name #>, bool>> predicate, string includes)
+        {
+			ContextRequest context = new ContextRequest();
+            context.CustomQuery = new CustomQuery();
+            context.CustomQuery.FilterExpressionString = "";
+
+            return GetBy(predicate, context, includes);
+        }
+
+        public List<<#= entity.Name #>> GetBy(Expression<Func<<#= entity.Name #>, bool>> predicate, params Expression<Func<<#= entity.Name #>, object>>[] includes)
+        {
+			ContextRequest context = new ContextRequest();
+            context.CustomQuery = new CustomQuery();
+            context.CustomQuery.FilterExpressionString = "";
+            return GetBy(predicate, context, includes);
+        }
+
+      
+		public bool DisableCache { get; set; }
+		 public List<<#= entity.Name #>> GetBy(Expression<Func<<#= entity.Name #>, bool>> predicate, ContextRequest contextRequest, string includes)
+        {
+            using (EFPocoContext con = new EFPocoContext())
+            {
+				if (DisableCache) 
+                	con.CachingPolicy = EFCachingProvider.Caching.CachingPolicy.NoCaching;
+
+				List<<#= entity.Name #>> result = null;
+                 e = null;
+                OnGetting(con,e = new BusinessRulesEventArgs<<#= entity.Name #>>() { FilterExpression = predicate, ContextRequest = contextRequest, FilterExpressionString = contextRequest.CustomQuery.FilterExpressionString});
+				   if (e != null) {
+				    predicate = e.FilterExpression;
+						if (e.Cancel)
+						{
+							context = null;
+							return e.Items;
+
+						}
+						if (!string.IsNullOrEmpty(e.StringIncludes))
+                            includes = e.StringIncludes;
+					}
+<# if (!entity.IsCustom) { #>
+				con.EnableChangeTrackingUsingProxies = false;
+				con.WrappedContext.<#= entity.SetName #>.MergeOption = MergeOption.NoTracking;
+                con.WrappedContext.ContextOptions.ProxyCreationEnabled = false;
+                if (predicate == null) predicate = PredicateBuilder.True<<#= entity.Name #>>();
+<#	if (includesFK.Length > 0) {#>
+ 				string fkIncludes = "<#= includesFK.ToString() #>";
+                if(contextRequest!=null){
+					if (contextRequest.CustomQuery != null)
+					{
+						if (contextRequest.CustomQuery.IncludeForeignKeyPaths != null) {
+							if (contextRequest.CustomQuery.IncludeForeignKeyPaths.Value == false)
+								fkIncludes = "";
+						}
+					}
+				}
+				if (!string.IsNullOrEmpty(includes))
+					includes = includes + "," + fkIncludes;
+				else
+					includes = fkIncludes;
+<# } #>                
+                var es = con.<#= entity.SetName #>;
+<# if ( !string.IsNullOrEmpty((string)GetCustomProperty(entity, "LocalizableDataTable", "String")) ) { #>                
+				 
+				 es= con.AsLocalizable<<#= entity.Name #>>(es);
+<# } #>				 
+                IQueryable<<#= entity.Name #>> query = es.AsQueryable();
+
+                                if (!string.IsNullOrEmpty(includes))
+                {
+                    foreach (string include in includes.Split(char.Parse(",")))
+                    {
+						if (!string.IsNullOrEmpty(include))
+                            query = query.Include(include);
+                    }
+                }
+<# 				if (entity.Properties.FirstOrDefault(p=>p.Name == "IsDeleted") != null) { #>
+                    predicate = predicate.And(p => p.IsDeleted != true || p.IsDeleted ==null );
+<# 				} #>
+<# 				if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "CompanyProperty", "string")) && !entity.Name.ToLower().Contains("seccompany")){
+					if (entity.Properties.FirstOrDefault(p=>p.Name == (string)GetCustomProperty(entity.Model, "CompanyProperty", "string")) != null) { #>
+					 	if (!preventSecurityRestrictions)
+						{
+							if (SFSdotNet.Framework.My.Context.CurrentContext != null )
+		                    	if (SFSdotNet.Framework.My.Context.CurrentContext.User !=null )
+		                        	if (SFSdotNet.Framework.My.Context.CurrentContext.User.GuidCompany != null)
+		                        		predicate = predicate.And(p => p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == SFSdotNet.Framework.My.Context.CurrentContext.User.GuidCompany.Value); //todo: multiempresa
+						}
+						if (preventSecurityRestrictions) preventSecurityRestrictions= false;
+<# 					} 
+				}#>
+				query =query.Where(predicate);
+                query = ContextQueryBuilder<<#= entity.Name #>>.ApplyContextQuery(query, contextRequest);
+
+                result = query.ToList<<#= entity.Name #>>();
+<# }else{ #>
+				if (result == null)
+					result = new List<<#= entity.Name #>>();
+<# } #>
+				e = null;
+				OnTaken(this, e = new BusinessRulesEventArgs<<#= entity.Name #>>() { Items= result, FilterExpression = predicate });
+  
+                if (e != null) {
+                    if (e.ReplaceResult)
+                        result = e.Items;
+                }
+                return result;
+            }
+        }
+        public List<<#= entity.Name #>> GetBy(string predicateString, ContextRequest contextRequest, string includes)
+        {
+            using (EFContext con = new EFContext())
+            {
+				if (DisableCache) 
+                	con.CachingPolicy = EFCachingProvider.Caching.CachingPolicy.NoCaching;
+
+<# 				if ((bool)GetCustomProperty(entity, "DisableEFCaching", "Boolean")) { #>
+					con.CachingPolicy = EFCachingProvider.Caching.CachingPolicy.NoCaching;
+<# 				} #>
+
+				List<<#= entity.Name #>> result = null;
+                 e = null;
+                  OnGetting(con,e = new BusinessRulesEventArgs<<#= entity.Name #>>() {  ContextRequest = contextRequest, FilterExpressionString = predicateString });
+			   	if (e != null) {
+				    predicateString = e.FilterExpressionString;
+						if (e.Cancel)
+						{
+							context = null;
+							return e.Items;
+
+						}
+						if (!string.IsNullOrEmpty(e.StringIncludes))
+                            includes = e.StringIncludes;
+					}
+<# 	System.Text.StringBuilder sbMap3 = new System.Text.StringBuilder();
+	System.Text.StringBuilder sbMap1 = new System.Text.StringBuilder();
+	if (!entity.IsCustom) { #>
+				//con.EnableChangeTrackingUsingProxies = false;
+				con.<#= entity.SetName #>.MergeOption = MergeOption.NoTracking;
+                con.ContextOptions.ProxyCreationEnabled = false;
+                //if (predicate == null) predicate = PredicateBuilder.True<<#= entity.Name #>>();
+<#	if (includesFK.Length > 0) {#>
+ 				string fkIncludes = "<#= includesFK.ToString() #>";
+                if(contextRequest!=null){
+					if (contextRequest.CustomQuery != null)
+					{
+						if (contextRequest.CustomQuery.IncludeForeignKeyPaths != null) {
+							if (contextRequest.CustomQuery.IncludeForeignKeyPaths.Value == false)
+								fkIncludes = "";
+						}
+					}
+				}else{
+                    contextRequest = new ContextRequest();
+                    contextRequest.CustomQuery = new CustomQuery();
+
+                }
+				if (!string.IsNullOrEmpty(includes))
+					includes = includes + "," + fkIncludes;
+				else
+					includes = fkIncludes;
+<# } #>                
+                var es = con.<#= entity.SetName #>;
+<# if ( !string.IsNullOrEmpty((string)GetCustomProperty(entity, "LocalizableDataTable", "String")) ) { #>                
+				IQueryable<<#= entity.Name #>> query = es.Localizable().AsQueryable();
+<# }else{ #>
+				IQueryable<<#= entity.Name #>> query = es.AsQueryable();
+
+<# } #>
+		
+				// include relations FK
+				if(string.IsNullOrEmpty(includes) ){
+					includes ="";
+				}
+<# foreach (PropertyInfo prop in entity.Properties.Where(p=>(p.IsNavigationProperty && !p.IsNavigationPropertyMany) || (p.Type == "Binary")))  {#>
+				bool include<#= prop.Name #> = includes.Split(char.Parse(",")).Contains("<#= prop.Name #>");
+
+<# } #>
+				
+<# 				if (entity.Properties.FirstOrDefault(p=>p.Name == "IsDeleted") != null) { #>
+                    //predicate = predicate.And(p => p.IsDeleted != true || p.IsDeleted ==null );
+				if (!string.IsNullOrEmpty(predicateString))
+                        predicateString += " And ";
+                predicateString += " (IsDeleted != true Or IsDeleted = null)";
+
+<# 				} #>
+<# 				if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "CompanyProperty", "string")) && !entity.Name.ToLower().Contains("seccompany")){
+					if (entity.Properties.FirstOrDefault(p=>p.Name == (string)GetCustomProperty(entity.Model, "CompanyProperty", "string")) != null) { #>
+					if (!preventSecurityRestrictions)
+						{
+						if (SFSdotNet.Framework.My.Context.CurrentContext != null )
+	                    	if (SFSdotNet.Framework.My.Context.CurrentContext.User !=null )
+	                        	if (SFSdotNet.Framework.My.Context.CurrentContext.User.GuidCompany != null ){
+	                        		if (!string.IsNullOrEmpty(predicateString))
+	                        			predicateString += " And ";	
+									predicateString += @" (<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + SFSdotNet.Framework.My.Context.CurrentContext.User.GuidCompany.Value + @""")) "; //todo: multiempresa
+									
+								}
+						}	
+						if (preventSecurityRestrictions) preventSecurityRestrictions= false;
+<# 					} 
+				}#>
+				//string predicateString = predicate.ToDynamicLinq<<#= entity.Name #>>();
+                string predicateWithManyRelations = "";
+                string predicateWithFKAndComputed = "";
+                QueryUtils.BreakeQuery1(predicateString, ref predicateWithManyRelations, ref predicateWithFKAndComputed);
+                var _queryable = query.AsQueryable();
+                if (!string.IsNullOrEmpty(predicateWithManyRelations))
+                    _queryable = _queryable.Where(predicateWithManyRelations);
+ 
+				var  queryable = _queryable.Select(                    
+				p => 
+                        new
+                    {
+<#  System.Text.StringBuilder sbMap1Simple = new System.Text.StringBuilder();
+	foreach (var prop in entity.Properties.Where(p=> !p.IsNavigationProperty && !p.IsCustom && p.Type != "Binary")){
+		if (sbMap1Simple.Length > 0)
+			sbMap1Simple.Append(",");
+		sbMap1Simple.AppendLine(string.Format("{0} = p.{0}", prop.Name));
+	} 
+	System.Text.StringBuilder sbMap1FK = new System.Text.StringBuilder();
+	foreach (var prop in entity.Properties.Where(p=>(p.IsNavigationProperty && !p.IsNavigationPropertyMany && !p.IsCustom) || (p.Type == "Binary" && !p.IsCustom))){ 
+		if (sbMap1FK.Length > 0)
+			sbMap1FK.Append(",");
+		sbMap1FK.AppendLine(string.Format("{0} = include{0} ? p.{0}:null", prop.Name));
+	} 
+	System.Text.StringBuilder sbMap1Computed = new System.Text.StringBuilder();
+	foreach (var prop in entity.Properties.Where(p=>p.IsCustom && !string.IsNullOrEmpty((string)GetCustomProperty(p, "ComputedLinq", "String")))) { 
+				if (sbMap1Computed.Length > 0)
+					sbMap1Computed.Append(",");
+				sbMap1Computed.AppendLine(string.Format("{0} = {1}", prop.Name, (string)GetCustomProperty(prop, "ComputedLinq", "String")));
+	} 
+	
+	sbMap1.AppendLine(sbMap1Simple.ToString());
+	sbMap3.AppendLine(sbMap1Simple.ToString());
+	if (sbMap1Simple.Length > 0){
+		sbMap1.Append(",");
+		sbMap3.Append(",");	
+	}
+	
+	sbMap1.AppendLine(sbMap1FK.ToString());
+	if (sbMap1FK.Length > 0 && sbMap1Computed.Length > 0){
+		sbMap1.Append(",");
+	}
+	sbMap1.AppendLine(sbMap1Computed.ToString());
+	sbMap3.AppendLine(sbMap1Computed.ToString());
+	
+
+	#>					<#= sbMap1.ToString() #>	
+                    }
+                    
+                    );
+					
+				
+                    if (!string.IsNullOrEmpty(predicateWithFKAndComputed))
+                        queryable = queryable.Where(predicateWithFKAndComputed, contextRequest.CustomQuery.ExtraParams);
+
+				QueryComplementOptions queryOps = ContextQueryBuilder.ApplyContextQuery(contextRequest);
+            	if (!string.IsNullOrEmpty(queryOps.OrderByAndSort))
+					queryable = queryable.OrderBy(queryOps.OrderByAndSort);
+               	if (queryOps.Skip != null)
+                {
+                    queryable = queryable.Skip(queryOps.Skip.Value);
+                }
+                if (queryOps.PageSize != null)
+                {
+                    queryable = queryable.Take (queryOps.PageSize.Value);
+                }
+                result = queryable.AsEnumerable().
+                    Select(
+                    p =>  new <#= entity.Name #>()
+                    {
+<# 	System.Text.StringBuilder sbMap2 = new System.Text.StringBuilder();
+	
+	foreach (var prop in entity.Properties.Where(p=>(!p.IsNavigationPropertyMany && !p.IsCustom ) || (!p.IsNavigationPropertyMany && p.IsCustom && !string.IsNullOrEmpty((string)GetCustomProperty(p, "ComputedLinq", "String")))))  { 
+		if (sbMap2.Length > 0)
+			sbMap2.Append(",");
+		sbMap2.AppendLine(string.Format("{0} = p.{0}", prop.Name));
+	} #>
+					<#= sbMap2.ToString() #>
+                    }
+                     ).ToList();
+
+<# }else{ #>
+				if (result == null)
+					result = new List<<#= entity.Name #>>();
+<# } #>
+				e = null;
+			OnTaken(this, e = new BusinessRulesEventArgs<<#= entity.Name #>>() { Items= result, FilterExpressionString  = predicateString });
+  
+                if (e != null) {
+                    if (e.ReplaceResult)
+                        result = e.Items;
+                }
+                return result;
+            }
+        }
+<# if (!entity.IsCustom && !string.IsNullOrEmpty((string)GetCustomProperty(entity, "UIListFooter", "String"))) {#>
+
+        public <#= entity.Name #> GetSummaryOperation(string function, string filter)
+        {
+		    string predicate = "";
+            if (!string.IsNullOrEmpty(filter))
+                predicate = GetSpecificFilter(filter);
+
+            <#= entity.Name #> result = new <#= entity.Name #>();
+            using (EFContext con = new EFContext())
+            {
+                var es = con.<#= entity.SetName #>;
+                IQueryable<<#= entity.Name #>> query = es.AsQueryable();
+                 if (string.IsNullOrEmpty(predicate))
+                    predicate = "";
+
+              
+
+<# 				if (entity.Properties.FirstOrDefault(p=>p.Name == "IsDeleted") != null) { #>
+                    //predicate = predicate.And(p => p.IsDeleted != true || p.IsDeleted ==null );
+				if (!string.IsNullOrEmpty(predicate))
+                    predicate += " And ";
+
+                predicate += " (IsDeleted != true OR IsDeleted == null) ";
+<# 				} #>
+				string predicateWithManyRelations = "";
+                string predicateWithFKAndComputed = "";
+                QueryUtils.BreakeQuery1(predicate, ref predicateWithManyRelations, ref predicateWithFKAndComputed);
+
+                var _queryable = query.AsQueryable();
+                if (!string.IsNullOrEmpty(predicateWithManyRelations))
+                    _queryable = _queryable.Where(predicateWithManyRelations);
+<# foreach (PropertyInfo prop in entity.Properties.Where(p=>p.IsNavigationProperty && !p.IsNavigationPropertyMany))  {#>
+				bool include<#= prop.Name #> = predicate.Contains("<#= prop.Name #>");
+
+<# } #>
+				var queryable = _queryable.Select(
+                    p =>
+                        new
+                        {
+						<#= sbMap1.ToString() #>
+						   
+                        }
+
+                    );
+
+ 				if (!string.IsNullOrEmpty(predicateWithFKAndComputed))
+						queryable = queryable.Where(predicateWithFKAndComputed);
+                 var q1 = (from c in queryable group c by 1 into g select new  {
+<# 	System.Text.StringBuilder sbOpCol = new System.Text.StringBuilder();
+	// propiedades a las que se les aplicará la funcion de suma
+	foreach (var prop in entity.Properties.Where(p=>(p.Type.ToLower().Contains("int") || p.Type.ToLower().Contains("decimal") || p.Type.ToLower().Contains("double")) && !string.IsNullOrEmpty((string)GetCustomProperty(p, "UIListFooter", "String")))) { 
+		if (sbOpCol.Length > 0)
+			sbOpCol.Append(",");
+		sbOpCol.AppendLine(string.Format("{0} = g.Sum(p=>p.{0})",prop.Name));
+		#>
+						
+<# 	} #>        
+				<#= sbOpCol.ToString() #>
+                 });
+                 result = q1.AsEnumerable().Select(
+                     p => new <#= entity.Name #>() { 
+<# 	System.Text.StringBuilder sbSumProps  = new System.Text.StringBuilder();
+	foreach (var prop in entity.Properties.Where(p=>(p.Type.ToLower().Contains("int") || p.Type.ToLower().Contains("decimal") || p.Type.ToLower().Contains("double")) && !string.IsNullOrEmpty((string)GetCustomProperty(p, "UIListFooter", "String")))) { 
+		if (sbSumProps.Length > 0)
+			sbSumProps.Append(",");
+		
+		sbSumProps.AppendLine(string.Format("{0} = p.{0}",prop.Name));
+		#>
+					
+<# 	} #>                <#= sbSumProps.ToString() #>      
+						}).First();
+
+            }
+            return result;
+        }
+<# } #>
+		public List<<#= entity.Name #>> GetBy(Expression<Func<<#= entity.Name #>, bool>> predicate, bool loadRelations, ContextRequest contextRequest)
+        {
+			if(!loadRelations)
+				return GetBy(predicate, contextRequest);
+			else
+				return GetBy(predicate, contextRequest, "<#= includesChilds.ToString() #>");
+
+        }
+
+        public List<<#=entity.Name#>> GetBy(Expression<Func<<#=entity.Name#>, bool>> predicate, int? pageSize, int? page, string orderBy, SFSdotNet.Framework.Data.SortDirection? sortDirection)
+        {
+            return GetBy(predicate, new ContextRequest() { CustomQuery = new CustomQuery() { Page = page, PageSize = pageSize, OrderBy = orderBy, SortDirection = sortDirection } });
+        }
+        public List<<#=entity.Name#>> GetBy(Expression<Func<<#=entity.Name#>, bool>> predicate)
+        {
+		
+			ContextRequest contextRequest = new ContextRequest();
+            contextRequest.CustomQuery = new CustomQuery();
+            contextRequest.CustomQuery.FilterExpressionString = null;
+            return this.GetBy(predicate, contextRequest, "");
+        }
+        #endregion
+        #region Dynamic String
+		private string GetSpecificFilter(string filter) {
+            string result = "";
+		    string linqFilter = String.Empty;
+            string freeTextFilter = String.Empty;
+            if (filter.Contains("|"))
+            {
+                linqFilter = filter.Split(char.Parse("|"))[0];
+                freeTextFilter = filter.Split(char.Parse("|"))[1];
+            }
+ 			else {
+                linqFilter = filter;
+            }
+            string specificFilter = linqFilter;
+            if (!string.IsNullOrEmpty(freeTextFilter))
+            {
+                System.Text.StringBuilder sbCont = new System.Text.StringBuilder();
+                if (specificFilter.Length > 0)
+                {
+                    sbCont.Append(" AND ");
+                    sbCont.Append(" ({0})");
+                }
+                else
+                {
+                    sbCont.Append("{0}");
+                }
+                var words = freeTextFilter.Split(char.Parse(" "));
+                System.Text.StringBuilder sbSpec = new System.Text.StringBuilder();
+                 int nWords = 1;
+				foreach (var word in words)
+                {
+                    if (sbSpec.Length > 0) sbSpec.Append(" AND ");
+                    sbSpec.Append("(");
+<#  bool searchable = false;
+	System.Text.StringBuilder searchableColumns = new System.Text.StringBuilder();
+	bool defaultPropertyFKLoaded =false;
+	int nword = 1;
+	bool existOtherQuery = false;
+	bool existOtherQueryNoFK = false;
+	foreach (PropertyInfo property in entity.Properties.Where(p=>p.IsNavigationPropertyMany==false && string.IsNullOrEmpty((string)GetCustomProperty(p, "Computed", "String")) && !p.Type.ToLower().Contains("binary") && !p.Type.ToLower().Contains("xml"))) {  
+		// navega sobre todas las propiedades
+		searchable = false;#>					
+	<# 		if (property.IsNavigationProperty) {
+			/// solo las relaciones FK
+			var navprop = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName == property.Name );
+			if (navprop !=null) {
+			var entityFKName = navprop.EntityType.Substring(navprop.EntityType.LastIndexOf(".") + 1);
+			var entityFK = entity.Model.Entities.FirstOrDefault(p=>p.Name == entityFKName);	
+			if (entityFK != null ){
+				string defaultPropertyFK = "";
+				if (!string.IsNullOrEmpty(entityFK.DefaultProperty))
+				{
+					defaultPropertyFK = entityFK.DefaultProperty;
+				}	
+			foreach(var propertyFK in entityFK.Properties.Where(p=>p.IsNavigationProperty ==false && p.IsSearchable && p.Name != defaultPropertyFK && string.IsNullOrEmpty((string)GetCustomProperty(p, "Computed", "String")) && !p.Type.ToLower().Contains("xml"))){
+				if (searchableColumns.Length > 0)
+					searchableColumns.Append(@"+"" OR ""+");
+				if (propertyFK.Type.ToLower() == "string"){
+					searchableColumns.Append(@"string.Format(@"""+ property.Name + "." + propertyFK.Name + @".Contains(""""{0}"""")"", word)");
+					existOtherQuery = true;
+			
+
+				}
+			}
+			if (!string.IsNullOrEmpty(defaultPropertyFK) ){
+				var propertyFK = entityFK.Properties.Where(p=>p.Name == defaultPropertyFK && p.IsSearchable && p.Type == "String" && string.IsNullOrEmpty((string)GetCustomProperty(p, "Computed", "String")) && !p.Type.ToLower().Contains("xml")).FirstOrDefault();
+				if (propertyFK != null){
+						if (!searchableColumns.ToString().Contains(property.Name + "." + propertyFK.Name))
+						{
+							if (searchableColumns.Length > 0)
+								searchableColumns.Append(@"+ "" OR "" + ");
+
+							searchableColumns.Append(@"string.Format(@"""+ property.Name + "." + propertyFK.Name + @".Contains(""""{0}"""")"", word)");	
+							existOtherQuery = true;
+
+							}
+					}
+			}
+			}
+			}
+			#>
+<# 		// end solo las relaciones FK
+		}else if (property.Type == "String"){ #>
+				<# if(nword > 1) {#>
+						sbSpec.Append(" OR ");
+				<# } #>						
+					sbSpec.Append(string.Format(@"<#= property.Name #>.Contains(""{0}"")", word));
+<# 									existOtherQuery = true;
+									existOtherQueryNoFK= true;
+
+				nword++;
+		} 
+		
+		#>
+
+<# } #>					
+			<# if (searchableColumns.Length > 0) {
+				
+					if (existOtherQuery && existOtherQueryNoFK) {
+						#>
+					sbSpec.Append(" OR ");
+<# 			} #>					
+					//if (sbSpec.Length > 2)
+					//	sbSpec.Append(" OR "); // test
+					sbSpec.Append(<#= searchableColumns.ToString() #>);
+			<# 
+				
+			} #>
+
+                    sbSpec.Append(")");
+					
+					nWords++;
+
+                }
+                specificFilter = string.Format("{0}{1}", specificFilter, string.Format(sbCont.ToString(), sbSpec.ToString()));
+            }
+			result = specificFilter;
+			
+			return result;
+
+		}
+		public List<<#= entity.Name #>> GetBy(string filter, int? pageSize, int? page, string orderBy, string orderDir,  params object[] extraParams)
+        {
+        	string specificFilter = "";
+            if (!string.IsNullOrEmpty(filter))
+              specificFilter=  GetSpecificFilter(filter);
+            if (string.IsNullOrEmpty(orderBy))
+            {
+			<#  string _orderBy ="";
+				if (!string.IsNullOrEmpty(entity.DefaultProperty)){
+					var propertyDefault = entity.Properties.Find(p=>p.Name == entity.DefaultProperty);
+					if (propertyDefault != null ){
+						if (((string)GetCustomProperty(propertyDefault, "IsOrderBy", "String")) != "false" ){
+							if (string.IsNullOrEmpty((string)GetCustomProperty(propertyDefault, "Computed", "String"))){
+								_orderBy = propertyDefault.Name;
+							}
+						}
+					}
+						
+					
+				}
+				if (string.IsNullOrEmpty(_orderBy)){
+					var candidatesOrderBy = entity.Properties.Where(p=>(bool)GetCustomProperty(p, "IsOrderBy", "Boolean")).OrderBy(p=>p.Order);
+					if (candidatesOrderBy.Count() > 0)
+						_orderBy = candidatesOrderBy.ToList()[0].Name;
+					if (candidatesOrderBy.Count() > 1){
+						
+					}
+				}
+				if (string.IsNullOrEmpty(_orderBy)){
+					var candidatesOrderBy = entity.Properties.Where(p=>string.IsNullOrEmpty((string)GetCustomProperty(p, "Computed", "String")));
+					if (candidatesOrderBy.Count() > 0)
+						_orderBy = candidatesOrderBy.ToList()[0].Name;
+				}
+				
+			#>
+                orderBy = "<#=_orderBy#>";
+            }
+			SFSdotNet.Framework.Data.SortDirection direction = SFSdotNet.Framework.Data.SortDirection.Ascending;
+            if (!string.IsNullOrEmpty(orderDir))
+            {
+                if (orderDir == "desc")
+                    direction = SFSdotNet.Framework.Data.SortDirection.Descending;
+            }
+            return BR.<#= entity.SetName #>BR.Instance.GetBy(specificFilter,
+                new SFSdotNet.Framework.My.ContextRequest()
+                {
+                    CustomQuery = new SFSdotNet.Framework.My.CustomQuery()
+                    {
+						ExtraParams= extraParams,
+               
+                        OrderBy = orderBy,
+                        SortDirection = direction,
+                        Page = page,
+                        PageSize = pageSize
+                    }
+                });
+        }
+
+
+        public List<<#=entity.Name#>> GetBy(string strWhere, ContextRequest contextRequest)
+        {
+        	#region old code
+				Expression<Func<<#= entity.Name #>, bool>> predicate = null;
+                if (!string.IsNullOrEmpty(strWhere)){
+
+                    object[] extraParams = null;
+                    if (contextRequest != null )
+                        if (contextRequest.CustomQuery != null )
+                            extraParams = contextRequest.CustomQuery.ExtraParams;
+                    predicate = System.Linq.Dynamic.DynamicExpression.ParseLambda<<#= entity.Name #>, bool>(strWhere, extraParams);				}
+				 if (contextRequest == null)
+                {
+                    contextRequest = new ContextRequest();
+                    if (contextRequest.CustomQuery == null)
+                        contextRequest.CustomQuery = new CustomQuery();
+                }
+                
+            contextRequest.CustomQuery.FilterExpressionString = strWhere;
+				//return GetBy(predicate, contextRequest);  
+
+			#endregion				
+				
+                    return GetBy(strWhere, contextRequest, "");  
+
+
+        }
+       public List<<#= entity.Name #>> GetBy(string strWhere)
+        {
+		 	ContextRequest context = new ContextRequest();
+            context.CustomQuery = new CustomQuery();
+            context.CustomQuery.FilterExpressionString = strWhere;
+			
+            return GetBy(strWhere, context, null);
+        }
+
+        public List<<#= entity.Name #>> GetBy(string strWhere, string includes)
+        {
+		 	ContextRequest context = new ContextRequest();
+            context.CustomQuery = new CustomQuery();
+            context.CustomQuery.FilterExpressionString = strWhere;
+            return GetBy(strWhere, context, includes);
+        }
+
+        #endregion
+        #endregion
+		
+		  #region SaveOrUpdate
+        private <#=entity.Name#> Save(<#=entity.Name#> entity, bool saveChanges, EFPocoContext con)
+        {
+				ObjectContext context = null;
+            return Update(entity, saveChanges, out context);
+
+			
+        }
+
+ 		 public <#=entity.Name#> Create(<#=entity.Name#> entity)
+        {
+				ObjectContext context = null;
+				return this.Create(entity, true, out context);
+
+        }
+         public <#=entity.Name#> Create(<#=entity.Name#> entity, bool saveChanges, out ObjectContext context)
+        {
+                    return Create(entity, saveChanges , out context, null);
+        }
+         public <#=entity.Name#> Create(<#=entity.Name#> entity, params Expression<Func<<#=entity.Name#>,object>>[] paths)
+        {
+            ObjectContext context = null;
+            if(paths != null)
+				return Create(entity, true, out context, paths);
+			else 
+				return Create(entity, true, out context);
+        }
+        public <#=entity.Name#> Create(<#=entity.Name#> entity, bool saveChanges, out ObjectContext context, params Expression<Func<<#= entity.Name #>,object>>[] pocopaths)
+        {
+			using (EFPocoContext con = new EFPocoContext())
+			{
+				<#=entity.Name#> itemResult = null;
+#region Autos
+<# 	bool exAutoUpdated = false;
+	bool exAutoUpdatedUser = false;
+					bool exAutoCreated = false;
+					bool exAutoCreatedUser = false;
+				bool exAutoCompany = false;
+	string AutoGuidProperty = (String)GetCustomProperty(Model,"AutoGuidProperty", "String");
+	string AutoCreatedDateProperty = (String)GetCustomProperty(Model,"AutoCreatedDateProperty", "String");				
+	string AutoCreatedUserProperty = (String)GetCustomProperty(Model,"AutoCreatedUserProperty", "String");
+	string AutoUpdatedDateProperty = (String)GetCustomProperty(Model,"AutoUpdatedDateProperty", "String"); 
+	string AutoUpdatedUserProperty = (String)GetCustomProperty(Model,"AutoUpdatedUserProperty", "String"); 
+				string AutoCompanyProperty = (String)GetCustomProperty(Model,"CompanyProperty", "String"); 
+					
+		if (!string.IsNullOrEmpty(AutoUpdatedDateProperty)
+		||  !string.IsNullOrEmpty(AutoUpdatedUserProperty)
+			|| !string.IsNullOrEmpty(AutoGuidProperty)
+		|| 	!string.IsNullOrEmpty(AutoCreatedDateProperty)
+		||  !string.IsNullOrEmpty(AutoCreatedUserProperty)
+			||  !string.IsNullOrEmpty(AutoCompanyProperty)){
+			
+			bool exAutoGuid = false;
+			if (!string.IsNullOrEmpty(AutoGuidProperty)){
+				if (entity.Properties.Where(p=>p.Name == AutoGuidProperty).Count() > 0 ){
+					exAutoGuid = true;
+				}
+			}
+			
+			 exAutoCreated = false;
+			if (!string.IsNullOrEmpty(AutoCreatedDateProperty)){
+				if (entity.Properties.Where(p=>p.Name == AutoCreatedDateProperty).Count() > 0 ){
+					exAutoCreated = true;
+				}
+			}
+			
+			 exAutoCreatedUser = false;
+			if (!string.IsNullOrEmpty(AutoCreatedUserProperty)){
+				if (entity.Properties.Where(p=>p.Name == AutoCreatedUserProperty).Count() > 0 ){
+					exAutoCreatedUser = true;
+				}
+			}
+			
+			
+			if (!string.IsNullOrEmpty(AutoUpdatedDateProperty)){
+				if (entity.Properties.Where(p=>p.Name == AutoUpdatedDateProperty).Count() > 0 ){
+					exAutoUpdated = true;
+				}
+			}
+		
+			if (!string.IsNullOrEmpty(AutoUpdatedUserProperty)){
+				if (entity.Properties.Where(p=>p.Name == AutoUpdatedUserProperty).Count() > 0 ){
+					exAutoUpdatedUser = true;
+				}
+			}
+			if (!string.IsNullOrEmpty(AutoCompanyProperty) && !entity.Name.ToLower().Contains("seccompany") && !entity.Name.ToLower().Contains("secuser")){
+				if (entity.Properties.Where(p=>p.Name == AutoCompanyProperty).Count() > 0 ){
+					exAutoCompany = true;
+				}
+			}
+			#>	
+
+<# 		if(exAutoGuid) { #>
+			entity.<#= AutoGuidProperty #> = Guid.NewGuid();
+<# 		} #>
+<# 		if(exAutoCreated) { #>
+			entity.<#= AutoCreatedDateProperty #> = DateTime.Now;
+<# 		} #>
+<# 		if(exAutoCreatedUser) { #>
+		if(SFSdotNet.Framework.My.Context.CurrentContext.User != null)
+			entity.<#= AutoCreatedUserProperty #> = SFSdotNet.Framework.My.Context.CurrentContext.User.GuidUser;
+<# 		} #>
+<# 		if(exAutoUpdated) { #>
+			entity.<#= AutoUpdatedDateProperty #> = DateTime.Now;
+<# 		} #>
+<# 		if(exAutoUpdatedUser) { #>
+		if(SFSdotNet.Framework.My.Context.CurrentContext.User != null)
+			entity.<#= AutoUpdatedUserProperty #> = SFSdotNet.Framework.My.Context.CurrentContext.User.GuidUser;
+<# 		} #>	
+<# 		if(exAutoCompany) { #>
+			if (SFSdotNet.Framework.My.Context.CurrentContext != null)
+				if(SFSdotNet.Framework.My.Context.CurrentContext.User != null)
+					if (SFSdotNet.Framework.My.Context.CurrentContext.User.GuidCompany != null)
+						entity.<#= AutoCompanyProperty #> = SFSdotNet.Framework.My.Context.CurrentContext.User.GuidCompany;
+<# 		} #>	
+
+<# 
+	}
+			#>
+#endregion
+                e = null;
+                OnCreating(this,e = new BusinessRulesEventArgs<<#= entity.Name #>>() { Item=entity, PathExpressions = pocopaths, SaveChanges =saveChanges });
+				   if (e != null) {
+						if (e.Cancel)
+						{
+							context = null;
+							return e.Item;
+
+						}
+					}
+
+<#                
+                var keys = entity.Properties.Where(p=>p.IsPrimaryKey).ToList();
+                if (keys.Count == 1){
+                    if (keys[0].Type == "Guid"){
+#>
+                    if (entity.<#=keys[0].Name #> == Guid.Empty)
+                   {
+                       entity.<#=keys[0].Name #> = Guid.NewGuid();
+
+                   }
+
+<#
+                    }
+                  }#>
+
+<# if (!entity.IsCustom) { #>
+
+				<#= entity.Name #>Adapter adapter = con.GetAdapterObject<<#= entity.Name #>Adapter>(entity);;
+				List<Expression<Func<<#= entity.Name #>Adapter, object>>> paths = new List<Expression<Func<<#= entity.Name #>Adapter,object>>>();
+                if (pocopaths != null)
+                {
+					// Translate
+                    foreach (var pocopath in pocopaths)
+                    {
+                        var param = Expression.Parameter(typeof(<#= entity.Name #>Adapter), "p");
+                        var member = MemberExpression.PropertyOrField(param, ((System.Linq.Expressions.MemberExpression)(((System.Linq.Expressions.LambdaExpression)(pocopath)).Body)).Member.Name);
+                        Expression<Func<<#= entity.Name #>Adapter, object>> path  = null;
+                        switch(member.Member.Name){
+<# foreach (PropertyInfo property in entity.Properties.FindAll(p=>p.IsNavigationPropertyMany==true && !p.IsCustom)) {
+
+			string entityName = property.NavigationProperty.EntityType.Substring(property.NavigationProperty.EntityType.LastIndexOf(".") + 1);
+			EntityInfo entityRel = entity.Model.Entities.Find(p=>p.Name == entityName);
+			
+#>                        
+							case "<#= property.Name #>":
+								path = p => p.<#= property.Name #>.First().WithoutUpdate();
+
+								//path = p => member;
+<#		foreach(PropertyInfo propertyFK in entityRel.Properties.FindAll(p=>p.IsNavigationProperty== true && p.IsNavigationPropertyMany== false && !p.NavigationProperty.EntityType.EndsWith(@"." + entity.Name))) { #>
+								//path = p => p.<#= property.Name #>.First().<#= propertyFK.Name #>.WithoutUpdate();											
+<#		} #>
+							break;
+<# } #>							
+							default:
+								path = p => member;
+							break;
+                        }
+
+                        
+                       paths.Add(path.Expand());
+                    }
+                }
+                object aux = null;
+<#				foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=> !p.IsCustom)){  
+						if(navprop.Multiplicity == "1" || navprop.Multiplicity == "0..1"){
+						string entityName = navprop.EntityType.Substring(navprop.EntityType.LastIndexOf(".") + 1);
+							EntityInfo entityRel = entity.Model.Entities.Find(p=>p.Name == entityName);
+#>
+					paths.Add(p => p.<#= navprop.PropertyName #>.WithoutUpdate());
+
+<#							}
+				} #>
+					//paths = pathBuilder.ToArray();
+
+<#				foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=> !p.IsCustom)){  
+						string entityName = navprop.EntityType.Substring(navprop.EntityType.LastIndexOf(".") + 1);
+						EntityInfo entityRel = entity.Model.Entities.Find(p=>p.Name == entityName);
+					System.Text.StringBuilder sbPathChilds = new System.Text.StringBuilder();
+	
+					if(navprop.Multiplicity == "1" || navprop.Multiplicity == "0..1"){
+						#>
+				if (adapter.<#= navprop.PropertyName #> != null ){
+					if(adapter.<#= navprop.PropertyName #>.EntityKey == null) adapter.<#= navprop.PropertyName #>.EntityKey = con.WrappedContext.CreateEntityKey("<#= entityRel.SetName #>", adapter.<#= navprop.PropertyName #>);
+				}
+<#						}else{#>
+#region Childs <#= navprop.PropertyName #> 
+				if (adapter.<#= navprop.PropertyName #> != null)
+                {
+                    foreach (var item in adapter.<#= navprop.PropertyName #>)
+                    {
+						
+							if (item.EntityKey == null) item.EntityKey = con.WrappedContext.CreateEntityKey("<#= entityRel.SetName #>", item);
+							if (!con.WrappedContext.TryGetObjectByKey(item.EntityKey, out aux)){ 
+								//paths.Add(p => p.<#= navprop.PropertyName #>.First().WithoutUpdate());
+								
+<# 				foreach(NavigationPropertyInfo navpropnav in entityRel.NavigationProperties.Where(p=> p.Multiplicity != "*")){  
+						string entityNameRel = navpropnav.EntityType.Substring(navprop.EntityType.LastIndexOf(".") + 1);
+						EntityInfo entityRelRel = entityRel.Model.Entities.Find(p=>p.Name == entityNameRel);
+							if (navpropnav.RelationshipName != navprop.RelationshipName ){
+							sbPathChilds.AppendLine("paths.Add(p => p." + navprop.PropertyName + ".First()." + navpropnav.PropertyName + ".WithoutUpdate());");
+
+#>
+						if (item.<#= navpropnav.PropertyName #> != null){
+							item.<#= navpropnav.PropertyName #>.EntityKey = con.WrappedContext.CreateEntityKey("<#= entityRelRel.SetName #>", item.<#= navpropnav.PropertyName #>);
+                            
+             
+						}								
+<#							} else { #>
+							if (item.<#= navpropnav.PropertyName #> == null)
+								item.<#= navpropnav.PropertyName #> = adapter;
+
+<#							}
+						 }
+								#>
+								item.EntityKey = null;
+							}
+
+                    }
+					if (adapter.<#= navprop.PropertyName #>.Count > 0){
+						paths.Add(p => p.<#= navprop.PropertyName #>.First().WithoutUpdate());
+						<#= sbPathChilds.ToString() #>					
+					}
+                }
+#endregion 
+
+<#						}
+				} #>
+
+
+
+                //con.WrappedContext.AttachObjectGraph<<#= entity.Name #>Adapter>(adapter<#= includesSave.ToString() #>);
+                con.WrappedContext.AttachObjectGraph<<#= entity.Name #>Adapter>(adapter, paths.ToArray());
+              	if (saveChanges){
+                    con.WrappedContext.SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
+<# if ((bool)GetCustomProperty(entity, "Auditable", "Boolean")) { #>
+					 con.AuditChanges(adapter, Audit.AuditActions.C);
+<# }#>					 
+				}
+                else
+                    con.WrappedContext.SaveChanges(SaveOptions.None);
+                if (!saveChanges)
+                    context = con.WrappedContext;
+                else
+                    context = null;
+				itemResult = adapter.PocoEntity;
+<# }else{ #>
+				if (itemResult == null)
+					itemResult = new <#=entity.Name#>();
+					context = null;
+<# } #>
+                OnCreated(this, e = new BusinessRulesEventArgs<<#= entity.Name #>>() { Item=itemResult, PathExpressions = pocopaths, SaveChanges =saveChanges });
+                return itemResult;
+            }
+        }
+        BusinessRulesEventArgs<<#=entity.Name#>> e = null;
+        public void Create(List<<#=entity.Name#>> entities)
+        {
+				ObjectContext context = null;
+				foreach (<#=entity.Name#> entity in entities)
+				{
+					this.Create(entity, true, out context);
+				}
+
+				
+				
+        }
+
+        public <#=entity.Name#> Update(<#=entity.Name#> entity)
+        {
+			ObjectContext context = null;
+            return Update(entity, true, out context, null);
+
+        }
+         public <#=entity.Name#> Update(<#=entity.Name#> entity, params Expression<Func<<#= entity.Name #>, object>>[] paths)
+        {
+			  ObjectContext context = null;
+            return Update(entity, true, out context, paths);
+         }
+        public <#=entity.Name#> Update(<#=entity.Name#> entity, bool saveChanges, out ObjectContext outcontext)
+        {
+			return Update(entity, saveChanges, out outcontext, null);
+		}
+         public <#=entity.Name#> Update(<#=entity.Name#> entity, bool saveChanges, out ObjectContext outcontext, params Expression<Func<<#= entity.Name #>,object>>[] pocopaths)
+        {
+			using (EFPocoContext con = new EFPocoContext())
+			{
+				<#=entity.Name#>  itemResult = null;
+
+<#	 AutoUpdatedDateProperty = (String)GetCustomProperty(Model,"AutoUpdatedDateProperty", "String"); 
+	 AutoUpdatedUserProperty = (String)GetCustomProperty(Model,"AutoUpdatedUserProperty", "String"); 
+	AutoCompanyProperty = (String)GetCustomProperty(Model,"CompanyProperty", "String"); 
+		if( !string.IsNullOrEmpty(AutoUpdatedDateProperty)
+		||  !string.IsNullOrEmpty(AutoUpdatedUserProperty)
+		||  !string.IsNullOrEmpty(AutoCompanyProperty)			
+			) {  
+			
+			if (!string.IsNullOrEmpty(AutoUpdatedDateProperty)){
+				if (entity.Properties.Where(p=>p.Name == AutoUpdatedDateProperty).Count() > 0 ){
+					exAutoUpdated = true;
+				}
+			}
+			 
+			if (!string.IsNullOrEmpty(AutoUpdatedUserProperty)){
+				if (entity.Properties.Where(p=>p.Name == AutoUpdatedUserProperty).Count() > 0 ){
+					exAutoUpdatedUser = true;
+				}
+			}
+			
+			if (!string.IsNullOrEmpty(AutoCompanyProperty) && !entity.Name.ToLower().Contains("seccompany") && !entity.Name.ToLower().Contains("secuser")){
+				if (entity.Properties.Where(p=>p.Name == AutoCompanyProperty).Count() > 0 ){
+					exAutoCompany = true;
+				}
+			}
+#>	
+<# 		if(exAutoUpdated) { #>
+			entity.<#= AutoUpdatedDateProperty #> = DateTime.Now;
+<# 		} #>
+<# 		if(exAutoUpdatedUser) { #>
+			entity.<#= AutoUpdatedUserProperty #> = SFSdotNet.Framework.My.Context.CurrentContext.User.GuidUser;
+<# 		} #>
+
+<#   if (exAutoCreated || exAutoCreatedUser || exAutoCompany) { #>
+	    var oldentity = GetBy(p => <#= keyForOld.ToString() #>).FirstOrDefault();
+		if (oldentity != null) {
+<# if (exAutoCreated) {#>		
+            entity.<#= AutoCreatedDateProperty #> = oldentity.<#= AutoCreatedDateProperty #>;
+<# }
+	if (exAutoCreatedUser) { #>
+            entity.<#= AutoCreatedUserProperty #> = oldentity.<#= AutoCreatedUserProperty #>;
+<# }
+	if (exAutoCompany) {#>
+	
+            entity.<#= AutoCompanyProperty #> = oldentity.<#= AutoCompanyProperty #>;
+	
+<# 	}
+		if (exAutoCreated){ #>
+			
+<# 		} #>
+<# 		if (exAutoCreatedUser) { #>
+
+<# 		} #>
+		}
+
+<#	}#>
+<# } #>
+				e = null;
+                OnUpdating(this,e = new BusinessRulesEventArgs<<#= entity.Name #>>() { Item=entity, PathExpressions = pocopaths, SaveChanges =saveChanges });
+				   if (e != null) {
+						if (e.Cancel)
+						{
+							outcontext = null;
+							return e.Item;
+
+						}
+					}
+<# if (!entity.IsCustom) { #>
+
+                <#= entity.Name #>Adapter adapter = con.GetAdapterObject<<#= entity.Name #>Adapter>(entity);
+                adapter.EntityKey = con.WrappedContext.CreateEntityKey("<#= entity.SetName #>", adapter);
+				    var es = con.<#= entity.SetName #>;
+<# if ( !string.IsNullOrEmpty((string)GetCustomProperty(entity, "LocalizableDataTable", "String")) ) { #>                
+				 
+
+                es = con.AsLocalizable<<#= entity.Name #>>(es);
+<# } #>
+				List<Expression<Func<<#= entity.Name #>Adapter, object>>> paths = new List<Expression<Func<<#= entity.Name #>Adapter,object>>>();
+                if (pocopaths != null)
+                {
+					// Translate
+                    foreach (var pocopath in pocopaths)
+                    {
+                        var param = Expression.Parameter(typeof(<#= entity.Name #>Adapter), "p");
+                        var member = MemberExpression.PropertyOrField(param, ((System.Linq.Expressions.MemberExpression)(((System.Linq.Expressions.LambdaExpression)(pocopath)).Body)).Member.Name);
+                        Expression<Func<<#= entity.Name #>Adapter, object>> path  = null;
+                        switch(member.Member.Name){
+<# foreach (PropertyInfo property in entity.Properties.FindAll(p=>p.IsNavigationPropertyMany==true && !p.IsCustom)) {
+
+			string entityName = property.NavigationProperty.EntityType.Substring(property.NavigationProperty.EntityType.LastIndexOf(".") + 1);
+			EntityInfo entityRel = entity.Model.Entities.Find(p=>p.Name == entityName);
+			
+#>                        
+							case "<#= property.Name #>":
+								//path = p => member;
+								path = p => p.<#= property.Name #>.First().WithoutUpdate();
+<#		foreach(PropertyInfo propertyFK in entityRel.Properties.FindAll(p=>p.IsNavigationProperty== true && p.IsNavigationPropertyMany== false && !p.NavigationProperty.EntityType.EndsWith(@"." + entity.Name))) { #>
+				//				path = p => p.<#= property.Name #>.First().<#= propertyFK.Name #>.WithoutUpdate();											
+<#		} #>
+							break;
+<# } #>							
+							default:
+								path = p => member;
+							break;
+                        }
+
+                        paths.Add(path.Expand());
+ 					}
+                }
+                else {
+                  paths = new List<Expression<Func<<#= entity.Name #>Adapter, object>>>();
+
+					//List<Expression<Func<<#= entity.Name #>Adapter,object>>> pathBuilder = new List<Expression<Func<<#= entity.Name #>Adapter,object>>>();
+<#				foreach(PropertyInfo propertyKey in entity.Properties.FindAll(p=> !p.IsPrimaryKey && p.IsNavigationProperty && !p.IsCustom)){
+						NavigationPropertyInfo navprop = propertyKey.NavigationProperty;
+						if(navprop.Multiplicity == "1" || navprop.Multiplicity == "0..1"){
+						string entityName = navprop.EntityType.Substring(navprop.EntityType.LastIndexOf(".") + 1);
+						EntityInfo entityRel = entity.Model.Entities.Find(p=>p.Name == entityName);
+#>
+					paths.Add(p => p.<#= navprop.PropertyName #>.WithoutUpdate());
+
+<#						}
+				} #>		
+					//paths = pathBuilder.ToArray();		
+			}
+			object aux = null;
+<#				foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!p.IsCustom)){  
+						string entityName = navprop.EntityType.Substring(navprop.EntityType.LastIndexOf(".") + 1);
+						EntityInfo entityRel = entity.Model.Entities.Find(p=>p.Name == entityName);
+
+						if(navprop.Multiplicity == "1" || navprop.Multiplicity == "0..1"){
+#>
+				if (adapter.<#= navprop.PropertyName #> != null ){
+					if(adapter.<#= navprop.PropertyName #>.EntityKey == null) adapter.<#= navprop.PropertyName #>.EntityKey = con.WrappedContext.CreateEntityKey("<#= entityRel.SetName #>", adapter.<#= navprop.PropertyName #>);
+				}
+
+                
+<#						}else{#>
+				if (adapter.<#= navprop.PropertyName #> != null)
+                {
+                    foreach (var item in adapter.<#= navprop.PropertyName #>)
+                    {
+
+                        if (item.EntityKey == null) item.EntityKey = con.WrappedContext.CreateEntityKey("<#= entityRel.SetName #>", item);
+						if (!con.WrappedContext.TryGetObjectByKey(item.EntityKey, out aux)) item.EntityKey = null;
+                        
+                    }
+                }
+<#						}
+				} #>
+
+
+
+                //con.AttachObjectGraph<<#= entity.Name #>>(adapter<#= includesSave.ToString() #>);
+                con.WrappedContext.AttachObjectGraph<<#= entity.Name #>Adapter>(adapter, paths.ToArray());
+				if (saveChanges){
+                	con.WrappedContext.SaveChanges();
+<# if ((bool)GetCustomProperty(entity, "Auditable", "Boolean")) { #>					
+					 con.AuditChanges(adapter, Audit.AuditActions.U);
+<# } #>					 
+					}
+                if(!saveChanges)
+					outcontext = con.WrappedContext;
+				else
+					outcontext = null;
+				itemResult = adapter.PocoEntity;
+<# }else{ #>
+				if (itemResult == null)
+					itemResult = new <#=entity.Name#>();
+					outcontext= null;
+<# } #>
+				OnUpdated(this, e = new BusinessRulesEventArgs<<#= entity.Name #>>() { Item=itemResult, PathExpressions = pocopaths, SaveChanges =saveChanges });
+
+              	return itemResult;
+
+			  }
+        }
+        public <#=entity.Name#> Save(<#=entity.Name#> entity)
+        {
+			return Save(entity, true, null);
+        }
+        public int Save(List<<#=entity.Name#>> entities)
+        {
+			using (EFPocoContext con = new EFPocoContext())
+			{
+			
+            int n = 0;
+            foreach (<#=entity.Name#> item in entities)
+            {
+                try
+                {
+                    this.Save(item, false, con);
+                    n++;
+                }catch (Exception ex){
+                    SFSdotNet.Framework.My.EventLog.Exception(ex);
+                }
+            }
+            con.SaveChanges();
+            return n;
+            }
+        }
+        #endregion
+        #region Delete
+        public void Delete(<#= entity.Name #> entity)
+        {
+				ObjectContext context = null;
+				this.Delete(entity, true, out context);
+			
+        }
+
+        
+        public void Delete(<#=entity.Name#> entity, bool saveChanges, out  ObjectContext context)
+        {
+			using (EFPocoContext _con = new EFPocoContext())
+			{
+				int result = 0;
+				
+               	BusinessRulesEventArgs<<#= entity.Name #>> _e = null;
+                OnDeleting(this,_e = new BusinessRulesEventArgs<<#= entity.Name #>>() { Item=entity, SaveChanges =saveChanges });
+				   if (_e != null) {
+						if (_e.Cancel)
+						{
+							context = null;
+							return;
+
+						}
+					}
+
+<# if (!entity.IsCustom) { #>
+
+				<#= entity.Name #>Adapter adapter = _con.GetAdapterObject<<#= entity.Name #>Adapter>(entity);
+                adapter.EntityKey = _con.WrappedContext.CreateEntityKey("<#= entity.SetName #>", adapter);
+                
+	            //adapter = _con.WrappedContext.AttachObjectGraph<<#= entity.Name #>Adapter>(adapter);
+				_con.WrappedContext.AttachTo("<#= entity.SetName #>", adapter);
+                
+				<#  if (entity.Properties.FirstOrDefault(p=>p.Name == "IsDeleted") != null) {#>
+					//IsDeleted
+					bool logicDelete = true;
+					if (adapter.IsDeleted != null)
+					{
+						if (adapter.IsDeleted.Value)
+							logicDelete = false;
+					}
+					if (logicDelete)
+					{
+					<# 
+						System.Text.StringBuilder sbKeysLD = new System.Text.StringBuilder();
+						foreach (PropertyInfo property in entity.Properties.Where(p=>p.IsPrimaryKey)){
+							if(sbKeysLD.Length > 0)
+									sbKeysLD.Append(" && ");
+							sbKeysLD.Append(string.Format("p.{0} == entity.{0}",property.Name));
+						}
+					#>
+						entity = GetBy(p => <#= sbKeysLD.ToString() #>).FirstOrDefault();
+						entity.IsDeleted = true;
+						Update(entity);
+					}
+					else {
+						_con.WrappedContext.DeleteObject(adapter);
+					}
+				<# }else{ #>
+					_con.WrappedContext.DeleteObject(adapter);
+                <# } #>
+				
+				if (!saveChanges)
+                    context = _con.WrappedContext;
+                else
+                    context = null;
+				 SaveOptions saveOption = SaveOptions.None;
+                if (saveChanges)
+                    saveOption = SaveOptions.AcceptAllChangesAfterSave;
+
+				result = _con.WrappedContext.SaveChanges(saveOption);
+				if (saveChanges){
+<# if ((bool)GetCustomProperty(entity, "Auditable", "Boolean")) { #>                    
+					_con.AuditChanges(adapter, Audit.AuditActions.D);
+<# } #>
+					
+					}
+<# } else{#>
+				context=null;
+<# } #>
+				if (_e == null)
+					_e = new BusinessRulesEventArgs<<#= entity.Name #>>() { Item = entity };
+                OnDeleted(this, _e );
+
+				//return null;
+			}            
+        }
+        public void Delete(List<<#=entity.Name#>> entities)
+        {
+				ObjectContext context = null;
+			
+				foreach (<#=entity.Name#> item in entities)
+				{
+					this.Delete(item, true, out context);
+				}
+			
+
+			
+        }
+        #endregion
+ 
+        #region GetCount
+        public int GetCount(Expression<Func<<#=entity.Name#>, bool>> predicate)
+        {
+<# if (!entity.IsCustom) { #>
+		
+			using (EFPocoContext con = new EFPocoContext())
+			{
+
+<# 				if ((bool)GetCustomProperty(entity, "DisableEFCaching", "Boolean")) { #>
+					con.CachingPolicy = EFCachingProvider.Caching.CachingPolicy.NoCaching;
+<# 				} #>
+
+				if (predicate == null) predicate = PredicateBuilder.True<<#=entity.Name#>>();
+<#			if (entity.Properties.Where(p=>p.Name.ToLower()== "isdeleted").Count() > 0) { #>
+           		predicate = predicate.And(p => p.IsDeleted != true || p.IsDeleted == null);
+<# 			} #>
+<# 				if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "CompanyProperty", "string"))){
+					if (entity.Properties.FirstOrDefault(p=>p.Name == (string)GetCustomProperty(entity.Model, "CompanyProperty", "string")) != null) { #>
+					if (!preventSecurityRestrictions)
+						{
+						if (SFSdotNet.Framework.My.Context.CurrentContext != null )
+                    		if (SFSdotNet.Framework.My.Context.CurrentContext.User !=null )
+                        		if (SFSdotNet.Framework.My.Context.CurrentContext.User.GuidCompany != null )
+                        			predicate = predicate.And(p => p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == SFSdotNet.Framework.My.Context.CurrentContext.User.GuidCompany.Value); //todo: multiempresa
+						}
+						if (preventSecurityRestrictions) preventSecurityRestrictions= false;
+<# 					} 
+				}#>
+				
+				return con.<#=entity.SetName#>.Count(predicate);
+			}
+<# }else { #>
+			
+            e = null;
+            OnCounting(this, e = new BusinessRulesEventArgs<<#= entity.Name #>>() { FilterExpression = predicate });
+            if (e != null)
+            {
+                if (e.Cancel)
+                {
+                    return e.CountResult;
+                }
+            }
+            return 0;
+<# } #>
+
+        }
+        public int GetCount(string predicate)
+        {
+<# if (!entity.IsCustom) { #>
+			e = null;
+            OnCounting(this, e = new BusinessRulesEventArgs<<#= entity.Name #>>() {  FilterExpressionString = predicate });
+            if (e != null)
+            {
+                if (e.Cancel)
+                {
+                    context = null;
+                    return e.CountResult;
+
+                }
+                predicate = e.FilterExpressionString;
+            
+            }
+					predicate = GetSpecificFilter(predicate);
+<#			if (entity.Properties.Where(p=>p.Name.ToLower()== "isdeleted").Count() > 0) { #>
+					if (!string.IsNullOrEmpty(predicate)) { 
+                        predicate += " AND ";
+                    }
+                    predicate += " (IsDeleted != true OR IsDeleted ==null)";
+<# 			} #>
+<# 				if (!string.IsNullOrEmpty((string)GetCustomProperty(entity.Model, "CompanyProperty", "string"))){
+					if (entity.Properties.FirstOrDefault(p=>p.Name == (string)GetCustomProperty(entity.Model, "CompanyProperty", "string")) != null) { #>
+					if (!preventSecurityRestrictions)
+						{
+						if (SFSdotNet.Framework.My.Context.CurrentContext != null )
+                    	if (SFSdotNet.Framework.My.Context.CurrentContext.User !=null )
+                        	if (SFSdotNet.Framework.My.Context.CurrentContext.User.GuidCompany != null ){
+                        		if (!string.IsNullOrEmpty(predicate)) { 
+                        			predicate += " AND ";
+                    			}
+								predicate += @" (<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + SFSdotNet.Framework.My.Context.CurrentContext.User.GuidCompany.Value + @""")) "; //todo: multiempresa
+								
+							}
+							
+							}
+							if (preventSecurityRestrictions) preventSecurityRestrictions= false;
+<# 					} 
+				}#>
+			using (EFContext con = new EFContext())
+			{
+				   
+                string predicateWithManyRelations = "";
+                string predicateWithFKAndComputed = "";
+                QueryUtils.BreakeQuery1(predicate, ref predicateWithManyRelations, ref predicateWithFKAndComputed);
+
+                if (!string.IsNullOrEmpty(predicate))
+                {
+<#		if (entity.Properties.Where(p=>!string.IsNullOrEmpty((string)GetCustomProperty(p, "ComputedLinq", "String"))).Count() > 0) {#>
+			<# foreach (PropertyInfo prop in entity.Properties.Where(p=>p.IsNavigationProperty && !p.IsNavigationPropertyMany))  {#>
+				bool include<#= prop.Name #> = predicate.Contains("<#= prop.Name #>");
+
+			<# } #>
+ 				var query = con.<#=entity.SetName#>.AsQueryable();
+                    var _queryable = query.AsQueryable();
+                    if (!string.IsNullOrEmpty(predicateWithManyRelations))
+                    	_queryable = _queryable.Where(predicateWithManyRelations);
+                            
+                    var queryable = _queryable.Select(
+                          p =>
+                              new
+                              {			
+			<#= sbMap1.ToString() #>
+							}
+
+                          );
+
+					if (!string.IsNullOrEmpty(predicateWithFKAndComputed))
+                        queryable = queryable.Where(predicateWithFKAndComputed);
+
+					
+                    return queryable.Count();
+			
+<# 		}else{ #>
+				
+					
+                    return con.<#=entity.SetName#>.Count(System.Linq.Dynamic.DynamicExpression.ParseLambda<<#= entity.Name #>, bool>(predicate));
+<# 		} #>					
+                }else
+                    return con.<#=entity.SetName#>.Count();
+
+			}
+<# }else { #>
+		predicate = GetSpecificFilter(predicate);
+            e = null;
+            OnCounting(this, e = new BusinessRulesEventArgs<<#= entity.Name #>>() { FilterExpressionString = predicate });
+            if (e != null)
+            {
+                if (e.Cancel)
+                {
+                    return e.CountResult;
+                }
+            }
+            return 0;
+<# } #>
+
+		}
+         public int GetCount()
+        {
+            return GetCount(p => true);
+        }
+        #endregion
+        
+         public <#=entity.Name#> Update(<#=entity.Name#> entity, string paths)
+        {
+            return Update(entity, paths.Split(char.Parse(",")));
+            
+        }
+
+        public <#=entity.Name#> Update(<#=entity.Name#> entity, string[] paths)
+        {
+            // Translate
+            List<Expression<Func<<#=entity.Name#>, object>>> pathList = new List<Expression<Func<<#=entity.Name#>, object>>>();
+            for (int i = 0; i <= paths.Length -1; i++)
+            {
+                var param = Expression.Parameter(typeof(<#=entity.Name#>), "p");
+                var member = MemberExpression.PropertyOrField(param, paths[i]);
+
+                Expression<Func<<#=entity.Name#>, object>> path = p => member;
+                pathList.Add(path.Expand());
+            }
+           return Update(entity, pathList.ToArray());
+        }
+
+        public void Update(List<<#=entity.Name#>> entities, string paths)
+        {
+            foreach (var entity in entities )
+            {
+                Update(entity, paths);
+            }
+        }
+
+        public <#=entity.Name#> Create(<#=entity.Name#> entity, string paths)
+        {
+			if(string.IsNullOrEmpty(paths))
+				return Create(entity);
+				
+            return Create(entity, paths.Split(char.Parse(",")));
+        }
+
+        public  void Create(List<<#=entity.Name#>> entities, string paths)
+        {
+            foreach (var entity in entities)
+            {
+                Create(entity, paths);
+            }
+        }
+
+        public void Create(List<<#=entity.Name#>> entities, string[] paths)
+        {
+            foreach (var entity in entities)
+            {
+                Create(entity, paths);
+            }
+        }
+<# if (entity.Properties.FindAll(p=>p.IsSearchable==true).Count > 0)
+{ #>        
+        public string[] SearchForAutoComplete(string prefixText,  int count)
+        {
+<# 
+System.Text.StringBuilder sbSearch = new System.Text.StringBuilder();
+System.Text.StringBuilder sbSelect = new System.Text.StringBuilder();
+System.Text.StringBuilder sbConcat = new System.Text.StringBuilder();
+int ic = 0;
+foreach(PropertyInfo property in entity.Properties){
+	if (property.IsSearchable){
+		if (sbSearch.Length > 0) sbSearch.Append(" || ");
+		if (sbSelect.Length > 0) sbSelect.Append(", ");
+		if (sbConcat.Length > 0) sbConcat.Append(" | ");
+		sbSearch.AppendLine(string.Format("p.{0}.Contains(prefixText)", property.Name));
+		sbSelect.Append(string.Format("p.{0}",property.Name));
+		sbConcat.Append("{" + ic.ToString() + "}");
+		ic++;
+	}
+} 
+ #>			
+            using (EFPocoContext context = new EFPocoContext())
+            {
+                var q = from p in context.<#= entity.SetName #>
+                        where
+                            <#= sbSearch.ToString() #>
+                        select string.Format("<#= sbConcat.ToString() #>", <#= sbSelect.ToString() #>);
+                return q.ToArray();
+            }
+            
+        }
+<# 
+}
+ #>        
+        public <#=entity.Name#>  Create(<#=entity.Name#> entity, string[] paths)
+        {
+            List<Expression<Func<<#=entity.Name#>, object>>> pathList = new List<Expression<Func<<#=entity.Name#>, object>>>();
+            for (int i = 0; i < paths.Length - 1; i++)
+            {
+                var param = Expression.Parameter(typeof(<#=entity.Name#>), "p");
+                var member = MemberExpression.PropertyOrField(param, paths[i]);
+
+                Expression<Func<<#=entity.Name#>, object>> path = p => member;
+                pathList.Add(path.Expand());
+            }
+            return Create(entity, pathList.ToArray());
+        }
+        public void Delete(List<<#= entity.Name #>.CompositeKey> entityKeys)
+        {
+
+            List<<#= entity.Name #>> items = new List<<#= entity.Name #>>();
+            foreach (var itemKey in entityKeys)
+            {
+                items.Add(GetByKey(<#= keyFromComKey.ToString() #>));
+            }
+
+            Delete(items);
+
+        }
+		
+<# 
+List<PropertyInfo> propManys = new List<PropertyInfo>();
+	foreach (var item in entity.Properties.Where(p=>p.IsNavigationPropertyMany)) { 
+		if ( item.Type.Substring(item.Type.LastIndexOf(".") + 1) != entity.Name){
+			var navprop = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName == item.Name);
+			var entityRelName = navprop.EntityType.Substring(navprop.EntityType.LastIndexOf(".") + 1);
+			var entityRel = entity.Model.Entities.Find(p=>p.Name == entityRelName);
+			var relNav = entityRel.NavigationProperties.Where(p=>p.RelationshipName == item.NavigationProperty.RelationshipName).FirstOrDefault();
+			if(relNav.Multiplicity == "*"){ // muchos a muchos
+				propManys.Add(navprop.Property);
+	 		}
+		
+		}
+	}
+
+foreach(var propmany in propManys) { 
+	System.Text.StringBuilder sbFilterItem = new System.Text.StringBuilder();
+	System.Text.StringBuilder sbFilterItemRel = new System.Text.StringBuilder();
+	foreach (var propKey in entity.Properties.Where(p=>p.IsPrimaryKey)){
+		if(sbFilterItem.Length > 0)
+			sbFilterItem.Append(" && ");
+		sbFilterItem.Append(string.Format("p.{0} == item.{0}", propKey.Name));
+	}
+	var entityRel = Model.Entities.First(p=> p.Name == propmany.Type.Substring(propmany.Type.LastIndexOf(".") + 1));
+	foreach (var propKey in entityRel.Properties.Where(p=>p.IsPrimaryKey)){
+		if(sbFilterItemRel.Length > 0)
+			sbFilterItemRel.Append(" && ");
+		sbFilterItemRel.Append(string.Format("x.{0} == itemRel.{0}", propKey.Name));
+	}
+	
+	#>	
+		partial void OnRelationAdded(<#= entity.Name #> item, <#= propmany.Type.Substring(propmany.Type.LastIndexOf(".") + 1) #> itemRel);
+
+		public void AddRelation(<#= entity.Name #> item, <#= propmany.Type.Substring(propmany.Type.LastIndexOf(".") + 1) #> itemRel)
+        {
+            using (EFContext  con = new EFContext())
+            {
+                
+                con.ContextOptions.LazyLoadingEnabled = false;
+                con.ContextOptions.ProxyCreationEnabled = false; 
+                con.<#= entity.SetName #>.First(p => <#= sbFilterItem.ToString() #>).<#= propmany.Name #>.Add(con.<#= entityRel.SetName #>.First(x=><#= sbFilterItemRel.ToString() #>));
+                con.SaveChanges();
+            }
+			OnRelationAdded(item,  itemRel);
+        }
+		partial void OnRelationRemoved(<#= entity.Name #> item, <#= propmany.Type.Substring(propmany.Type.LastIndexOf(".") + 1) #> itemRel);
+
+        public void RemoveRelation(<#= entity.Name #> item, <#= propmany.Type.Substring(propmany.Type.LastIndexOf(".") + 1) #> itemRel)
+        {
+            using (EFContext con = new EFContext())
+            {
+                item = con.<#= entity.SetName #>.Include("<#= propmany.Name#>").FirstOrDefault(p => <#= sbFilterItem.ToString() #>);
+                if (item != null) {
+                    if (item.<#= entityRel.SetName #>.FirstOrDefault(x =><#= sbFilterItemRel.ToString() #>) != null ) {
+                        item.<#= entityRel.SetName #>.Remove(item.<#= entityRel.SetName #>.FirstOrDefault(x => <#= sbFilterItemRel.ToString()  #>));
+                    }
+                }
+                con.SaveChanges();
+            }
+			OnRelationRemoved(item,  itemRel);
+
+        }
+<# 	} #>		
+	}
+	<# 
+			
+		}
+		}catch(Exception ex){
+				throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+			}
+		} #> 
+}
+
+
+<#+ 
+	public string NullableSymbol(PropertyInfo property){
+		string result = "";
+		
+		if (property.Type != "String" && property.Type != "DateTime" && property.IsPrimaryKey== false){
+			if (property.Nullable || property.IsNavigationProperty)
+			{
+				result = "?";
+			}
+		}else if (property.IsPrimaryKey && property.Type != "String" && property.Type != "DateTime"){
+			result = "?";
+		}
+		
+		return result;
+	}
+public object GetCustomProperty(EntityInfo entity, string customPropertyName, string propertyType){
+	object result = null;
+		if (propertyType.ToLower() =="boolean")
+			result = false;
+		else if(propertyType.ToLower() == "string")
+			result = "";
+		//Write(property.CustomProperties.Count().ToString());
+
+		CustomPropertyInfo cp = entity.CustomProperties.FirstOrDefault(p=>p.Name == customPropertyName);
+		if (cp!= null ){
+			//Write(cp.Value);
+			if(propertyType.ToLower() == "boolean")	
+				result = Convert.ToBoolean(cp.Value);
+			else if(propertyType.ToLower() == "string")
+				result = Convert.ToString(cp.Value);
+			else
+				result = Convert.ToString(cp.Value);
+		}		
+		
+	
+		return result;
+}
+public object GetCustomProperty(ModelInfo model, string customPropertyName, string propertyType){
+	object result = null;
+		if (propertyType.ToLower() =="boolean")
+			result = false;
+		else if(propertyType.ToLower() == "string")
+			result = "";
+		
+			
+		//Write(property.CustomProperties.Count().ToString());
+
+		CustomPropertyInfo cp = model.CustomProperties.FirstOrDefault(p=>p.Name == customPropertyName);
+		if (cp!= null ){
+			//Write(cp.Value);
+			if(propertyType.ToLower() == "boolean")	
+				result = Convert.ToBoolean(cp.Value);
+			else if(propertyType.ToLower() == "string")
+				result = Convert.ToString(cp.Value);
+			else
+				result = Convert.ToString(cp.Value);
+		}		
+		
+	
+		return result;
+}
+
+public object GetCustomProperty(PropertyInfo property, string customPropertyName, string propertyType){
+		
+		object result = null;
+		if (propertyType.ToLower() =="boolean")
+			result = false;
+		else if(propertyType.ToLower() == "string")
+			result = "";
+		//Write(property.CustomProperties.Count().ToString());
+
+		CustomPropertyInfo cp = property.CustomProperties.FirstOrDefault(p=>p.Name == customPropertyName);
+		if (cp!= null ){
+			//Write(cp.Value);
+			if(propertyType.ToLower() == "boolean")	
+				result = Convert.ToBoolean(cp.Value);
+			else if(propertyType.ToLower() == "string")
+				result = Convert.ToString(cp.Value);
+			else
+				result = Convert.ToString(cp.Value);
+		}		
+		
+	
+		return result;
+}
+#>

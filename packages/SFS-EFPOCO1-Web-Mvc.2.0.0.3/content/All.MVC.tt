@@ -1,0 +1,101 @@
+﻿<#@ template hostspecific="True"  debug="True" language="C#v3.5" #><#@ output extension="txt" #><#@ import namespace="SFSdotNet.VSAddin2012.Model" #><#@ import namespace="SFSdotNet.VSAddin2012.Model.Utils" #><#@ dom processor="SFSEdmxProcessor"  requires="EntityModel='$safenamespace$Model.edmx'"  #><#@ include file="SaveOutput.tt" #><#@ include file="Entity.MVC.tt" #><#@ include file="Controllers.tt" #><#@ include file="ControllersGeneric.tt" #> <#@ include file="Models.tt" #><#@ include file="View_Display.tt" #><#@ include file="View_CreateEdit.tt" #><#@ include file="View_Generic.tt" #><#@ include file="View_ChildsResx.tt" #><#@ include file="View_List.tt" #>
+<#	
+
+	foreach(EntityInfo entity in Model.Entities){
+		try{
+			if (string.IsNullOrEmpty(entity.DefaultProperty)){
+				entity.DefaultProperty = entity.Properties[0].Name;
+			}
+			//string entityPluralName = null;
+			if (!string.IsNullOrEmpty(entity.SetName)){
+				entityPluralName = entity.SetName;
+			}else{
+				entityPluralName = Code.MakePlural(entity.Name);
+			}
+			entitySingularName = Code.MakeSingle(entity.Name);
+		if ((bool)GetCustomProperty(entity, "IsGeneric", "Boolean")){
+			
+				GenerateGeneric(entity);
+				string folderViews =@"Views\" +entityPluralName;
+				string folderModels = @"Models\" +entityPluralName;
+				if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "RelativeFolder", "String"))){
+					folderViews = @"Views\" + (string)GetCustomProperty(entity, "RelativeFolder", "String");
+					folderModels = @"Models\" + (string)GetCustomProperty(entity, "RelativeFolder", "String");
+				}
+				SaveOutput(entity.Name + "Gen.aspx", folderViews);  
+				
+				GenerateGenericView(entity);
+				SaveOutput(entity.Name + "ViewGen.ascx", folderViews);  
+				
+				if (entity.NavigationProperties.Count > 0 || (bool)GetCustomProperty(entity, "UICreateChilds", "Boolean"))
+				{
+						// ChildsViewGen
+					GenerateChildsView(entity);
+					SaveOutput(entity.Name + "ChildsViewGen.ascx", folderViews);  
+
+				}
+			GenerateModel(entity);
+			SaveOutput(entityPluralName + ".gen.cs", folderModels);  
+			//GenerateController(entity);
+			//SaveOutput(entityPluralName + "Controller.gen.cs", @"Controllers");  
+			string controllerName = entityPluralName;
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "ControllerName", "String")))
+			{
+				controllerName =(string)GetCustomProperty(entity, "ControllerName", "String");
+			}
+
+			GenerateControllerGeneric(entity);
+			SaveOutput(controllerName + "Controller.Generic.gen.cs", @"Controllers");  
+	
+			//Views
+		}else{
+			GenerateModel(entity);
+			SaveOutput(entityPluralName + ".gen.cs", @"Models\" +entityPluralName);  
+			string controllerName = entityPluralName;
+			if (!string.IsNullOrEmpty((string)GetCustomProperty(entity, "ControllerName", "String")))
+			{
+				controllerName =(string)GetCustomProperty(entity, "ControllerName", "String");
+			}
+			GenerateController(entity);
+			SaveOutput(controllerName + "Controller.gen.cs", @"Controllers");  
+			//Views
+
+			//SaveOutput("DefaultGen.aspx", @"Views\" +entityPluralName);  
+			// List
+			GenerateListView(entity);
+			SaveOutput("ListViewGen.ascx", @"Views\" +entityPluralName);  
+			
+			GenerateList(entity);
+			SaveOutput("ListGen.aspx", @"Views\" +entityPluralName);  
+
+			// Display
+			GenerateDisplayView(entity);
+			SaveOutput("DisplayViewGen.ascx", @"Views\" +entityPluralName);  
+			GenerateDisplay(entity);
+			SaveOutput("DisplayGen.aspx", @"Views\" +entityPluralName);  
+
+			// ChildsViewGen
+			GenerateChildsView(entity);
+			SaveOutput("ChildsViewGen.ascx", @"Views\" +entityPluralName);  
+
+			
+			// Edit
+			GenerateEditView(entity);
+			SaveOutput("EditorViewGen.ascx", @"Views\" +entityPluralName);  
+			GenerateEdit(entity);
+			SaveOutput("EditGen.aspx", @"Views\" +entityPluralName);  
+			// Create
+			GenerateCreate(entity);
+			SaveOutput("CreateGen.aspx", @"Views\" +entityPluralName);  
+
+			
+		}
+		// Edit
+			GenerateResourcesRESX(entity);
+			SaveOutput(entity.Name+ "Resources.resx", @"Resources");  
+	}catch(Exception ex){
+		throw new Exception(string.Format("El error ocurrió en la entidad {0}",entity.Name),ex);
+	}
+	}
+		
+#>

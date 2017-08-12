@@ -1,0 +1,2 @@
+
+ALTER TABLE dbo.secBizObjProperty ALTER COLUMN Name NVARCHAR(255) NULL;

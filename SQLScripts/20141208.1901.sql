@@ -1,0 +1,1 @@
+ALTER TABLE dbo.secBizPropertyDescriptions ALTER COLUMN Name VARCHAR(1000) NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE dbo.secCompanies ADD TimeZoneNameID VARCHAR(255) NULL;

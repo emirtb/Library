@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SFS-Shell-Web-Mvc-Compiled</id>
+    <version>1.0.0.50</version>
+    <title>SFS Front-End Shell asp.net mvc compiled</title>
+    <authors>sfsdotnet.com</authors>
+    <owners>sfsdotnet.com</owners>
+    <licenseUrl>http://en.sfsdotnet.com/public-license</licenseUrl>
+    <projectUrl>http://www.sfsdotnet.com</projectUrl>
+    <iconUrl>http://es.sfsdotnet.com/logo_for_nuget.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Front end shell application based on asp.net mvc for SFS Tools.  This component require of other layer/projects for work. Is the default template of SFS.</description>
+    <summary>Front end shell application based on asp.net mvc for SFS Tools</summary>
+    <releaseNotes>This is the first release of the new version in 2013</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <language>en-US</language>
+    <tags>SFS architecture n layers entity framework poco robust enterprise</tags>
+    <references>
+      <reference file="SFSdotNet.Framework.dll" />
+      <reference file="SFSdotNet.Framework.My.BusinessObjects.dll" />
+      <reference file="SFSdotNet.Framework.My.Web.Mvc.dll" />
+      <reference file="SFSdotNet.Framework.Security.BusinessObjects.dll" />
+      <reference file="SFSdotNet.Framework.Security.Web.Mvc.dll" />
+      <reference file="SFSdotNet.Framework.Web.Mvc.dll" />
+    </references>
+  </metadata>
+</package>
