@@ -1,0 +1,2599 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SFSdotNet.Framework.Web.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:Resources.SiteMapLocalizations">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.ACCOUNT">
+            <summary>
+              Looks up a localized string similar to Account.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.ADDING">
+            <summary>
+              Looks up a localized string similar to Adding.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.ADMIN">
+            <summary>
+              Looks up a localized string similar to Administration.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.ADMIN_SOLUTION">
+            <summary>
+              Looks up a localized string similar to Administration of solution.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.ADVANCED_ADMIN_CONFIG_SYSTEM">
+            <summary>
+              Looks up a localized string similar to Administration and advanced configuration of system.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.ALL_APPS">
+            <summary>
+              Looks up a localized string similar to Todas las aplicaciones.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.ALL_MAP">
+            <summary>
+              Looks up a localized string similar to All map.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.AREAS">
+            <summary>
+              Looks up a localized string similar to Areas.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.BASIC_DATA">
+            <summary>
+              Looks up a localized string similar to Basic data.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.CATALOGS">
+            <summary>
+              Looks up a localized string similar to Catalogs.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.COMMUNITY">
+            <summary>
+              Looks up a localized string similar to Community.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.CREDITS_POWER_BY">
+            <summary>
+              Looks up a localized string similar to Powered by.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.CUSTOMERS">
+            <summary>
+              Looks up a localized string similar to Clients.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.DETAILS">
+            <summary>
+              Looks up a localized string similar to Details.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.EDITING">
+            <summary>
+              Looks up a localized string similar to Editing.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.HOME">
+            <summary>
+              Looks up a localized string similar to Home.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.LOCATIONS">
+            <summary>
+              Looks up a localized string similar to Locations.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.LOGIN">
+            <summary>
+              Looks up a localized string similar to Login.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.MYACCOUNT">
+            <summary>
+              Looks up a localized string similar to My account.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.MYSERVICES">
+            <summary>
+              Looks up a localized string similar to My services.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.MY_ACCOUNT">
+            <summary>
+              Looks up a localized string similar to My account.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.MY_APPS">
+            <summary>
+              Looks up a localized string similar to Mis aplicaciones xx.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.MY_COMMUNITY">
+            <summary>
+              Looks up a localized string similar to My community.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.MY_COMPANIES">
+            <summary>
+              Looks up a localized string similar to My companies.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.MY_SYSTEMS">
+            <summary>
+              Looks up a localized string similar to My systems.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.PRINCIPALMODULES">
+            <summary>
+              Looks up a localized string similar to Principal modules.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.PROCESS">
+            <summary>
+              Looks up a localized string similar to Proceso.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.PUBLIC_AREA">
+            <summary>
+              Looks up a localized string similar to Public.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.REGISTER">
+            <summary>
+              Looks up a localized string similar to Register.
+            </summary>
+        </member>
+        <member name="P:Resources.SiteMapLocalizations.UPDATING">
+            <summary>
+              Looks up a localized string similar to Modificando.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Controllers.DynamicFormsController.GetXmlFromJsonString(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Controllers.DynamicFormsController.SetConfig(SFSdotNet.Framework.Web.Mvc.Models.DynamicForm.Form,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+            <param name="ui"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Controllers.FeaturesController.ShowHistoryChanges(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="entityName"></param>
+            <param name="boKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Controllers.FeaturesController.ExportView">
+            <summary>
+            Muestra la vista parcial de exportación
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Controllers.FilterQueryController.GetCompareOptions(System.String,System.String,System.String)">
+            <summary>
+            Obtiene todas las opciones de comparación para la propiedad
+            </summary>
+            <param name="entityType"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Controllers.XmlUtils">
+              
+             <summary>
+             This utility class contains wrapper functions that help to ease the handling and 
+             manipulation of Xml documents, such as adding an element, adding an attribute
+             to an element, copying and cloning of nodes, etc.
+            
+             </summary>
+             
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Controllers.XmlUtils.SortXml(System.Xml.XmlDocument)">
+            -----------------------------------------------------------
+            <summary>
+            Alphabetical sorting of the XmlNodes 
+            and their  attributes in the <see cref="T:System.Xml.XmlDocument"/>.
+            </summary>
+            <param name="document"><see cref="T:System.Xml.XmlDocument"/> to be sorted</param>
+            -----------------------------------------------------------
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Controllers.XmlUtils.SortXml(System.Xml.XmlNode)">
+            -----------------------------------------------------------
+            <summary>
+            Inplace pre-order recursive alphabetical sorting of the XmlNodes child 
+            elements and <see cref="T:System.Xml.XmlAttributeCollection" />.
+            </summary>
+            <param name="rootNode">The root to be sorted.</param>
+            -----------------------------------------------------------
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Controllers.XmlUtils.SortAttributes(System.Xml.XmlAttributeCollection)">
+            -----------------------------------------------------------
+            <summary>
+            Sorts an attributes collection alphabetically.
+            It uses the bubble sort algorithm.
+            </summary>
+            <param name="attribCol">The attribute collection to be sorted.</param>
+            -----------------------------------------------------------
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Controllers.XmlUtils.SortElements(System.Xml.XmlNode)">
+            -----------------------------------------------------------
+            <summary>
+            Sorts a <see cref="T:System.Xml.XmlNodeList" /> alphabetically, by the names of the elements.
+            It uses the bubble sort algorithm.
+            </summary>
+            <param name="node">The node in which its childNodes are to be sorted.</param>
+            -----------------------------------------------------------
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFromSchema(System.Xml.Linq.XDocument)">
+            <summary>
+            
+            </summary>
+            <param name="schema"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFieldsFromItems(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement},SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            obtiene muchos elementos dynamicfield por muchos XElement
+            </summary>
+            <param name="items"></param>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetAnnotationFromElement(System.Xml.Linq.XElement)">
+            <summary>
+            item.Name.LocalName == "annotation"
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFieldFromItem(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            Obtiene un elemento del esquema convertido a las especificaciones de un campo del modelo intermedio
+            </summary>
+            <param name="item"></param>
+            <param name="parentModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFieldFromExtension(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI)">
+            <summary>
+            Field 
+                ->extension
+            </summary>
+            <param name="item">item.Name == extension</param>
+            <param name="fieldToExtend">Asumiendo que es un element</param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.AddSimpleType(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            
+            </summary>
+            <param name="item">item.Name.LocalName == simpletype</param>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.AddRestrictions(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            Agrega validaciones y otras restricciones de tamaño y dígitos
+            </summary>
+            <param name="item">item.Name.LocalName == restriction </param>
+            <param name="field"></param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.AddCommonAspects(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            Agrega nombre, comentarios, tipos
+            </summary>
+            <param name="item">Elemento XML</param>
+            <param name="field">Campo al que se agregarán las características</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFieldFromAttribute(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            item.Name.LocalName == attribute
+            </summary>
+            <param name="item"></param>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.AddFieldAspects(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            item.Name.LocalName == element || item.Name.LocalName == attribute 
+            </summary>
+            <param name="item"></param>
+            <param name="result"></param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFieldsFromSecuence(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            item = secuence
+            </summary>
+            <param name="item"></param>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFieldFromSecuence(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            item.Name.LocalName == secuence
+            Este también es un agrupador como un complex o un element
+            </summary>
+            <param name="item"></param>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFieldFromSimpleContent(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            item.Name == SimpleContent
+            </summary>
+            <param name="item"></param>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.IsField(System.Xml.Linq.XElement)">
+            <summary>
+            Permite identificar si un elemento tiene la función de especificar un nuevo campo o mas bien especificar características de uno
+            </summary>
+            <param name="itemChild"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.AddElementFromEnumeration(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            
+            </summary>
+            <param name="item">item.Name.LocalName == enumeration</param>
+            <param name="field"></param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFieldFromElement(System.Xml.Linq.XElement,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.IsSimpleContentTheChild(System.Xml.Linq.XElement)">
+            <summary>
+            element que con tiene un child complextype y este a su vez un child simplecontent
+            </summary>
+            <param name="itemChild">item.Name == element</param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFieldFromSpecificType(System.Xml.Linq.XElement,System.String,SFSdotNet.Framework.Web.Mvc.Models.DynamicUI@)">
+            <summary>
+            Busca un tipo determinado en todo el XML y lo devuelve como campo ya interpretado
+            </summary>
+            <param name="item"></param>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.FindReusableType(System.Xml.Linq.XElement,System.String)">
+            <summary>
+            Busca un tipo definidio en todo es esquema, con el objetivo de reusarse desde cualquier lugar
+            </summary>
+            <param name="rootOrCurrent">Elemento a partir del cual se buscará el elemento definido</param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.IsNativeType(System.String)">
+            <summary>
+            Descubre si el tipo del elemento es un tipo básico nativo o de lo contrario, si es "false", se trata de un tipo complejo
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetFieldType(System.Xml.Linq.XElement)">
+            <summary>
+            Obtiene tipo de campo de un atributo
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetSpecificType(System.String)">
+            <summary>
+            Obtiene el tipo de campo a partir del *Type del objeto del esquema
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetSpecificType(System.Xml.Schema.XmlSchemaType)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetNamespaceManager(System.Xml.Linq.XDocument)">
+            <summary>
+            Obtiene el administrador de espacios de nombre del documento XML
+            </summary>
+            <param name="document"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Dynamic.DynamicForm.GetModel(System.String,System.String)">
+            <summary>
+            Obtiene el modelo principal desde el root de todo el documento
+            </summary>
+            <param name="xsdUrl"></param>
+            <param name="xpath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.FlashCompatibleAuthorizeAttribute">
+            <summary>
+            A custom version of the <see cref="T:System.Web.Mvc.AuthorizeAttribute"/> that supports working
+            around a cookie/session bug in Flash.  
+            </summary>
+            <remarks>
+            Details of the bug and workaround can be found on this blog:
+            http://geekswithblogs.net/apopovsky/archive/2009/05/06/working-around-flash-cookie-bug-in-asp.net-mvc.aspx
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Mvc.FlashCompatibleAuthorizeAttribute.TOKEN_KEY">
+            <summary>
+            The key to the authentication token that should be submitted somewhere in the request.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.FlashCompatibleAuthorizeAttribute.AuthorizeCore(System.Web.HttpContextBase)">
+            <summary>
+            This changes the behavior of AuthorizeCore so that it will only authorize
+            users if a valid token is submitted with the request.
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.FileUploadJsonResult">
+            <summary>
+            A JsonResult with ContentType of text/html and the serialized object contained within textarea tags
+            </summary>
+            <remarks>
+            It is not possible to upload files using the browser's XMLHttpRequest
+            object. So the jQuery Form Plugin uses a hidden iframe element. For a
+            JSON response, a ContentType of application/json will cause bad browser
+            behavior so the content-type must be text/html. Browsers can behave badly
+            if you return JSON with ContentType of text/html. So you must surround
+            the JSON in textarea tags. All this is handled nicely in the browser
+            by the jQuery Form Plugin. But we need to overide the default behavior
+            of the JsonResult class in order to achieve the desired result.
+            </remarks>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.ImageUtil">
+            <summary>
+            Summary description for Image
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.DynamicForm.UIFieldDesign.FieldType">
+            <summary>
+            single
+            group
+            List
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.RestrictionTypes">
+            <summary>
+            Validación de los campos o listas
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.DynamicUITypes">
+            <summary>
+            Tipos de campo
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.DynamicRestriction">
+            <summary>
+            Tipo de dato que define la validación
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Models.DynamicUI.SetConfig">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+            <param name="idPath"></param>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.DynamicUI.IsAttribute">
+            <summary>
+            Auxiliar para la implementacion de JSON
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.DynamicUI.IsSimpleType">
+            <summary>
+            Auxiliar para la implementación de JSON
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.DynamicUI.ListColumns">
+            <summary>
+            Cuando es lista aqui se ven las columnas
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.DynamicUI.Documentation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.DynamicUI.ListItems">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.DynamicUI.JsonPath">
+            <summary>
+            Provee el acceso Json del campo en contexto
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.DynamicUI.IsItemFromCurrentList">
+            <summary>
+            Cuando es "True" se trata de que el mismo elemento esta sirviendo para crear el detalle de la lista que él mismo representa.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Models.DynamicUI.#ctor(SFSdotNet.Framework.Web.Mvc.Models.DynamicUI)">
+            <summary>
+            
+            </summary>
+            <param name="fieldParent">Campo que contiene al modelo, por ejemplo si se trata de una lista</param>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.FileUploadModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.ImageRefModel">
+            <summary>
+            Datos de la imagen a presentar en el source ('src') de un HTML, solo contiene la referencia y no el contenido del archivo
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.MediaFileDataModel">
+            <summary>
+            Contenido de la imagen
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.MenuTabModel">
+            <summary>
+            Modelo de tab
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.MenuTabModel.CssClass">
+            <summary>
+            Clase de estilo
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.MenuTabModel.Items">
+            <summary>
+            Tabs
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.MessageModel.ActionNameExecute">
+            <summary>
+            No es el nombre de la acción del controlador
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes">
+            <summary>
+            Contexto en el que se usa el modelo de opciones
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes.ListForm">
+            <summary>
+            Modelo para configurar la forma que mostrará la lista
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes.DisplayForm">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes.Items">
+            <summary>
+            Modelo para configurar cada uno de los elementos a mostrarse
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.ContextActionModel`1">
+            <summary>
+            Representa al modelo con la información relacionada a una acción que se ejecuta desde el cliente
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.ContextActionModel`1.ActionKey">
+            <summary>
+            Identificador de la acción que se ha ejecutado
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.ContextActionModel`1.SelectedKeys">
+            <summary>
+            Lista de elementos seleccionados en el cliente. Corresponde a una consulta que ya se llevó a cabo a la base de datos
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.ContextActionModel`1.SelectedSafeKeys">
+            <summary>
+            Llaves encriptadas correspondientes a los registros seleccionados en el cliente
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.ContextActionModel`1.SelectedItems">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.HistoryHeaderModel.TypeChange">
+            <summary>
+            s= simple
+            f= foreign key
+            m= many to many
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.UIModel.ShowAutoSave">
+            <summary>
+            Show auto save option (like a checkbox)
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:SFSdotNet.Framework.Web.Mvc.Models.UIModel.UseMode" -->
+        <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModel.indexProp">
+            <summary>
+            Obtiene el valor falso o verdadero acerca del permiso
+            </summary>
+            <param name="permissionKey"></param>
+            <returns></returns>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.UIModel.Properties">
+            <summary>
+            Propiedades a desplegarse en la forma a lista
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.UIModel.FilterStart">
+            <summary>
+            Filtro inicial en la lista, que debe ser inalterable
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.UIModel.FilterCustom">
+            <summary>
+            For custom filter from controller 
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.QrCodeHandler">
+            <summary>
+            HTTP Handler outputing QR codes as PNG images
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.QrCodeHandler.IsReusable">
+            <summary>
+            Return true to indicate that the handler is thread safe because it is stateless
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.CodeDescriptor">
+            <summary>
+            Class containing the description of the QR code and wrapping encoding and rendering.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.CodeDescriptor.Init(System.Web.HttpRequest)">
+            <summary>
+            Parse QueryString that define the QR code properties
+            </summary>
+            <param name="request">HttpRequest containing HTTP GET data</param>
+            <returns>A QR code descriptor object</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.CodeDescriptor.TryEncode">
+            <summary>
+            Encode the content with desired parameters and save the generated Matrix
+            </summary>
+            <returns>True if the encoding succeeded, false if the content is empty or too large to fit in a QR code</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.CodeDescriptor.Render(System.IO.MemoryStream)">
+            <summary>
+            Render the Matrix as a PNG image
+            </summary>
+            <param name="ms">MemoryStream to store the image bytes into</param>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.ADVANTAGES">
+            <summary>
+              Looks up a localized string similar to Ventajas.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.APPLICATIONS">
+            <summary>
+              Looks up a localized string similar to Aplicaciones.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.BROWSE_APPS">
+            <summary>
+              Looks up a localized string similar to Explorar aplicaciones.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.ECOSYSTEM">
+            <summary>
+              Looks up a localized string similar to Ecosistema.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.SOME_APPLICATIONS">
+            <summary>
+              Looks up a localized string similar to Algunas aplicaciones.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.THE_DIFFERENCE">
+            <summary>
+              Looks up a localized string similar to La diferencia.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.VAL_SLUG_REQUIRED">
+            <summary>
+              Looks up a localized string similar to El campo slug es requerido.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.VIEW_MORE_APPLICATIONS">
+            <summary>
+              Looks up a localized string similar to Ver más aplicaciones.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.WHAT_IS">
+            <summary>
+              Looks up a localized string similar to ¿Qué es?.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ContentMessages.WHAT_IS_THE_ECOSYSTEM">
+            <summary>
+              Looks up a localized string similar to ¿Qué es el ecosistema?.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.BUSINESSOBJECTKEY">
+            <summary>
+              Looks up a localized string similar to BusinessObjectKey.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.FILTERQUERIES_ADD_NEW">
+            <summary>
+              Looks up a localized string similar to Agregando nuevo FILTERQUERIES.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.FILTERQUERIES_ADDED">
+            <summary>
+              Looks up a localized string similar to El FILTERQUERIESse ha agregado con ÃƒÂ©xito.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.FILTERQUERIES_DETAILS">
+            <summary>
+              Looks up a localized string similar to Detalle deFILTERQUERIES.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.FILTERQUERIES_EDIT">
+            <summary>
+              Looks up a localized string similar to Editando FILTERQUERIES.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.FILTERQUERIES_LIST">
+            <summary>
+              Looks up a localized string similar to Editando FILTERQUERIES.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.HTMLCONTENT">
+            <summary>
+              Looks up a localized string similar to HtmlContent.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.IDFILTERQUERY">
+            <summary>
+              Looks up a localized string similar to IdFilterQuery.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.QUERY">
+            <summary>
+              Looks up a localized string similar to Query.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.REQUIRED_FIELD">
+            <summary>
+              Looks up a localized string similar to Este campo es requerido.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.SHARE">
+            <summary>
+              Looks up a localized string similar to Share.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.TITLE">
+            <summary>
+              Looks up a localized string similar to Title.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.VAL_BUSINESSOBJECTKEY_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field BusinessObjectKey is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.VAL_HTMLCONTENT_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field HtmlContent is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.VAL_IDFILTERQUERY_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field IdFilterQuery is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.VAL_QUERY_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Query is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.VAL_SHARE_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Share is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.FilterQueryResources.VAL_TITLE_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Title is required.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ABOUT">
+            <summary>
+              Looks up a localized string similar to About.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ABOUT_US">
+            <summary>
+              Looks up a localized string similar to About us.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ACCOUNT">
+            <summary>
+              Looks up a localized string similar to Account.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ACTIONS">
+            <summary>
+              Looks up a localized string similar to Actions.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ADD">
+            <summary>
+              Looks up a localized string similar to Add.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ADD_DONE">
+            <summary>
+              Looks up a localized string similar to The item has been added.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ADD_FILES">
+            <summary>
+              Looks up a localized string similar to Add files.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ADD_FILTER">
+            <summary>
+              Looks up a localized string similar to Add filter.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ADD_NEW">
+            <summary>
+              Looks up a localized string similar to Add new.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ADD_NEW_FILTER">
+            <summary>
+              Looks up a localized string similar to Add new filter.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ADD_RELATION">
+            <summary>
+              Looks up a localized string similar to Add relation.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ADDING">
+            <summary>
+              Looks up a localized string similar to Adding.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ADMIN">
+            <summary>
+              Looks up a localized string similar to Admin.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ADVANTAGES">
+            <summary>
+              Looks up a localized string similar to Advantages.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ALL">
+            <summary>
+              Looks up a localized string similar to All.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ALL_CATALOGS">
+            <summary>
+              Looks up a localized string similar to All catalogs.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ALL_RESULTS">
+            <summary>
+              Looks up a localized string similar to All results.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.AMOUNT">
+            <summary>
+              Looks up a localized string similar to Quantity.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.AND">
+            <summary>
+              Looks up a localized string similar to And.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.APPLY_FILTER">
+            <summary>
+              Looks up a localized string similar to Apply filter.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.AUTOSERVICE_NOT_AVAILABLE">
+            <summary>
+              Looks up a localized string similar to Self service not available.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.AUTOSERVICE_NOT_AVAILABLE_MESSAGE">
+            <summary>
+              Looks up a localized string similar to This application has not been enabled for self service by public users. Please contact us to give you access to the application..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.AVAILABLE">
+            <summary>
+              Looks up a localized string similar to Available.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.BASIC_DATA">
+            <summary>
+              Looks up a localized string similar to Basic data.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.BETWEEN">
+            <summary>
+              Looks up a localized string similar to Between.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.BUSINESS_APPLICATION">
+            <summary>
+              Looks up a localized string similar to Business applications.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.BUSINESS_APPS">
+            <summary>
+              Looks up a localized string similar to Business applications.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.BUSINESS_MODULE">
+            <summary>
+              Looks up a localized string similar to Business module.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.BY">
+            <summary>
+              Looks up a localized string similar to By.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CANCEL">
+            <summary>
+              Looks up a localized string similar to Cancel.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CANCEL_UPLOAD">
+            <summary>
+              Looks up a localized string similar to Cancel upload.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CHANGE_AUDITING">
+            <summary>
+              Looks up a localized string similar to Changes.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CHANGE_COMPANY">
+            <summary>
+              Looks up a localized string similar to Change company.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CHILD_COMPANY">
+            <summary>
+              Looks up a localized string similar to Empresa hija.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CHOOSETIME">
+            <summary>
+              Looks up a localized string similar to Elija la hora.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CLOSE_FILTER">
+            <summary>
+              Looks up a localized string similar to Close filter.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CLOSE_MENU">
+            <summary>
+              Looks up a localized string similar to Cerrar menú.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CLOSE_WINDOW">
+            <summary>
+              Looks up a localized string similar to Cerrar ventana.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.COMING_SOON">
+            <summary>
+              Looks up a localized string similar to Comming soon.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.COMPANIES_CHILDS">
+            <summary>
+              Looks up a localized string similar to Child companies.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.COMPANY">
+            <summary>
+              Looks up a localized string similar to Company.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CONFIRM">
+            <summary>
+              Looks up a localized string similar to Confirm.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CONFIRM_DELETE">
+            <summary>
+              Looks up a localized string similar to Confirm delete.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CONFIRM_DELETE_MANY_QUESTION">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to delete the {0} records?.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CONFIRM_DELETE_QUESTION">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to delete the record &apos;{0}&apos;?.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CONFIRM_DELETE_RELATIONS">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to delete the {0} relations?.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CONFIRM_QUESTION_ACTION_MESSAGE_MANY">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to execute the action &apos;{0}&apos; to {1} selected records?.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CONTACT">
+            <summary>
+              Looks up a localized string similar to Contact us.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CONTAINS">
+            <summary>
+              Looks up a localized string similar to Contains.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CONTENT">
+            <summary>
+              Looks up a localized string similar to Content.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CONTINUE">
+            <summary>
+              Looks up a localized string similar to Continue.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CREATE_A_NEW_FILTER">
+            <summary>
+              Looks up a localized string similar to Create a new filter.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CREATE_CONTENT">
+            <summary>
+              Looks up a localized string similar to Create content.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CREATE_NEW_FILTER">
+            <summary>
+              Looks up a localized string similar to Create new filter.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CREATE_OR_OPEN_FILTERS">
+            <summary>
+              Looks up a localized string similar to Create or open filters.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CREATED_BY">
+            <summary>
+              Looks up a localized string similar to Created by.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CREATED_DATE">
+            <summary>
+              Looks up a localized string similar to Created date.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CREATING">
+            <summary>
+              Looks up a localized string similar to Adding.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CREDITS_POWER_BY">
+            <summary>
+              Looks up a localized string similar to Powered by.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CURRENTTIME">
+            <summary>
+              Looks up a localized string similar to Now.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CUSTOM_DEVELOPMENT">
+            <summary>
+              Looks up a localized string similar to Custom development.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.DATE">
+            <summary>
+              Looks up a localized string similar to Date.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.DELETE">
+            <summary>
+              Looks up a localized string similar to Delete.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.DELETE_CONTENT">
+            <summary>
+              Looks up a localized string similar to Delete content.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.DELETE_DONE">
+            <summary>
+              Looks up a localized string similar to The item has been deleted.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.DELETE_RELATION">
+            <summary>
+              Looks up a localized string similar to Delete relation.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.DELETING">
+            <summary>
+              Looks up a localized string similar to Deleting.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to Description.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.DETAILS">
+            <summary>
+              Looks up a localized string similar to Details.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.DONE">
+            <summary>
+              Looks up a localized string similar to Done !.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ECOSYSTEM">
+            <summary>
+              Looks up a localized string similar to Ecosystem.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EDIT">
+            <summary>
+              Looks up a localized string similar to Edit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EDITING">
+            <summary>
+              Looks up a localized string similar to Editing.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EMAIL_SUBJECT_INVITATION_USER_COMPANY">
+            <summary>
+              Looks up a localized string similar to Anna добавил вас в список {ROLENAME} компании {COMPANYNAME}. Теперь вы можете использовать {APPNAME}..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EMPTY">
+            <summary>
+              Looks up a localized string similar to Empty.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.END_SESSION">
+            <summary>
+              Looks up a localized string similar to End session.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EQUAL">
+            <summary>
+              Looks up a localized string similar to Equal.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ERROR_TRY_LATER">
+            <summary>
+              Looks up a localized string similar to There was an error in the system. Try later..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ERRORS">
+            <summary>
+              Looks up a localized string similar to Errors.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EVENT_LOG">
+            <summary>
+              Looks up a localized string similar to System events.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EXIT">
+            <summary>
+              Looks up a localized string similar to Exit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EXPORT">
+            <summary>
+              Looks up a localized string similar to Export.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EXPORT_RESULTS">
+            <summary>
+              Looks up a localized string similar to Export results.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.FEATURES">
+            <summary>
+              Looks up a localized string similar to Features.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.FILE">
+            <summary>
+              Looks up a localized string similar to File.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.FILE_COMA_SEP">
+            <summary>
+              Looks up a localized string similar to Comma delimited file.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.FILES">
+            <summary>
+              Looks up a localized string similar to Files.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.FIRST">
+            <summary>
+              Looks up a localized string similar to First.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.FLAT_FILE">
+            <summary>
+              Looks up a localized string similar to Flat file.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.FOR_WHAT_HELP_THIS">
+            <summary>
+              Looks up a localized string similar to What is this?.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.FROM_TO_OF_RESULTS">
+            <summary>
+              Looks up a localized string similar to Viewing from {0} to {1} of {2} results.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.FULL">
+            <summary>
+              Looks up a localized string similar to Full.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.GLOBAL_ERROR_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to We have already sent a report to the development team for correction..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.GLOBAL_ERROR_MESSAGE">
+            <summary>
+              Looks up a localized string similar to There was an unexpected error in the system..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.GLOBAL_MENU">
+            <summary>
+              Looks up a localized string similar to Global menu.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.GLOBAL_NEWSLETTER">
+            <summary>
+              Looks up a localized string similar to Global of ecosystem.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.GO_TO_CATALOG">
+            <summary>
+              Looks up a localized string similar to Go to catalog.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.GO_TO_HOME">
+            <summary>
+              Looks up a localized string similar to Got to home.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.GO_TO_THIS_AREA">
+            <summary>
+              Looks up a localized string similar to Go to this area.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.GOTO_HOME_SYSTEM">
+            <summary>
+              Looks up a localized string similar to Go to root home system.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.GREATER_EQUAL_THAN">
+            <summary>
+              Looks up a localized string similar to Greater than or equal.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.GREATER_THAN">
+            <summary>
+              Looks up a localized string similar to Greater than.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.HELP">
+            <summary>
+              Looks up a localized string similar to Help.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.HISTORY">
+            <summary>
+              Looks up a localized string similar to History.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.HISTORY_CHANGES">
+            <summary>
+              Looks up a localized string similar to History changes.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.HOME">
+            <summary>
+              Looks up a localized string similar to Home.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.HOUR">
+            <summary>
+              Looks up a localized string similar to Hour.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.HTML">
+            <summary>
+              Looks up a localized string similar to HTML.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.I_ACCEPT_THE_SERVICE_AGREEMENT">
+            <summary>
+              Looks up a localized string similar to I accept the service agreement.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.IMAGE">
+            <summary>
+              Looks up a localized string similar to Image.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.IMAGE_NOT_DISPLAY_CLICK_DOWNLOAD">
+            <summary>
+              Looks up a localized string similar to The image could not be loaded.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.INDEX_APPLICATIONS">
+            <summary>
+              Looks up a localized string similar to Applications directory.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ISNOTNULL">
+            <summary>
+              Looks up a localized string similar to Is not null.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ISNULL">
+            <summary>
+              Looks up a localized string similar to Is null.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.LANGUAGENAME_ENGLISH">
+            <summary>
+              Looks up a localized string similar to English.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.LANGUAGENAME_RUSSIAN">
+            <summary>
+              Looks up a localized string similar to Pусский.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.LANGUAGENAME_SPANISH">
+            <summary>
+              Looks up a localized string similar to Español.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.LAST">
+            <summary>
+              Looks up a localized string similar to Last.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.LAST_TIME">
+            <summary>
+              Looks up a localized string similar to Las time.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.LESS_EQUAL_THAN">
+            <summary>
+              Looks up a localized string similar to Less than or equal.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.LESS_THAN">
+            <summary>
+              Looks up a localized string similar to Less than.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.LIMITED">
+            <summary>
+              Looks up a localized string similar to Limited.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.LOADING">
+            <summary>
+              Looks up a localized string similar to Reading.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.LOG_IN">
+            <summary>
+              Looks up a localized string similar to Log in.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MAINTENANCE">
+            <summary>
+              Looks up a localized string similar to Maintenance.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MAINTENANCE_PAGE_MESSAGE">
+            <summary>
+              Looks up a localized string similar to You can see proof text or in another language, as well as test images. Thanks for your understanding..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MAP">
+            <summary>
+              Looks up a localized string similar to Map.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MICROSOFT_EXCEL">
+            <summary>
+              Looks up a localized string similar to Microsoft Excel.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MICROSOFT_WORD">
+            <summary>
+              Looks up a localized string similar to Microsoft Word.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MINUTE">
+            <summary>
+              Looks up a localized string similar to Minute.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MODIFY">
+            <summary>
+              Looks up a localized string similar to Modify.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MODIFY_CONTENT">
+            <summary>
+              Looks up a localized string similar to Modify content.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MODIFY_DATA">
+            <summary>
+              Looks up a localized string similar to Modify data.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MORE">
+            <summary>
+              Looks up a localized string similar to More.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MORE_INFORMATION_RELATED">
+            <summary>
+              Looks up a localized string similar to More information related.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MUST_BE_AN_EMAIL">
+            <summary>
+              Looks up a localized string similar to Must be be an email.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MY_ACCOUNT">
+            <summary>
+              Looks up a localized string similar to My account.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MY_APPLICATIONS">
+            <summary>
+              Looks up a localized string similar to My applications.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MY_COMPANY">
+            <summary>
+              Looks up a localized string similar to My company.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MY_FAVORITES">
+            <summary>
+              Looks up a localized string similar to My favorites.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.MY_SERVICES">
+            <summary>
+              Looks up a localized string similar to My services.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.N_RESULTS">
+            <summary>
+              Looks up a localized string similar to {0} Results.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.N_SELECTED">
+            <summary>
+              Looks up a localized string similar to {0} Selected.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NAME">
+            <summary>
+              Looks up a localized string similar to Name.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NEW">
+            <summary>
+              Looks up a localized string similar to New.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NEWS">
+            <summary>
+              Looks up a localized string similar to News.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NEXT">
+            <summary>
+              Looks up a localized string similar to Next.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NEXT_PAGE">
+            <summary>
+              Looks up a localized string similar to Next page.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NO">
+            <summary>
+              Looks up a localized string similar to No.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NO_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to Without description.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NO_RESULTS">
+            <summary>
+              Looks up a localized string similar to No records.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NOT">
+            <summary>
+              Looks up a localized string similar to Not.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NOT_AVAILABLE">
+            <summary>
+              Looks up a localized string similar to Unavailable.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NOT_DEFINED">
+            <summary>
+              Looks up a localized string similar to Not defined.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NOT_EQUAL">
+            <summary>
+              Looks up a localized string similar to Different.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NOT_SHARED">
+            <summary>
+              Looks up a localized string similar to Not shared.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.NOT_SUPPORT_SORT">
+            <summary>
+              Looks up a localized string similar to Not support sort.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.OF">
+            <summary>
+              Looks up a localized string similar to Of.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.OPEN_MENU">
+            <summary>
+              Looks up a localized string similar to Open menu.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.OR">
+            <summary>
+              Looks up a localized string similar to Or.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ORDER_BY">
+            <summary>
+              Looks up a localized string similar to Order by.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.OTHER_ACTIONS">
+            <summary>
+              Looks up a localized string similar to Other actions.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.OTHER_CATALOGS">
+            <summary>
+              Looks up a localized string similar to Other catalogs.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.OTHER_FORMATS">
+            <summary>
+              Looks up a localized string similar to Other formats.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.OTHER_LINKS">
+            <summary>
+              Looks up a localized string similar to Other links.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.OTHER_SIMILAR_CATALOGS">
+            <summary>
+              Looks up a localized string similar to Other similar catalogs.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.OTHERS">
+            <summary>
+              Looks up a localized string similar to Others.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PAGE">
+            <summary>
+              Looks up a localized string similar to Page.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PARTIALLY">
+            <summary>
+              Looks up a localized string similar to Partially.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PDF">
+            <summary>
+              Looks up a localized string similar to PDF.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PLATFORM_NAME">
+            <summary>
+              Looks up a localized string similar to Application Ecosystem.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PLATFORM_UPDATES">
+            <summary>
+              Looks up a localized string similar to Platform updates.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PLEASE_ACCEPT_SERVICE_AGREEMENT">
+            <summary>
+              Looks up a localized string similar to Please accept the service agreement.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PREVIEW_PAGE">
+            <summary>
+              Looks up a localized string similar to Previous page.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PREVIOUS">
+            <summary>
+              Looks up a localized string similar to Previous.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PRICES">
+            <summary>
+              Looks up a localized string similar to Prices.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PRICES_AND_OPTIONS">
+            <summary>
+              Looks up a localized string similar to Prices and options.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PRINCIPAL_INFORMATION">
+            <summary>
+              Looks up a localized string similar to Principal information.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PRIVACY">
+            <summary>
+              Looks up a localized string similar to Privacy.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PROCESSING_PLEASE_WAIT">
+            <summary>
+              Looks up a localized string similar to Processing, please wait.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PROFILE">
+            <summary>
+              Looks up a localized string similar to Profile.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PROPERTIES">
+            <summary>
+              Looks up a localized string similar to Properties.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PROPERTY_IN_OTHER_OBJECT">
+            <summary>
+              Looks up a localized string similar to Property in other object.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.PUBLISHED">
+            <summary>
+              Looks up a localized string similar to Published.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.RELATION_MANY_TO_MANY">
+            <summary>
+              Looks up a localized string similar to Relation many to many.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.RESULTS">
+            <summary>
+              Looks up a localized string similar to Results.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.RETURN">
+            <summary>
+              Looks up a localized string similar to Return.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.RETURN_PRE_PAGE">
+            <summary>
+              Looks up a localized string similar to Return to previous page.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.ROLES">
+            <summary>
+              Looks up a localized string similar to Roles.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SAVE">
+            <summary>
+              Looks up a localized string similar to Save.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SAVE_AND_CONTINUE">
+            <summary>
+              Looks up a localized string similar to Save and continue.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SAVE_AND_CONTINUE_EDITING">
+            <summary>
+              Looks up a localized string similar to Save and continue editing.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SAVE_DATA">
+            <summary>
+              Looks up a localized string similar to Save data.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SAVE_FILTER">
+            <summary>
+              Looks up a localized string similar to Save filter.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SEARCH">
+            <summary>
+              Looks up a localized string similar to Search.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SEARCH_BY">
+            <summary>
+              Looks up a localized string similar to Search by.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SECOND">
+            <summary>
+              Looks up a localized string similar to Second.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SECURITY">
+            <summary>
+              Looks up a localized string similar to Security.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SELECT">
+            <summary>
+              Looks up a localized string similar to Select.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SELECT_FILE">
+            <summary>
+              Looks up a localized string similar to Select file.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SELECT_FILES">
+            <summary>
+              Looks up a localized string similar to Select files.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SELECT_THE_OPTION">
+            <summary>
+              Looks up a localized string similar to Select the option.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SELECTED">
+            <summary>
+              Looks up a localized string similar to Selected.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SELECTED_S">
+            <summary>
+              Looks up a localized string similar to Selected.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SERVICE_AGREEMENT">
+            <summary>
+              Looks up a localized string similar to Service agreement.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SERVICE_USE_STATICS">
+            <summary>
+              Looks up a localized string similar to Service used.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SERVICES_AND_PRODUCTS">
+            <summary>
+              Looks up a localized string similar to Services and products.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SHARED">
+            <summary>
+              Looks up a localized string similar to Shared.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SHOW_HISTORY_CHANGES">
+            <summary>
+              Looks up a localized string similar to Show history changes.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SHOWING">
+            <summary>
+              Looks up a localized string similar to Showing.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SIGN_OUT">
+            <summary>
+              Looks up a localized string similar to Sign out.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SIGN_UP">
+            <summary>
+              Looks up a localized string similar to Sign up.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SPECIAL_EXPORT">
+            <summary>
+              Looks up a localized string similar to Special export.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.STARTS_WITH">
+            <summary>
+              Looks up a localized string similar to Starts with.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SUBSCRIBE_TO_NEWSLETTER">
+            <summary>
+              Looks up a localized string similar to Subscribe to newsletter.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SUPPORT">
+            <summary>
+              Looks up a localized string similar to Support.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SYSTEM">
+            <summary>
+              Looks up a localized string similar to System.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.TERMS_OF_USE">
+            <summary>
+              Looks up a localized string similar to Terms of use.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.THE_CHANGES_HAVE_BEEN_SUCCESSFUL">
+            <summary>
+              Looks up a localized string similar to The changes have been successful.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.THE_COMPANY_HAS_BEEN_CHANGED">
+            <summary>
+              Looks up a localized string similar to The company has been changed.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.THE_DIFFERENCE">
+            <summary>
+              Looks up a localized string similar to The difference.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.THE_FIELD_IS_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field {0} is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.THE_PROCESS_HAS_BEEN_STARTED">
+            <summary>
+              Looks up a localized string similar to The process has been started.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.THE_RESULTS_OF_THIS_PAGE">
+            <summary>
+              Looks up a localized string similar to The results of this page.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.THIS_APP_NEWSLETTER">
+            <summary>
+              Looks up a localized string similar to Only for this app.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.TIME">
+            <summary>
+              Looks up a localized string similar to Time of day.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.TITLE">
+            <summary>
+              Looks up a localized string similar to Title.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.TOTALS">
+            <summary>
+              Looks up a localized string similar to Totals.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UNDEFINED">
+            <summary>
+              Looks up a localized string similar to Undefined.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UNEXPECTED_ERROR">
+            <summary>
+              Looks up a localized string similar to unexpected error.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UNLIMITED">
+            <summary>
+              Looks up a localized string similar to Unlimited.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATE_DONE">
+            <summary>
+              Looks up a localized string similar to Updated done.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATE_TYPE">
+            <summary>
+              Looks up a localized string similar to Update.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED">
+            <summary>
+              Looks up a localized string similar to Updated.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED_BY">
+            <summary>
+              Looks up a localized string similar to Updated by.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED_DATE">
+            <summary>
+              Looks up a localized string similar to Updated date.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATING">
+            <summary>
+              Looks up a localized string similar to Updating.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPLOAD">
+            <summary>
+              Looks up a localized string similar to Upload.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPLOAD_ALL">
+            <summary>
+              Looks up a localized string similar to Upload all.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPLOAD_FILE">
+            <summary>
+              Looks up a localized string similar to Upload file.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPLOAD_FILES_DONE">
+            <summary>
+              Looks up a localized string similar to The files has been upload.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.USE_APP">
+            <summary>
+              Looks up a localized string similar to Use app.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.USE_APPLICATION">
+            <summary>
+              Looks up a localized string similar to Use application.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.USERS_AND_ROLES">
+            <summary>
+              Looks up a localized string similar to Users and roles.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.USERS_AND_ROLES_ECOSYSTEM">
+            <summary>
+              Looks up a localized string similar to Users and roles (Ecosystem).
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.USERS_ROLES_PERMISSIONS">
+            <summary>
+              Looks up a localized string similar to Users, roles and permissions.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VAL_CONTENT_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The content is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VAL_DESCRIPTION_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The description is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VAL_ERRORS">
+            <summary>
+              Looks up a localized string similar to Errors.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VAL_FIX_ERROR_PLEASE">
+            <summary>
+              Looks up a localized string similar to Please fix the next errors.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VAL_FORMAT_ERROR">
+            <summary>
+              Looks up a localized string similar to Invalid format.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VAL_NAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The name is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VAL_RANGE_INT32">
+            <summary>
+              Looks up a localized string similar to The number must be a minimal value of {0} and a maximum value of {1}.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VAL_SLUG_REGEX">
+            <summary>
+              Looks up a localized string similar to The slug field must not contain special characters or spaces.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VAL_TITLE_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The title is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VIEW_DETAILS">
+            <summary>
+              Looks up a localized string similar to View details.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VIEW_MORE">
+            <summary>
+              Looks up a localized string similar to View more.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VIEW_MORE_FEATURES">
+            <summary>
+              Looks up a localized string similar to View more features.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.VIEW_OR_EDIT">
+            <summary>
+              Looks up a localized string similar to View or edit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.WARNING">
+            <summary>
+              Looks up a localized string similar to Warning.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.WE_ARE_EMBARASSED">
+            <summary>
+              Looks up a localized string similar to We&apos;re sorry.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.WHY_DO_I_SEE_THIS">
+            <summary>
+              Looks up a localized string similar to Why do I see this?.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.WIKI_HOME">
+            <summary>
+              Looks up a localized string similar to Wiki home.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.WORK_WITH_US">
+            <summary>
+              Looks up a localized string similar to Work with us.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.WRITE_MIN_CHARS">
+            <summary>
+              Looks up a localized string similar to Write {0} chars.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.XML">
+            <summary>
+              Looks up a localized string similar to XML.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.YES">
+            <summary>
+              Looks up a localized string similar to Yes.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.YES_I_AM_SURE">
+            <summary>
+              Looks up a localized string similar to Yes, I&apos;m sure.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.ALL_APPS">
+            <summary>
+              Looks up a localized string similar to All aplications.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.AUTOSERVICE_NOT_AVAILABLE">
+            <summary>
+              Looks up a localized string similar to Self service not available.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.AUTOSERVICE_NOT_AVAILABLE_MESSAGE">
+            <summary>
+              Looks up a localized string similar to This application has not been enabled for self service by public users. Please contact us to give you access to the application..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.BUILDING">
+            <summary>
+              Looks up a localized string similar to Building.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.COMMENTS">
+            <summary>
+              Looks up a localized string similar to Comments.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.EMAIL">
+            <summary>
+              Looks up a localized string similar to Email.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.EXCLUSIVE_MEMBERSHIPS">
+            <summary>
+              Looks up a localized string similar to Infrastructure and exclusive space.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.GO_TO_BROWSE_IN_ALL_APPS">
+            <summary>
+              Looks up a localized string similar to Go to explore all applications.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.MONTHLY_COST">
+            <summary>
+              Looks up a localized string similar to Monthly cost.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.MY_APPS">
+            <summary>
+              Looks up a localized string similar to My applications.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.OTHER_COSTS_CUSTOMIZATIONS_CONSULTING">
+            <summary>
+              Looks up a localized string similar to Other costs of customization and consulting.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.PHONE">
+            <summary>
+              Looks up a localized string similar to Phone.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.PRICE_OF_APPLICATION">
+            <summary>
+              Looks up a localized string similar to Prices of this application.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.REQUEST_APP_MEMBERSHIP_RESPONSE_MESSAGE">
+            <summary>
+              Looks up a localized string similar to Thank you for your request. Soon we will respond to continue the process..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.SELECT_MEMBERSHIP_TEXT">
+            <summary>
+              Looks up a localized string similar to Select.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.STANDARD_MEMBERSHIPS">
+            <summary>
+              Looks up a localized string similar to Standard memberships.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.VAL_PHONE_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The phone is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.WARRANTY_BEST_PRICE">
+            <summary>
+              Looks up a localized string similar to Best price warranty.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.WARRANTY_BEST_PRICE_MESSAGE">
+            <summary>
+              Looks up a localized string similar to .
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.YOU_DO_NOT_HAVE_ANY_APP">
+            <summary>
+              Looks up a localized string similar to You do not have any applications yet.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.YOU_DO_NOT_HAVE_ANY_APP_SELECT_ONE_FROM_STORE">
+            <summary>
+              Looks up a localized string similar to You do not have any applications yet. Please, select one in the &quot;All applications&quot; menu.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.MembershipAppsMessages.YOUR_LOCATION_MEMBERSHIPS">
+            <summary>
+              Looks up a localized string similar to In-house licensing.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.BASIC">
+            <summary>
+              Looks up a localized string similar to Básico.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.BASIC_PROFILE">
+            <summary>
+              Looks up a localized string similar to Perfil básico.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.BODY_FAT">
+            <summary>
+              Looks up a localized string similar to Grasa corporal.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.CIRCUMFERENCES">
+            <summary>
+              Looks up a localized string similar to Circunferencias.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.CLINIC">
+            <summary>
+              Looks up a localized string similar to Clínico.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.COMPLEMENTED">
+            <summary>
+              Looks up a localized string similar to Complementario.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.COMPLEMENTED_PROFILE">
+            <summary>
+              Looks up a localized string similar to Perfil complementario.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.HEIGHT">
+            <summary>
+              Looks up a localized string similar to Altura.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.MIDDLE">
+            <summary>
+              Looks up a localized string similar to Cintura.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.PROFILE_DAY">
+            <summary>
+              Looks up a localized string similar to Perfil al día {0}.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.UPLOAD">
+            <summary>
+              Looks up a localized string similar to .
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.VAL_BIRTHDAY_REQUIRED">
+            <summary>
+              Looks up a localized string similar to La fecha de nacimiento es requerida.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.VAL_HEIGHT_REQUIRED">
+            <summary>
+              Looks up a localized string similar to La altura es requerida.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.VAL_MIDDLE_RANGE">
+            <summary>
+              Looks up a localized string similar to La medida de cintura no parece un valor real.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.VAL_WEIGH_REQUIRED">
+            <summary>
+              Looks up a localized string similar to El peso es requerido.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.WEIGH">
+            <summary>
+              Looks up a localized string similar to Peso.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.WITH_BASIC_CIRCUMFERENCES">
+            <summary>
+              Looks up a localized string similar to Con circunferencias básicas.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.WITH_CIRCUMFERENCES_AND_FOLDS">
+            <summary>
+              Looks up a localized string similar to Con circunferencias y pliegues.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.WITHOUT_CIRCUMFERENCES_AND_FOLDS">
+            <summary>
+              Looks up a localized string similar to Sin circunferencias y pliegues.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ProfileMessages.YOU_NEED_EXPERT_HELP">
+            <summary>
+              Looks up a localized string similar to Necesitas ayuda de un experto.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Resources.ScriptFiles">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ScriptFiles.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.Resources.ScriptFiles.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:SFSdotNet.Framework.Web.Mvc.Resources.ScriptFiles.jquery_asyncUpload_0_1" -->
+        <member name="F:SFSdotNet.Framework.Web.Mvc.CustomSiteMapNodeUrlResolver.UrlHelperCacheKey">
+            <summary>
+            UrlHelperCacheKey
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.CustomSiteMapNodeUrlResolver.UrlHelper">
+            <summary>
+            Gets the URL helper.
+            </summary>
+            <value>The URL helper.</value>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.ControllerBase`1.ResolveApiResponse(System.String,System.String,System.String,System.Object)">
+            <summary>
+            Resuelve la respuesta correspondiente a una petición REST
+            </summary>
+            <param name="status">Estado</param>
+            <param name="reason">Descripció corta o identificador</param>
+            <param name="message">Descripción larga o texto del error</param>
+            <param name="data">Elemento de negocio</param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.ControllerBase.ResolveResponse(System.String,System.Nullable{SFSdotNet.Framework.My.MessageResultTypes},System.Collections.Generic.List{SFSdotNet.Framework.Web.Mvc.Models.ActionModel},System.Boolean)">
+            <summary>
+            Devuelve el actionResult adecuado de acuerdo a las características de la forma en contexto
+            </summary>
+            <param name="message"></param>
+            <param name="typeMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.ControllerBase.GetCopyProperty(SFSdotNet.Framework.Web.Mvc.PropertyDefinition,System.String,System.String)">
+            <summary>
+            Get a copy of property definition for usemode use
+            </summary>
+            <param name="property"></param>
+            <param name="usemode"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SFSdotNet.Framework.Web.Mvc.GravatarImage.GetURL(System.String,System.Int32,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:SFSdotNet.Framework.Web.Mvc.GravatarImage.getMd5Hash(System.String)" -->
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Extensions.MetadataAttribute">
+            <summary>
+            Base class for custom MetadataAttributes.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Web.Mvc.Extensions.MetadataAttribute.Process(System.Web.Mvc.ModelMetadata)">
+            <summary>
+            Method for processing custom attribute data.
+            </summary>
+            <param name="modelMetaData">A ModelMetaData instance.</param>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Extensions.GlobalDataAttribute">
+            <summary>
+            Atributo creado para los datos que son comunes en las soluciones como países, ciudades, estados, usuarios, permisos, etc
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Mvc.TestCookies.form1">
+            <summary>
+            form1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Mvc.TestCookies.Literal1">
+            <summary>
+            Literal1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:SFSdotNet.Framework.Web.Mvc.TimeNowTest.form1">
+            <summary>
+            form1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="T:SFSdotNet.Framework.Web.Mvc.Transfer">
+            <summary>
+            Summary description for Transfer
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.XExtensions.GetAbsoluteXPath(System.Xml.Linq.XElement)">
+            <summary> 
+            Get the absolute XPath to a given XElement, including the namespace. 
+            (e.g. "/a:people/b:person[6]/c:name[1]/d:last[1]"). 
+            </summary> 
+        </member>
+        <member name="M:SFSdotNet.Framework.XExtensions.IndexPosition(System.Xml.Linq.XElement)">
+            <summary> 
+            Get the index of the given XElement relative to its 
+            siblings with identical names. If the given element is 
+            the root, -1 is returned. 
+            </summary> 
+            <param name="element"> 
+            The element to get the index of. 
+            </param> 
+        </member>
+    </members>
+</doc>

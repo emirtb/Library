@@ -1,0 +1,1609 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SFSdotNet.Framework.Security.Web.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.AMOUNT">
+            <summary>
+              Looks up a localized string similar to Amount.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.BUTTONS">
+            <summary>
+              Looks up a localized string similar to Buttons.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.BUYCREDITS_ADD_NEW">
+            <summary>
+              Looks up a localized string similar to Adding a new BuyCredit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.BUYCREDITS_ADDED">
+            <summary>
+              Looks up a localized string similar to The BuyCredit has been added.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.BUYCREDITS_DETAILS">
+            <summary>
+              Looks up a localized string similar to Details of BuyCredit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.BUYCREDITS_EDIT">
+            <summary>
+              Looks up a localized string similar to Editing BuyCredit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.BUYCREDITS_LIST">
+            <summary>
+              Looks up a localized string similar to List of  buycredits.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.ENTITY_PLURAL">
+            <summary>
+              Looks up a localized string similar to BuyCredits.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.ENTITY_SINGLE">
+            <summary>
+              Looks up a localized string similar to BuyCredit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.IDBUYCREDIT">
+            <summary>
+              Looks up a localized string similar to IdBuyCredit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.REQUIRED_FIELD">
+            <summary>
+              Looks up a localized string similar to This field is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.SELECTMETHOD">
+            <summary>
+              Looks up a localized string similar to SelectMethod.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.VAL_AMOUNT_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Amount is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.VAL_BUTTONS_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Buttons is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.VAL_IDBUYCREDIT_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field IdBuyCredit is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.BuyCreditResources.VAL_SELECTMETHOD_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field SelectMethod is required.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.APP_FEATURES">
+            <summary>
+              Looks up a localized string similar to App features.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.CMS">
+            <summary>
+              Looks up a localized string similar to CMS.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.COMMENT">
+            <summary>
+              Looks up a localized string similar to Comment.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.COMPANIES">
+            <summary>
+              Looks up a localized string similar to Companies.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.HOME_CONTENT">
+            <summary>
+              Looks up a localized string similar to Home content.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.LOG">
+            <summary>
+              Looks up a localized string similar to Log.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.NEW_COMMENT">
+            <summary>
+              Looks up a localized string similar to New comment.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.TITLE_KEYS">
+            <summary>
+              Looks up a localized string similar to Title Keys.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.USERS_AND_COMPANIES">
+            <summary>
+              Looks up a localized string similar to Usuarios y empresas.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.USERS_AND_ROLES">
+            <summary>
+              Looks up a localized string similar to Users and roles.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LocalMessages.WIKI_HELP">
+            <summary>
+              Looks up a localized string similar to Help.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.ALL_QUANTITIES_IN_CURRENCY">
+            <summary>
+              Looks up a localized string similar to All quantities are in {0}.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.CHARGE">
+            <summary>
+              Looks up a localized string similar to Charge.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.CONFIRM_THE_PAYMENT">
+            <summary>
+              Looks up a localized string similar to Confirm the payment.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.NAME_SERVICE_PRODUCT">
+            <summary>
+              Looks up a localized string similar to Name of service or product.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.PAYMENT_ADDED">
+            <summary>
+              Looks up a localized string similar to Payment added.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.PAYMENT_CONFIRMATION">
+            <summary>
+              Looks up a localized string similar to Payment confirmation.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.PAYMENT_CONFIRMATION_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to Please confirm your payment, which will be done with safe and reliable service paypal..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.PAYMENT_TOTAL">
+            <summary>
+              Looks up a localized string similar to Payment total.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.PLEASE_WAIT_PROCESSING_PAYMENT">
+            <summary>
+              Looks up a localized string similar to Please wait... processing payment.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.QUANTITY">
+            <summary>
+              Looks up a localized string similar to Quantity.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.TOTAL">
+            <summary>
+              Looks up a localized string similar to Total.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.PaymentResources.UNIT_PRICE">
+            <summary>
+              Looks up a localized string similar to Unit price.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.ENTITY_PLURAL">
+            <summary>
+              Looks up a localized string similar to ResetPasswordSet.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.ENTITY_SINGLE">
+            <summary>
+              Looks up a localized string similar to ResetPassword.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.IDRESET">
+            <summary>
+              Looks up a localized string similar to IdReset.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.PASSWORD">
+            <summary>
+              Looks up a localized string similar to Password.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.PASSWORD2">
+            <summary>
+              Looks up a localized string similar to Password2.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.REQUIRED_FIELD">
+            <summary>
+              Looks up a localized string similar to This field is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.RESETPASSWORDSET_ADD_NEW">
+            <summary>
+              Looks up a localized string similar to Adding a new ResetPassword.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.RESETPASSWORDSET_ADDED">
+            <summary>
+              Looks up a localized string similar to The ResetPassword has been added.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.RESETPASSWORDSET_DETAILS">
+            <summary>
+              Looks up a localized string similar to Details of ResetPassword.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.RESETPASSWORDSET_EDIT">
+            <summary>
+              Looks up a localized string similar to Editing ResetPassword.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.RESETPASSWORDSET_LIST">
+            <summary>
+              Looks up a localized string similar to List of  resetpasswordset.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.VAL_IDRESET_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field IdReset is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.VAL_PASSWORD_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Password is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.VAL_PASSWORD2_COMPARE">
+            <summary>
+              Looks up a localized string similar to The field Password2 is NOT EQUAL.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ResetPasswordResources.VAL_PASSWORD2_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Password2 is required.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.CURRENTCOMPANY">
+            <summary>
+              Looks up a localized string similar to CurrentCompany.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.ENTITY_PLURAL">
+            <summary>
+              Looks up a localized string similar to MyCompanyChange.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.ENTITY_SINGLE">
+            <summary>
+              Looks up a localized string similar to MyCompanyChange.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.IDMYCOMPANYCHANGE">
+            <summary>
+              Looks up a localized string similar to IdMyCompanyChange.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.MYCOMPANYCHANGE_ADD_NEW">
+            <summary>
+              Looks up a localized string similar to Adding a new MyCompanyChange.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.MYCOMPANYCHANGE_ADDED">
+            <summary>
+              Looks up a localized string similar to The MyCompanyChange has been added.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.MYCOMPANYCHANGE_DETAILS">
+            <summary>
+              Looks up a localized string similar to Details of MyCompanyChange.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.MYCOMPANYCHANGE_EDIT">
+            <summary>
+              Looks up a localized string similar to Editing MyCompanyChange.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.MYCOMPANYCHANGE_LIST">
+            <summary>
+              Looks up a localized string similar to List of  mycompanychange.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.REQUIRED_FIELD">
+            <summary>
+              Looks up a localized string similar to This field is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.RETURNURL">
+            <summary>
+              Looks up a localized string similar to ReturnUrl.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.VAL_CURRENTCOMPANY_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field CurrentCompany is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.VAL_IDMYCOMPANYCHANGE_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field IdMyCompanyChange is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyCompanyChangeResources.VAL_RETURNURL_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field ReturnUrl is required.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.BASIC">
+            <summary>
+              Looks up a localized string similar to Básico.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.CAN_NOT_AUTHENTICATE_EXTERNAL_PROVIDER">
+            <summary>
+              Looks up a localized string similar to No fue posible autentificarte con el proveedor externo. Intenta con otro proveedor o registrate..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.CHANGE_PASSWORD">
+            <summary>
+              Looks up a localized string similar to Cambiar contraseña.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.CHANGING_PASSWORD">
+            <summary>
+              Looks up a localized string similar to Cambiando contraseña.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.COMPANIES_WHERE_I_WORK">
+            <summary>
+              Looks up a localized string similar to Comapnies where I work.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.COMPANY_DATA">
+            <summary>
+              Looks up a localized string similar to Datos de la empresa.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.COMPANY_ID">
+            <summary>
+              Looks up a localized string similar to Company ID.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.EMAIL">
+            <summary>
+              Looks up a localized string similar to Email.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.EMAIL_ALREADY_USE">
+            <summary>
+              Looks up a localized string similar to Este correo ya ha sido ocupado.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.EMAIL_FOR_VERIFICATION_SENDED">
+            <summary>
+              Looks up a localized string similar to Ha sido enviado un correo para verificar la dirección de Email que has proporcionado. Por favor verifícala para poder hacer uso de estas credenciales..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.EMAIL_NOT_FOUND_REG">
+            <summary>
+              Looks up a localized string similar to La dirección de correo no se encuentra &lt;a href=&quot;/Account/Register&quot;&gt; Registrate&lt;/a&gt;.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.EMAIL_NOT_VALID">
+            <summary>
+              Looks up a localized string similar to El email no es válido.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.EMAIL_VERIFICATION_ERROR">
+            <summary>
+              Looks up a localized string similar to El correo electrónico no ha podido ser verificado.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.EMAIL_VERIFICATION_SUCCESS">
+            <summary>
+              Looks up a localized string similar to El correo electrónico ha sido verificado exitosamente.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.EMAIL_WAS_NOT_FOUND">
+            <summary>
+              Looks up a localized string similar to Email was not found.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.FILL_INITIAL_USER_DATA">
+            <summary>
+              Looks up a localized string similar to Fill initial user data.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.FIRSTNAME">
+            <summary>
+              Looks up a localized string similar to Nombre.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.INFO_PAYMENT">
+            <summary>
+              Looks up a localized string similar to Información de pagos.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.INVITING_USER_TO_COMPANY">
+            <summary>
+              Looks up a localized string similar to Invitando usuario para participar en la empresa.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LASTNAME">
+            <summary>
+              Looks up a localized string similar to Apellidos.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGIN_PROVIDER">
+            <summary>
+              Looks up a localized string similar to Proveedor de autentificación.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGIN_STATUS_PROVIDER">
+            <summary>
+              Looks up a localized string similar to Estás autentificado por.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGON">
+            <summary>
+              Looks up a localized string similar to Iniciar sesión.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGON_BUTTON">
+            <summary>
+              Looks up a localized string similar to Entrar.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGON_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to Ingresa tus datos de identificación o utiliza otro servicio para iniciar sesión.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGON_ERROR_CREDENTIALS">
+            <summary>
+              Looks up a localized string similar to Los datos son incorrectos, intenta una vez más..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGON_LOCAL_TITLE">
+            <summary>
+              Looks up a localized string similar to Datos locales.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGON_PROVIDERS_TITLE">
+            <summary>
+              Looks up a localized string similar to Otros servicios externos.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGON_TITLE2">
+            <summary>
+              Looks up a localized string similar to Iniciar sesión.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGON_USERNAME_OR_EMAIL">
+            <summary>
+              Looks up a localized string similar to Email o usuario.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.LOGOUT">
+            <summary>
+              Looks up a localized string similar to Cerrar sesión.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.MANAGE_COMPANY">
+            <summary>
+              Looks up a localized string similar to Administrar empresa.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.MONTH">
+            <summary>
+              Looks up a localized string similar to Month.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.MY_DATA_USER_ACCOUNT">
+            <summary>
+              Looks up a localized string similar to Mis datos de cuenta de usuario.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.OR_USE_OTHER_PROVIDER">
+            <summary>
+              Looks up a localized string similar to Or use other provider for register and login.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.OTHER_PROVIDERS_AUTHENTICATION">
+            <summary>
+              Looks up a localized string similar to Otros servicios de identifiación.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD">
+            <summary>
+              Looks up a localized string similar to Contraseña.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD_ERROR">
+            <summary>
+              Looks up a localized string similar to La contraseña es incorrecta.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD_FORGET">
+            <summary>
+              Looks up a localized string similar to He olvidado mi contraseña.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD_FORGET_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to Proporcionanos tu dirección de email para hacerte llegar tu contraseña.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD_FORGET_EMAIL_NOT_FOUND">
+            <summary>
+              Looks up a localized string similar to El email no se encuentra o no fue posible enviar la información.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD_FORGET_GET">
+            <summary>
+              Looks up a localized string similar to Obtener contraseña.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD_FORGET_RESULT">
+            <summary>
+              Looks up a localized string similar to La contraseña ha sido enviada a la dirección de correo {0}.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD_FORGET_TITLE">
+            <summary>
+              Looks up a localized string similar to Recuperación de contraseña.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD_FORGET_TITLE2">
+            <summary>
+              Looks up a localized string similar to Recuperar contraseña.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD_HAS_BEEN_SEND">
+            <summary>
+              Looks up a localized string similar to La contraseña (o las instrucciones para reestablecerla) ha sido enviada, revisa tu buzón de correo y verifica también tu carpeta de spam.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PASSWORD2">
+            <summary>
+              Looks up a localized string similar to Repite tu contraseña.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.PROVIDERS">
+            <summary>
+              Looks up a localized string similar to Proveedores.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.READ_HERE">
+            <summary>
+              Looks up a localized string similar to Read here.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER">
+            <summary>
+              Looks up a localized string similar to Registrarse.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_ANY_PASSWORD">
+            <summary>
+              Looks up a localized string similar to Puedes escribir CUALQUIER cosa.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_BASIC_LOGIN">
+            <summary>
+              Looks up a localized string similar to Información básica de registro.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_CAPTCHA_LABEL">
+            <summary>
+              Looks up a localized string similar to Escribe el texto que ves en la imagen.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_COMPLETE_EMAIL_MESSAGE">
+            <summary>
+              Looks up a localized string similar to Un pequeño paso antes. Necesitamos tu dirección de email para registrarte.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_EMAIL_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to Debe ser único en nuestro sistema, es lo que te identifica.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_EMAIL_ERRORFORMAT">
+            <summary>
+              Looks up a localized string similar to La dirección de correo tiene un formato inválido.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_ERROR_CAPTCHA">
+            <summary>
+              Looks up a localized string similar to El texto que ingresaste no es igual al de la imagen, intenta de nuevo.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_ERRORS">
+            <summary>
+              Looks up a localized string similar to No se ha podido crear el registro, por favor revisa los errores e intenta de nuevo.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_FIRST_NAME_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to Es importante saber tu nombre.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_LASTNAME_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to Con esto, sabemos como dirigirnos a ti.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_LOGINPROVIDER_NOT_SUPPORTED">
+            <summary>
+              Looks up a localized string similar to El proveedor de identificación no esta soportado.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_MESSAGE">
+            <summary>
+              Looks up a localized string similar to Tomate 20 segundos para registrarte o aprovecha otra de tus credenciales.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_OTHER_PROVIDERS_MESSAGE">
+            <summary>
+              Looks up a localized string similar to ¿Prefieres usar tu misma identificación de otros servicios que ya tienes? ¡Ya no mas contraseñas diferentes!.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_OTHER_PROVIDERS_TITLE">
+            <summary>
+              Looks up a localized string similar to Usar otro sistema para registrarse.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_PASSWORD2_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to Repite la contraseña que elegiste.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_TITLE">
+            <summary>
+              Looks up a localized string similar to Registro de nuevo usuario.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_TITLE2">
+            <summary>
+              Looks up a localized string similar to Crea una cuenta.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REGISTER_USERNAME_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to Es opcional, puedes usar la dirección de email para identificarte.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.RELATION_USER_COMPANY">
+            <summary>
+              Looks up a localized string similar to User and company relationship.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.REMEMBERME">
+            <summary>
+              Looks up a localized string similar to Guardar credenciales.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.ROLE">
+            <summary>
+              Looks up a localized string similar to Rol.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.ROLES">
+            <summary>
+              Looks up a localized string similar to Roles.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.SIGN_OUT">
+            <summary>
+              Looks up a localized string similar to Salir.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.THANK_YOU_YOUR_EMAIL_HAS_BEEN_VALIDATED">
+            <summary>
+              Looks up a localized string similar to Gracias, tu dirección de correo electrónico ha sido verificada..
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.THE_PASSWORD_HAS_BEEN_CHANGED">
+            <summary>
+              Looks up a localized string similar to The password has been changed.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.UPDATE_MEMBERSHIP_FOR_MODULE">
+            <summary>
+              Looks up a localized string similar to Update membership for application {0}.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.UPDATE_MEMBERSHIP_OF">
+            <summary>
+              Looks up a localized string similar to Update membership of {0}.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.UPGRADE_MEMBERSHIP">
+            <summary>
+              Looks up a localized string similar to Update membership of {0}.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.USER_COMPANY">
+            <summary>
+              Looks up a localized string similar to Empresa de usuario.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.USERNAME">
+            <summary>
+              Looks up a localized string similar to Nombre de usuario.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.USERNAME_ALREADY_USE">
+            <summary>
+              Looks up a localized string similar to El nombre de usuario ya esta ocupado.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.VAL_EMAIL_REQUIRED">
+            <summary>
+              Looks up a localized string similar to El email es requerido.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.VAL_FIRSTNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to El nombre es requerido.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.VAL_LASTNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to El apellido es requerido.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.VAL_LOGIN_PROVIDER_REQUIRED">
+            <summary>
+              Looks up a localized string similar to El provedor de autentificación es requerido.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.VAL_PASSWORD_NOT_MATCH">
+            <summary>
+              Looks up a localized string similar to Las contraseñas no coinciden.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.VAL_PASSWORD_REQUIRED">
+            <summary>
+              Looks up a localized string similar to La contraseña es requerida.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.VAL_PASSWORD2_REQUIRED">
+            <summary>
+              Looks up a localized string similar to Es necesario repetir la contraseña.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.VAL_USERNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to Texto no disponible.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.AccountMessages.WELCOME_TEXT">
+            <summary>
+              Looks up a localized string similar to Hola {0} .
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.a">
+            <summary>
+              Looks up a localized string similar to .
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.ALL_CONTENTS">
+            <summary>
+              Looks up a localized string similar to Todos los contenidos.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.APPLY_SELECTED_TEMPLATE">
+            <summary>
+              Looks up a localized string similar to Apply selected template.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.CATALOGS">
+            <summary>
+              Looks up a localized string similar to Catálogos.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.CATALOGS_OTHERS">
+            <summary>
+              Looks up a localized string similar to Otros catalogos.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.COMPANIES">
+            <summary>
+              Looks up a localized string similar to Empresas.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.CONTENTS_WIKI_LIST">
+            <summary>
+              Looks up a localized string similar to Lista de contenidos de wiki.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.EMAIL_ALREADY_EXISTS">
+            <summary>
+              Looks up a localized string similar to El email ya esta ocupado, escoge otro.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.ISSUES_VIEW_PENDING_FRIENDLY">
+            <summary>
+              Looks up a localized string similar to See pending friendlier way.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.MODULE_NAME">
+            <summary>
+              Looks up a localized string similar to Ecosystem.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.OPERATIONS">
+            <summary>
+              Looks up a localized string similar to Operaciones.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.SEC_CONTENT_DETAILS">
+            <summary>
+              Looks up a localized string similar to Detalle de contenido wiki.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.SHORT_DESCRIPTION">
+            <summary>
+              Looks up a localized string similar to This a &lt;b&gt;short&lt;/b&gt; description for place in all application list.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.UPLOAD_YOUR_OWN_TEMPLATE">
+            <summary>
+              Looks up a localized string similar to Upload your own template.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.USERNAME_ALREADY_EXISTS">
+            <summary>
+              Looks up a localized string similar to El nombre de usuario ya existe, escoge otro.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.USERS_AND_ROLES">
+            <summary>
+              Looks up a localized string similar to Usuarios y roles.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.CREDITS">
+            <summary>
+              Looks up a localized string similar to Credits.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.EMAIL">
+            <summary>
+              Looks up a localized string similar to Email.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.ENTITY_PLURAL">
+            <summary>
+              Looks up a localized string similar to MyAccountDisplays.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.ENTITY_SINGLE">
+            <summary>
+              Looks up a localized string similar to MyAccountDisplay.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.FIRSTNAME">
+            <summary>
+              Looks up a localized string similar to FirstName.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.LASTNAME">
+            <summary>
+              Looks up a localized string similar to LastName.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.MYACCOUNTDISPLAYS_ADD_NEW">
+            <summary>
+              Looks up a localized string similar to Adding a new MyAccountDisplay.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.MYACCOUNTDISPLAYS_ADDED">
+            <summary>
+              Looks up a localized string similar to The MyAccountDisplay has been added.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.MYACCOUNTDISPLAYS_DETAILS">
+            <summary>
+              Looks up a localized string similar to Details of MyAccountDisplay.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.MYACCOUNTDISPLAYS_EDIT">
+            <summary>
+              Looks up a localized string similar to Editing MyAccountDisplay.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.MYACCOUNTDISPLAYS_LIST">
+            <summary>
+              Looks up a localized string similar to List of  myaccountdisplays.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.PASSWORD">
+            <summary>
+              Looks up a localized string similar to Password.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.REQUIRED_FIELD">
+            <summary>
+              Looks up a localized string similar to This field is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.USERID">
+            <summary>
+              Looks up a localized string similar to UserId.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.USERNAME">
+            <summary>
+              Looks up a localized string similar to UserName.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.VAL_EMAIL_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Email is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.VAL_FIRSTNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field FirstName is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.VAL_LASTNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field LastName is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.VAL_PASSWORD_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Password is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.VAL_USERID_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field UserId is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountDisplayResources.VAL_USERNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field UserName is required.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.BUTTONS">
+            <summary>
+              Looks up a localized string similar to Buttons.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.EMAIL">
+            <summary>
+              Looks up a localized string similar to Email.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.ENTITY_PLURAL">
+            <summary>
+              Looks up a localized string similar to MyAccountEdits.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.ENTITY_SINGLE">
+            <summary>
+              Looks up a localized string similar to MyAccountEdit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.FIRSTNAME">
+            <summary>
+              Looks up a localized string similar to FirstName.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.LASTNAME">
+            <summary>
+              Looks up a localized string similar to LastName.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.MYACCOUNTEDITS_ADD_NEW">
+            <summary>
+              Looks up a localized string similar to Adding a new MyAccountEdit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.MYACCOUNTEDITS_ADDED">
+            <summary>
+              Looks up a localized string similar to The MyAccountEdit has been added.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.MYACCOUNTEDITS_DETAILS">
+            <summary>
+              Looks up a localized string similar to Details of MyAccountEdit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.MYACCOUNTEDITS_EDIT">
+            <summary>
+              Looks up a localized string similar to Editing MyAccountEdit.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.MYACCOUNTEDITS_LIST">
+            <summary>
+              Looks up a localized string similar to List of  myaccountedits.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.PASSWORD">
+            <summary>
+              Looks up a localized string similar to Password.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.REQUIRED_FIELD">
+            <summary>
+              Looks up a localized string similar to This field is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.USERID">
+            <summary>
+              Looks up a localized string similar to UserId.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.USERNAME">
+            <summary>
+              Looks up a localized string similar to UserName.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.VAL_BUTTONS_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Buttons is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.VAL_EMAIL_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Email is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.VAL_EMAIL_VALUE">
+            <summary>
+              Looks up a localized string similar to The field Email is incorrect.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.VAL_FIRSTNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field FirstName is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.VAL_LASTNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field LastName is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.VAL_USERID_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field UserId is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.VAL_USERNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field UserName is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.MyAccountEditResources.VAL_USERNAME_VALUE">
+            <summary>
+              Looks up a localized string similar to The field UserName is incorrect.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.BUTTONS">
+            <summary>
+              Looks up a localized string similar to Buttons.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.ENTITY_PLURAL">
+            <summary>
+              Looks up a localized string similar to Logins.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.ENTITY_SINGLE">
+            <summary>
+              Looks up a localized string similar to Login.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.IDLOGIN">
+            <summary>
+              Looks up a localized string similar to IdLogin.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.LOGINS_ADD_NEW">
+            <summary>
+              Looks up a localized string similar to Adding a new Login.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.LOGINS_ADDED">
+            <summary>
+              Looks up a localized string similar to The Login has been added.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.LOGINS_DETAILS">
+            <summary>
+              Looks up a localized string similar to Details of Login.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.LOGINS_EDIT">
+            <summary>
+              Looks up a localized string similar to Editing Login.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.LOGINS_LIST">
+            <summary>
+              Looks up a localized string similar to List of  logins.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.OTHERPROVIDERS">
+            <summary>
+              Looks up a localized string similar to OtherProviders.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.PASSWORD">
+            <summary>
+              Looks up a localized string similar to Password.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.REMEMBER">
+            <summary>
+              Looks up a localized string similar to Remember.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.REMEMBERPASSWORD">
+            <summary>
+              Looks up a localized string similar to RememberPassword.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.REQUIRED_FIELD">
+            <summary>
+              Looks up a localized string similar to This field is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.USERNAME">
+            <summary>
+              Looks up a localized string similar to UserName.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.VAL_BUTTONS_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Buttons is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.VAL_IDLOGIN_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field IdLogin is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.VAL_OTHERPROVIDERS_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field OtherProviders is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.VAL_PASSWORD_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Password is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.VAL_REMEMBER_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Remember is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.VAL_REMEMBERPASSWORD_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field RememberPassword is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.LoginResources.VAL_USERNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field UserName is required.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.BUTTONS">
+            <summary>
+              Looks up a localized string similar to Buttons.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.CAPTCHA">
+            <summary>
+              Looks up a localized string similar to Captcha.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.EMAIL">
+            <summary>
+              Looks up a localized string similar to Email.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.ENTITY_PLURAL">
+            <summary>
+              Looks up a localized string similar to Registers.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.ENTITY_SINGLE">
+            <summary>
+              Looks up a localized string similar to Register.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.FIRSTNAME">
+            <summary>
+              Looks up a localized string similar to FirstName.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.IDREGISTER">
+            <summary>
+              Looks up a localized string similar to IdRegister.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.LASTNAME">
+            <summary>
+              Looks up a localized string similar to LastName.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.PASSWORD">
+            <summary>
+              Looks up a localized string similar to Password.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.PASSWORD2">
+            <summary>
+              Looks up a localized string similar to Password2.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.REGISTERS_ADD_NEW">
+            <summary>
+              Looks up a localized string similar to Adding a new Register.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.REGISTERS_ADDED">
+            <summary>
+              Looks up a localized string similar to The Register has been added.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.REGISTERS_DETAILS">
+            <summary>
+              Looks up a localized string similar to Details of Register.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.REGISTERS_EDIT">
+            <summary>
+              Looks up a localized string similar to Editing Register.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.REGISTERS_LIST">
+            <summary>
+              Looks up a localized string similar to List of  registers.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.REQUIRED_FIELD">
+            <summary>
+              Looks up a localized string similar to This field is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.USERNAME">
+            <summary>
+              Looks up a localized string similar to UserName.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_BUTTONS_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Buttons is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_CAPTCHA_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Captcha is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_EMAIL_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Email is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_EMAIL_VALUE">
+            <summary>
+              Looks up a localized string similar to The field Email is incorrect.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_FIRSTNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field FirstName is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_IDREGISTER_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field IdRegister is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_LASTNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field LastName is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_PASSWORD_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Password is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_PASSWORD2_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field Password2 is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_USERNAME_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field UserName is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RegisterResources.VAL_USERNAME_VALUE">
+            <summary>
+              Looks up a localized string similar to The field UserName is incorrect.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.ENTITY_PLURAL">
+            <summary>
+              Looks up a localized string similar to RememberPasswords.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.ENTITY_SINGLE">
+            <summary>
+              Looks up a localized string similar to RememberPassword.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.IDREMEMBERPASSWORD">
+            <summary>
+              Looks up a localized string similar to IdRememberPassword.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.REMEMBERPASSWORDS_ADD_NEW">
+            <summary>
+              Looks up a localized string similar to Adding a new RememberPassword.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.REMEMBERPASSWORDS_ADDED">
+            <summary>
+              Looks up a localized string similar to The RememberPassword has been added.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.REMEMBERPASSWORDS_DETAILS">
+            <summary>
+              Looks up a localized string similar to Details of RememberPassword.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.REMEMBERPASSWORDS_EDIT">
+            <summary>
+              Looks up a localized string similar to Editing RememberPassword.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.REMEMBERPASSWORDS_LIST">
+            <summary>
+              Looks up a localized string similar to List of  rememberpasswords.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.REQUIRED_FIELD">
+            <summary>
+              Looks up a localized string similar to This field is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.USERNAMEOREMAIL">
+            <summary>
+              Looks up a localized string similar to UserNameOrEmail.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.VAL_IDREMEMBERPASSWORD_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field IdRememberPassword is required.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.RememberPasswordResources.VAL_USERNAMEOREMAIL_REQUIRED">
+            <summary>
+              Looks up a localized string similar to The field UserNameOrEmail is required.
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Security.Web.Paypal.TransactionService">
+            <summary>
+            The Transaction Service is used to transform a purchase object (eg cart, basket, or single item) into a sale request with PayPal (in this case a cart)
+            It also allows your app to store the transactions in your database (create a table to match the PayPalTransaction model)
+            
+            You should copy this file into your project and modify it to accept your purchase object, store PayPal transaction responses in your database,
+            as well as log events with your favourite logger.
+            </summary>
+        </member>
+    </members>
+</doc>
