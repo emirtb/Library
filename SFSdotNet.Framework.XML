@@ -1273,6 +1273,14 @@
             </summary>
             <param name="idCompany">Identificador de la empresa</param>
         </member>
+        <member name="M:SFSdotNet.Framework.My.CurrentContextInfo.IsModuleUserUnlimited(System.String,SFSdotNet.Framework.Security.BusinessObjects.secCompany)">
+            <summary>
+            Determina si el usuario en contexto es usuario ilimitado (Permisos CRUD en todos los catálogos) en determinada empresa
+            </summary>
+            <param name="moduleKey">Nombre clave de la aplicación</param>
+            <param name="company">Empresa en contexto</param>
+            <returns><c>true</c> if [is module user unlimited] [the specified module key]; otherwise, <c>false</c>.</returns>
+        </member>
         <member name="M:SFSdotNet.Framework.My.CurrentContextInfo.IsUserInRole(SFSdotNet.Framework.Security.BusinessObjects.secUser,SFSdotNet.Framework.Security.BusinessObjects.secCompany,System.String,SFSdotNet.Framework.My.ContextRequest)">
             <summary>
             Determina si un usuario se encuentra en un rol y una empresa 
@@ -1282,6 +1290,14 @@
             <param name="roleNameKey">El identificador lógico del rol</param>
             <param name="contextRequest">The context request.</param>
             <returns><c>true</c> if [is user in role] [the specified user]; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.My.CurrentContextInfo.IsModuleAdmin(SFSdotNet.Framework.Security.BusinessObjects.secModule,SFSdotNet.Framework.Security.BusinessObjects.secCompany)">
+            <summary>
+            Determines whether [is module admin] [the specified module].
+            </summary>
+            <param name="module">The module.</param>
+            <param name="company">The company.</param>
+            <returns><c>true</c> if [is module admin] [the specified module]; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:SFSdotNet.Framework.My.EventLog.Exception(System.Exception,SFSdotNet.Framework.My.ContextRequest)">
             <summary>
