@@ -805,6 +805,50 @@
             <param name="values">propiedades que representan la llave de la entidad</param>
             <returns>Regresa verdadero si considera que las propiedades no fueron establecidas</returns>
         </member>
+        <member name="M:SFSdotNet.Framework.Globalization.DateAndTime.ConvertLocalToUtc(System.DateTime,SFSdotNet.Framework.Globalization.LocalContexts,SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            Convierte una fecha y hora local a UTC con respecto al usuario en contexto
+            </summary>
+            <param name="localDateTime">The local date time.</param>
+            <param name="localContext">The local context.</param>
+            <param name="contextRequest">The context request.</param>
+            <returns>DateTime.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Globalization.DateAndTime.ConvertLocalToUtc(System.DateTime,System.String,SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            Convierte una fecha y hora local a UTC considerando horario de verano
+            </summary>
+            <param name="localDateTime">The local date time.</param>
+            <param name="localTimeZoneId">The local time zone identifier.</param>
+            <param name="contextRequest">The context request.</param>
+            <returns>System.Nullable&lt;DateTime&gt;.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Globalization.DateAndTime.ConvertUtcToLocal(System.DateTime,System.String,SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            Convierte una fecha y hora en UTC a local con respecto al timezone especificado
+            </summary>
+            <param name="utcDateTime">The UTC date time.</param>
+            <param name="localTimeZoneId">The local time zone identifier.</param>
+            <param name="contextRequest">The context request.</param>
+            <returns>System.Nullable&lt;DateTime&gt;.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Globalization.DateAndTime.ConvertUtcToLocal(System.DateTime,SFSdotNet.Framework.Globalization.LocalContexts,SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            Converts the UTC to local.
+            </summary>
+            <param name="utcDateTime">The UTC date time.</param>
+            <param name="localContext">The local context.</param>
+            <param name="contextRequest">The context request.</param>
+            <returns>DateTime.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Globalization.DateAndTime.GetLocalNow(SFSdotNet.Framework.Globalization.LocalContexts,SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            Obtiene la fecha y hora local por el contexto del usuario
+            </summary>
+            <param name="localContext">Debe ser el contexto del usuario</param>
+            <param name="contextRequest">Contexto de la petición</param>
+            <returns>DateTime.</returns>
+        </member>
         <member name="T:SFSdotNet.Framework.Globalization.Provider.DBResourceProvider">
             <summary>
             Resource provider accessing resources from the database.
