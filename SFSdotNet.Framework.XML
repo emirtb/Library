@@ -164,6 +164,14 @@
               Looks up a localized string similar to Registro no encontrado.
             </summary>
         </member>
+        <member name="M:SFSdotNet.Framework.Data.StaticStorage.MoveAndGetUrlFile(System.String,System.String,System.String,SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            Mueve un archivo de la applicación a un repositorio estático o al container de blob storage de Azure
+            </summary>
+            <param name="originalPath">The original path.</param>
+            <param name="contextRequest">The context request.</param>
+            <returns>System.String.</returns>
+        </member>
         <member name="T:SFSdotNet.Framework.Validation.Check">
              <summary>
              Design By Contract Checks.
