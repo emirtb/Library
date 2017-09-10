@@ -164,6 +164,45 @@
               Looks up a localized string similar to Registro no encontrado.
             </summary>
         </member>
+        <member name="T:SFSdotNet.Framework.Data.StaticFile">
+            <summary>
+            Representa los datos de la referencia de una imagen en una entidad de negocio
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Data.StaticFile.UrlThumb">
+            <summary>
+            Url de la imagen miniatura default
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Data.StaticFile.Url">
+            <summary>
+            Url de la imagen original
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Data.StaticFile.Type">
+            <summary>
+            Tipo de imagen (Opcional)
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Data.StaticStorage">
+            <summary>
+            Permite interactuar con el repositorio de archivos estáticos como imágenes o documentos
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.StaticStorage.GetTypeFromName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="typeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.StaticStorage.getFileExtensionByExtensionIco(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="extension">Extensión del archivo</param>
+            <returns></returns>
+        </member>
         <member name="M:SFSdotNet.Framework.Data.StaticStorage.MoveAndGetUrlFile(System.String,System.String,System.String,SFSdotNet.Framework.My.ContextRequest)">
             <summary>
             Mueve un archivo de la applicación a un repositorio estático o al container de blob storage de Azure
@@ -171,6 +210,57 @@
             <param name="originalPath">The original path.</param>
             <param name="contextRequest">The context request.</param>
             <returns>System.String.</returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.StaticStorage.GetFile(System.Nullable{System.Guid},System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,SFSdotNet.Framework.Security.BusinessObjects.secModule,SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            
+            </summary>
+            <param name="guidFile">Identificador del archivo</param>
+            <param name="fileName">Nombre del archivo</param>
+            <param name="storeLocation">Ubicación  física del archivo</param>
+            <param name="type"></param>
+            <param name="h">Alto del icono o imagen thumb</param>
+            <param name="w">Ancho de icono o imagen thumb</param>
+            <param name="entityName"></param>
+            <param name="entitySetName"></param>
+            <param name="moduleApp"></param>
+            <param name="contextRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.StaticStorage.GetFile(System.Nullable{System.Guid},System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,SFSdotNet.Framework.Security.BusinessObjects.secModule,SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            Obtiene los datos de imágenes o archivos de una entidad determinada de tipo repositorio y una entidad de uso de dicho repositorio.
+            </summary>
+            <param name="guidFile">Identificador del archivo</param>
+            <param name="fileName">Nombre del archivo</param>
+            <param name="storeLocation">Ubicación  física del archivo</param>
+            <param name="fileThumbSizes">Tamaños existentes del archivo</param>
+            <param name="type">Tipo de archivo</param>
+            <param name="h">Alto del icono o imagen thumb</param>
+            <param name="w">Ancho de icono o imagen thumb</param>
+            <param name="entityName">Nombre de la entidad</param>
+            <param name="entitySetName">Nombre del set de la entidad (Generalmente pluralización)</param>
+            <param name="moduleApp">Entidad de módulo o aplicación</param>
+            <param name="contextRequest">Contexto de petición</param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Data.StaticStorage.GetFile(System.Object,System.Nullable{System.Guid},System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,SFSdotNet.Framework.Security.BusinessObjects.secModule,SFSdotNet.Framework.My.ContextRequest)">
+            <summary>
+            Obtiene los datos de imágenes o archivos de una entidad determinada de tipo repositorio y una entidad de uso de dicho repositorio.
+            </summary>
+            <param name="itemFile">Entidad de repositorio (opcional)</param>
+            <param name="guidFile">Identificador del archivo</param>
+            <param name="fileName">Nombre del archivo</param>
+            <param name="storeLocation">Ubicación  física del archivo</param>
+            <param name="fileThumbSizes">Tamaños existentes del archivo</param>
+            <param name="type">Tipo de archivo</param>
+            <param name="h">Alto del icono o imagen thumb</param>
+            <param name="w">Ancho de icono o imagen thumb</param>
+            <param name="entityName">Nombre de la entidad</param>
+            <param name="entitySetName">Nombre del set de la entidad (Generalmente pluralización)</param>
+            <param name="moduleApp">Entidad de módulo o aplicación</param>
+            <param name="contextRequest">Contexto de petición</param>
+            <returns></returns>
         </member>
         <member name="T:SFSdotNet.Framework.Validation.Check">
              <summary>
@@ -1059,6 +1149,42 @@
             </summary>
             <param name="moduleKey"></param>
             <param name="customAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Images.ImageUtil.GetImageFormat(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Images.ImageUtil.GetImageFormat(System.Drawing.Image)">
+            <summary>
+            Obtiene el formato de la imagen 
+            </summary>
+            <param name="img">Formato de la imagen</param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Images.ImageUtil.CropImage(System.Drawing.Image,System.Int32,System.Int32,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Corta una imagen a determinado tamaño solicitado, uno de los dos tamaños es requerido y el otro opcional
+            </summary>
+            <param name="Image">Imagen a transformar</param>
+            <param name="Height">Altura requerida</param>
+            <param name="Width">Ancho requerido</param>
+            <param name="imageFormat">Formato de la imagen</param>
+            <returns></returns>
+        </member>
+        <member name="M:SFSdotNet.Framework.Images.ImageUtil.CropImage(System.Drawing.Image,System.Int32,System.Int32,System.Int32,System.Int32,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Corta una imagen a un tamaño solicitado, estableciendo punto vertical y horizontal inicial, uno de los dos tamaños es requerido y el otro opcional
+            </summary>
+            <param name="Image">Imagen a cortar</param>
+            <param name="Height">Alto</param>
+            <param name="Width">Ancho</param>
+            <param name="StartAtX">Punto inicial horizontal</param>
+            <param name="StartAtY">Punto inicial vertical</param>
+            <param name="imageFormat">Formato de la imagen</param>
             <returns></returns>
         </member>
         <member name="M:SFSdotNet.Framework.Index.Indexer.CanGetForIndex(System.String,System.String)">
