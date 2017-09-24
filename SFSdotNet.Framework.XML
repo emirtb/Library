@@ -1292,7 +1292,7 @@
             <param name="contextRequest">Opciones de paginación y otras</param>
             <returns></returns>
         </member>
-        <member name="M:SFSdotNet.Framework.Linq.ContextQueryBuilder`1.ApplyContextQuery(System.Linq.IQueryable{`0},SFSdotNet.Framework.My.ContextRequest,System.String[])">
+        <member name="M:SFSdotNet.Framework.Linq.ContextQueryBuilder`1.ApplyContextQuery(System.Linq.IQueryable{`0},SFSdotNet.Framework.My.ContextRequest,SFSdotNet.Framework.BR.StorageTypes,System.String[])">
             <summary>
             Aplica al query las opciones de paginación y ordenamiento que contiene el objeto contextRequest
             </summary>
