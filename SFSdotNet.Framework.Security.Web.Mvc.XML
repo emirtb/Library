@@ -961,6 +961,11 @@
               Looks up a localized string similar to Operaciones.
             </summary>
         </member>
+        <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.ROLENAME_ALREADY_EXISTS">
+            <summary>
+              Looks up a localized string similar to A role with the same name already exists.
+            </summary>
+        </member>
         <member name="P:SFSdotNet.Framework.Security.Web.Mvc.Resources.ModuleResources.SEC_CONTENT_DETAILS">
             <summary>
               Looks up a localized string similar to Detalle de contenido wiki.
