@@ -871,6 +871,11 @@
             </summary>
             <param name="items">Trackable objects</param>
         </member>
+        <member name="T:SFSdotNet.Framework.Entities.EntityModel">
+            <summary>
+            Modelo orientado a la aplcación cliente
+            </summary>
+        </member>
         <member name="T:SFSdotNet.Framework.Entities.ApiWrapperResponse">
             <summary>
             Contiene la estructura del contenedor de respuesta a una petición API
