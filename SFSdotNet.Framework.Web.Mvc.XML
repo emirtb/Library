@@ -592,61 +592,23 @@
         </member>
         <member name="T:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes">
             <summary>
-            Tipos de modo en que se representan los datos en la interfaz de usuario
+            Contexto en el que se usa el modelo de opciones
             </summary>
         </member>
         <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes.ListForm">
             <summary>
-            El caso de una lista
+            Modelo para configurar la forma que mostrará la lista
             </summary>
         </member>
         <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes.DisplayForm">
             <summary>
-            El caso de un detalle de un registro
-            </summary>
-        </member>
-        <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes.EditForm">
-            <summary>
-            El caso de una forma de edición
+            
             </summary>
         </member>
         <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes.Items">
             <summary>
-            Elementos de resultado de una lista
+            Modelo para configurar cada uno de los elementos a mostrarse
             </summary>
-        </member>
-        <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes.GenericForm">
-            <exclude />
-        </member>
-        <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes.FilterFields">
-            <summary>
-            The filter fields
-            </summary>
-        </member>
-        <member name="F:SFSdotNet.Framework.Web.Mvc.Models.UIModelContextTypes.ExportDownload">
-            <summary>
-            Exportación de datos de una lista
-            </summary>
-        </member>
-        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.UIModel`1">
-            <summary>
-            Representa todos los elementos de 
-            </summary>
-            <typeparam name="T"></typeparam>
-            <seealso cref="T:SFSdotNet.Framework.Web.Mvc.Models.UIModel" />
-        </member>
-        <member name="M:SFSdotNet.Framework.Web.Mvc.Models.UIModel`1.#ctor(System.Boolean,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:SFSdotNet.Framework.Web.Mvc.Models.UIModel`1"/> class.
-            </summary>
-            <param name="createDefault">if set to <c>true</c> [create default].</param>
-            <param name="controllerName">Name of the controller.</param>
-        </member>
-        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.UIModel`1.Items">
-            <summary>
-            Gets or sets the items.
-            </summary>
-            <value>The items.</value>
         </member>
         <member name="T:SFSdotNet.Framework.Web.Mvc.Models.ContextActionModel`1">
             <summary>
@@ -681,12 +643,6 @@
             m= many to many
             </summary>
         </member>
-        <member name="P:SFSdotNet.Framework.Web.Mvc.Models.UIModel.DetailsAndEditButtonsPlace">
-            <summary>
-            Gets or sets the details and edit buttons place.
-            </summary>
-            <value>The details and edit buttons place.</value>
-        </member>
         <member name="P:SFSdotNet.Framework.Web.Mvc.Models.UIModel.ShowAutoSave">
             <summary>
             Show auto save option (like a checkbox)
@@ -713,25 +669,6 @@
         <member name="P:SFSdotNet.Framework.Web.Mvc.Models.UIModel.FilterCustom">
             <summary>
             For custom filter from controller 
-            </summary>
-        </member>
-        <member name="M:SFSdotNet.Framework.Web.Mvc.Models.UIModel.CanAction(System.String)">
-            <summary>
-            Determina  cuando una acción con determinado identificador está habilitada.
-            </summary>
-            <param name="actionKey">Identificador de la acción.</param>
-            <returns><c>true</c> if this instance can action the specified action key; otherwise, <c>false</c>.</returns>
-        </member>
-        <member name="M:SFSdotNet.Framework.Web.Mvc.Models.UIModel.SetAction(System.String,System.Boolean)">
-            <summary>
-            Establece si una acción esta habilitada o no.
-            </summary>
-            <param name="actionKey">Identificador de la acción.</param>
-            <param name="enabled">Si es <c>true</c> se habilita, si es <c>false</c> se deshabilita.</param>
-        </member>
-        <member name="T:SFSdotNet.Framework.Web.Mvc.Models.DetailsAndEditButtonsPlaces">
-            <summary>
-            Enum DetailsAndEditButtonsPlaces
             </summary>
         </member>
         <member name="T:SFSdotNet.Framework.Web.Mvc.QrCodeHandler">
@@ -2555,6 +2492,17 @@
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "P:SFSdotNet.Framework.Web.Mvc.Resources.ScriptFiles.jquery_asyncUpload_0_1" -->
+        <member name="F:SFSdotNet.Framework.Web.Mvc.CustomSiteMapNodeUrlResolver.UrlHelperCacheKey">
+            <summary>
+            UrlHelperCacheKey
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Web.Mvc.CustomSiteMapNodeUrlResolver.UrlHelper">
+            <summary>
+            Gets the URL helper.
+            </summary>
+            <value>The URL helper.</value>
+        </member>
         <member name="M:SFSdotNet.Framework.Web.Mvc.ControllerBase`1.ResolveApiResponse(System.String,System.String,System.String,System.Object)">
             <summary>
             Resuelve la respuesta correspondiente a una petición REST

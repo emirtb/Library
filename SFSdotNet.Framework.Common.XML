@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SFSdotNet.Framework.Common</name>
+    </assembly>
+    <members>
+        <member name="T:SFSdotNet.Framework.Common.Entities.ITrackable">
+            <summary>
+            Interface implemented by entities that are change-tracked.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Common.Entities.ITrackable.TrackingState">
+            <summary>
+            Change-tracking state of an entity.
+            </summary>
+        </member>
+        <member name="P:SFSdotNet.Framework.Common.Entities.ITrackable.ModifiedProperties">
+            <summary>
+            Properties on an entity that have been modified.
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Common.Entities.Metadata.LocalizableDataColumnAttribute.#ctor(System.String)">
+            <summary>
+            Permite establecer el nombre del objeto o del miembro mediante un texto fijo
+            </summary>
+            <param name="displayName">Nombre del objeto o miembro</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Common.Entities.Metadata.LocalizableDataTableAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Permite establecer el nombre del objeto o del miembro mediante un texto fijo
+            </summary>
+            <param name="displayName">Nombre del objeto o miembro</param>
+        </member>
+        <member name="T:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayNameAttribute">
+            <summary>
+            Permite establecer el nombre de una entidad de negocio o un miembro
+            <example></example>
+            <code>
+            public class Person_MD{
+            ...
+            [MyDisplayName("First name")]
+            public object FirstName{ get; set; }
+            ...
+            }
+            </code>
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayNameAttribute.#ctor(System.String)">
+            <summary>
+            Permite establecer el nombre del objeto o del miembro mediante un texto fijo
+            </summary>
+            <param name="displayName">Nombre del objeto o miembro</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayNameAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Permite establecer el nombre de un objeto o un miembro por medio de un recurso localizado
+            </summary>
+            <param name="resourceType">Tipo del recurso localizable</param>
+            <param name="resourceKey">Nombre del identificador en el recurso</param>
+        </member>
+        <member name="P:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayNameAttribute.DisplayName">
+            <summary>
+            Nombre del objeto o miembro
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayPluralNameAttribute">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayPluralNameAttribute.#ctor(System.String)">
+            <summary>
+            Permite establecer el nombre del objeto o del miembro mediante un texto fijo
+            </summary>
+            <param name="displayName">Nombre del objeto o miembro</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayPluralNameAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Permite establecer el nombre de un objeto o un miembro por medio de un recurso localizado
+            </summary>
+            <param name="resourceType">Tipo del recurso localizable</param>
+            <param name="resourceKey">Nombre del identificador en el recurso</param>
+        </member>
+        <member name="P:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayPluralNameAttribute.DisplayText">
+            <summary>
+            Nombre del objeto o miembro
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayDescriptionAttribute">
+            <summary>
+            Especifica la descripción de un objeto o miembro a través de atributos
+            </summary>
+        </member>
+        <member name="M:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayDescriptionAttribute.#ctor(System.String)">
+            <summary>
+            Especifica la descripción fija de un objeto o un miembro
+            </summary>
+            <param name="displayDescription">Descripción del elemento</param>
+        </member>
+        <member name="M:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayDescriptionAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Especifica la descripción basada en un recurso localizable de un objeto o un miembro
+            </summary>
+            <param name="resourceType">Recurso que contiene el campo localizado</param>
+            <param name="property">Nombre del campo</param>
+        </member>
+        <member name="P:SFSdotNet.Framework.Common.Entities.Metadata.MyDisplayDescriptionAttribute.DisplayDescription">
+            <summary>
+            Descripción del elemento
+            </summary>
+        </member>
+        <member name="T:SFSdotNet.Framework.Common.Entities.TrackingState">
+            <summary>
+            Change-tracking state of an entity.
+            </summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Common.Entities.TrackingState.Unchanged">
+            <summary>Existing entity that has not been modified.</summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Common.Entities.TrackingState.Added">
+            <summary>Newly created entity.</summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Common.Entities.TrackingState.Modified">
+            <summary>Existing entity that has been modified.</summary>
+        </member>
+        <member name="F:SFSdotNet.Framework.Common.Entities.TrackingState.Deleted">
+            <summary>Existing entity that has been marked as deleted.</summary>
+        </member>
+    </members>
+</doc>
